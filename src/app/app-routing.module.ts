@@ -6,10 +6,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './_components/login/login.component';
 import { MainMenuComponent } from './_components/main-menu/main-menu.component';
 
+// Guard
+import { AuthGuard} from './_guards/auth.guard';
+import {LoginGuard} from './_guards/login.guard';
+
 const routes: Routes = [
-  { path: 'login', component: LoginComponent},
-  { path: '', redirectTo: '/login', pathMatch: 'full'},
-  { path: 'main', component: MainMenuComponent}
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
+  { path: '', redirectTo: '/main', pathMatch: 'full'},
+  { path: 'main', component: MainMenuComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
