@@ -28,6 +28,7 @@ export class RegistroComponent implements OnInit {
   }
 
   public singup() {
+    this.Usuario.UserName.toLowerCase();
     this._UsuarioService.singup(this.Usuario).subscribe(
       response => {
         this.session = response;
@@ -40,6 +41,7 @@ export class RegistroComponent implements OnInit {
       }
       ,
       error1 => {
+        error1 = JSON.stringify(error1.error.message);
         var errorMensaje = <any>error1;
         if (errorMensaje) {
           this.errorMensaje = error1;
