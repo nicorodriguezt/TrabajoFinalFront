@@ -44,4 +44,12 @@ export class UsuarioService {
     localStorage.removeItem('Logged');
     return this._http.get(this.url + 'logout', HttpOptions).pipe(map(res => res));
   }
+
+  singup(user) {
+    const json = JSON.stringify(user);
+    const params = json;
+
+    return this._http.post(this.url + 'registrar', params, HttpOptions)
+      .pipe(map(res => res));
+  }
 }

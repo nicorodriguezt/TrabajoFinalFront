@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.session = this._UsuarioService.getToken();
+    // this.session = this._UsuarioService.getToken();
   }
 
 }

@@ -1,32 +1,68 @@
-<div class="col-md-6 col-md-offset-3">
-  <h2>Registrate</h2>
-  <form class="col-md-10">
-    <p>
-      <label>Nombre de Usuario </label>
-      <input type="text" class="form-control" required/>
-    </p>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-    <p>
-      <label>Nombre </label>
-      <input type="text" class="form-control" required/>
-    </p>
+<div class="container">
 
-    <p>
-      <label>Apellido </label>
-      <input type="text" class="form-control" required/>
-    </p>
+  <div class="row" id="pwd-container">
+    <div class="col-md-4"></div>
+    <h2>Registrate</h2>
+    <div *ngIf="errorMensaje">
+      <div class="alert alert-danger">
+        <strong>Error: </strong> {{errorMensaje}}
+      </div>
+    </div>
 
-    <p>
-      <label>Direccion de email </label>
-      <input type="text" class="form-control" required/>
-    </p>
+    <div class="col-sm-4">
+      <section class="login-form">
+        <form #loginForm="ngForm" class="col-sm-10">
 
-    <p>
-      <label>Contraseña </label>
-      <input type="password" class="form-control" required/>
-    </p>
+          <input type="text" #username="ngModel" name="username" [(ngModel)]="Usuario.UserName" placeholder="Usuario"
+                 class="form-control input-lg" required/>
+          <span *ngIf="!username.valid && username.touched">
+            El usuario es obligatorio
+          </span>
 
-    <input type="submit" value="Registrarse" class="btn btn-primary"/>
+          <input type="text" #Nombre="ngModel" name="Nombre" [(ngModel)]="Usuario.Nombre" placeholder="Nombre"
+                 class="form-control input-lg" required/>
+          <span *ngIf="!Nombre.valid && Nombre.touched">
+            El Nombre es obligatorio
+          </span>
 
-  </form>
+          <input type="text" #Apellido="ngModel" name="Apellido" [(ngModel)]="Usuario.Apellido" placeholder="Apellido"
+                 class="form-control input-lg" required/>
+          <span *ngIf="!Apellido.valid && Apellido.touched">
+            El Apellido es obligatorio
+          </span>
+
+          <input type="email" #Email="ngModel" name="Email" [(ngModel)]="Usuario.Email" placeholder="Email"
+                 class="form-control input-lg" required email="true"/>
+          <span *ngIf="!Email.valid && Email.touched">
+            El Email es obligatorio
+          </span>
+
+          <input type="password" #password="ngModel" name="password" [(ngModel)]="Usuario.Password"
+                 placeholder="Password" class="form-control input-lg" required/>
+          <span *ngIf="!password.valid && password.touched">
+            La contraseña es obligatoria
+          </span>
+
+          <div class="pwstrength_viewport_progress"></div>
+
+          <button (click)="singup()" class="btn btn-lg btn-primary" [disabled]="
+            !username.valid || !username.touched ||
+            !Nombre.valid || !Nombre.touched ||
+            !Apellido.valid || !Apellido.touched ||
+            !Email.valid || !Email.touched ||
+            !password.valid || !password.touched">Aceptar
+          </button>
+
+          <button (click)="volver()" class="btn btn-lg btn-primary">Volver</button>
+
+        </form>
+      </section>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
 </div>
