@@ -28,16 +28,16 @@ export class UsuarioService {
       .pipe(map(res => res));
   }
 
-  sendToken(token: string) {
+  sendSession(token: string) {
     localStorage.setItem('Logged', token);
   }
 
-  getToken() {
+  getSession() {
     return localStorage.getItem('Logged');
   }
 
   isLoggednIn() {
-    return this.getToken() !== null;
+    return this.getSession() !== null;
   }
 
   logout() {

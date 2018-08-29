@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent, canActivate: [AuthGuard]}
 ];
 
+
 @NgModule({
   imports: [
     CommonModule,

@@ -34,7 +34,7 @@ export class RegistroComponent implements OnInit {
         if (!this.session.passport.user) {
           alert('Error en el servidor');
         } else {
-          this._UsuarioService.sendToken(this.session.passport.user);
+          this._UsuarioService.sendSession(this.session.passport.user);
           this._router.navigate(['/main']);
         }
       }
