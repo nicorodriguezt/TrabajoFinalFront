@@ -1,4 +1,4 @@
-export class Usuario {
+export class DatosUsuario {
   constructor(
     public PesoAprox: number,
     public Altura: number,

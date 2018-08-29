@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import {UsuarioService} from '../../_services/usuario.service';
-import {Router} from '@angular/router';
-import {Usuario} from '../../_models/Usuario';
+import { UsuarioService} from '../../_services/usuario.service';
+import { Router} from '@angular/router';
+import { Usuario} from '../../_models/Usuario';
 
 @Component({
   selector: 'app-registro',

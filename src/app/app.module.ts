@@ -10,6 +10,7 @@ import { RegistroComponent } from './_components/registro/registro.component';
 import { MainMenuComponent } from './_components/main-menu/main-menu.component';
 import { AuthGuard} from './_guards/auth.guard';
 import {LoginGuard} from './_guards/login.guard';
+import { DatosUsuarioComponent } from './_components/datos-usuario/datos-usuario.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {LoginGuard} from './_guards/login.guard';
     AppComponent,
     LoginComponent,
     RegistroComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    DatosUsuarioComponent
   ],
   imports: [
     BrowserModule,
