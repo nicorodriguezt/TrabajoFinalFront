@@ -17,44 +17,31 @@
       <section class="login-form">
         <form #loginForm="ngForm" class="col-sm-10">
 
-          <input type="text" #username="ngModel" name="username" [(ngModel)]="Usuario.UserName" placeholder="Usuario"
-                 class="form-control input-lg" required/>
-          <span *ngIf="!username.valid && username.touched">
-            El usuario es obligatorio
-          </span>
+          <mat-form-field>
+            <input matInput type="text" #username="ngModel" name="username" [(ngModel)]="Usuario.UserName" placeholder="Usuario" required/>
+          </mat-form-field>
 
-          <input type="text" #Nombre="ngModel" name="Nombre" [(ngModel)]="Usuario.Nombre" placeholder="Nombre"
-                 class="form-control input-lg" required/>
-          <span *ngIf="!Nombre.valid && Nombre.touched">
-            El Nombre es obligatorio
-          </span>
+          <mat-form-field>
+            <input matInput type="text" #Nombre="ngModel" name="Nombre" [(ngModel)]="Usuario.Nombre" placeholder="Nombre" required/>
+          </mat-form-field>
 
-          <input type="text" #Apellido="ngModel" name="Apellido" [(ngModel)]="Usuario.Apellido" placeholder="Apellido"
-                 class="form-control input-lg" required/>
-          <span *ngIf="!Apellido.valid && Apellido.touched">
-            El Apellido es obligatorio
-          </span>
+          <mat-form-field>
+            <input matInput type="text" #Apellido="ngModel" name="Apellido" [(ngModel)]="Usuario.Apellido" placeholder="Apellido" required/>
+          </mat-form-field>
 
-          <input type="email" #Email="ngModel" name="Email" [(ngModel)]="Usuario.Email" placeholder="Email"
-                 class="form-control input-lg" required email="true"/>
-          <span *ngIf="!Email.valid && Email.touched">
-            El Email es obligatorio
-          </span>
+          <mat-form-field>
+            <input matInput type="email" #Email="ngModel" name="Email" [(ngModel)]="Usuario.Email" placeholder="Email" required email="true"/>
+          </mat-form-field>
 
-          <input type="password" #password="ngModel" name="password" [(ngModel)]="Usuario.Password"
-                 placeholder="Password" class="form-control input-lg" required/>
-          <span *ngIf="!password.valid && password.touched">
-            La contraseña es obligatoria
-          </span>
+          <mat-form-field>
+            <input matInput type="password" #password="ngModel" name="password" [(ngModel)]="Usuario.Password"
+                   placeholder="Password" required/>
+          </mat-form-field>
 
           <div class="pwstrength_viewport_progress"></div>
 
           <button (click)="singup()" class="btn btn-lg btn-primary" [disabled]="
-            !username.valid || !username.touched ||
-            !Nombre.valid || !Nombre.touched ||
-            !Apellido.valid || !Apellido.touched ||
-            !Email.valid || !Email.touched ||
-            !password.valid || !password.touched">Aceptar
+            !username.valid || !Nombre.valid || !Apellido.valid || !Email.valid || !password.valid">Aceptar
           </button>
 
           <button (click)="volver()" class="btn btn-lg btn-primary">Volver</button>

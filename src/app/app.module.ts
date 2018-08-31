@@ -5,7 +5,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 // Angular Material
-import { MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatInputModule, MatRadioModule, MatFormFieldModule, MatOptionModule, MatSelectModule} from '@angular/material';
+import { MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatInputModule} from '@angular/material';
+import { MatRadioModule, MatFormFieldModule, MatOptionModule, MatSelectModule} from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';

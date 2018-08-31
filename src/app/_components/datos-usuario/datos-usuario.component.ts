@@ -17,6 +17,7 @@ export class DatosUsuarioComponent implements OnInit {
   public DatosUsuario: DatosUsuario;
   public ActividadLaboral: ActividadLaboral;
   public list = [];
+  public sex = ['M', 'F'];
 
   constructor(
     private _DatosUsuarioService: DatosUsuarioService,

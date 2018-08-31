@@ -10,47 +10,49 @@
 
 
     <div class="col-sm-4">
-      <section class="login-form">
+      <section class="datos-form">
         <form #datosForm="ngForm" class="col-sm-10">
 
-          <input type="text" #pesoaprox="ngModel" name="Peso" [(ngModel)]="DatosUsuario.PesoAprox" placeholder="Peso"
-                 class="form-control input-lg" required/>
+          <mat-form-field>
+          <input type="number" matInput #pesoaprox="ngModel" name="Peso" [(ngModel)]="DatosUsuario.PesoAprox" placeholder="Peso"required/>
+          </mat-form-field>
 
+          <mat-form-field>
+          <input type="number" matInput #altura="ngModel" name="Altura" [(ngModel)]="DatosUsuario.Altura" placeholder="Altura"required/>
+          </mat-form-field>
 
-          <input type="text" #altura="ngModel" name="Altura" [(ngModel)]="DatosUsuario.Altura" placeholder="Altura"
-                 class="form-control input-lg" required/>
-
-
-          <input type="text" #edad="ngModel" name="Edad" [(ngModel)]="DatosUsuario.Edad" placeholder="Edad"
-                 class="form-control input-lg" required/>
-
-          <br/>
-          <input type="radio" #sexo="ngModel" name="Sexo" [(ngModel)]="DatosUsuario.Sexo" value="M"/>Masculino
-          <br />
-          <input type="radio" #sexo="ngModel" name="Sexo" [(ngModel)]="DatosUsuario.Sexo" value="F"/>Femenino
-          <br />
-
+          <mat-form-field>
+          <input type="number" matInput #edad="ngModel" name="Edad" [(ngModel)]="DatosUsuario.Edad" placeholder="Edad" required/>
+          </mat-form-field>
         </form>
       </section>
     </div>
 
-    <div>
+    <div class="col-sm-10">
+      <mat-radio-group #sexo="ngModel" name="Sexo"[(ngModel)]="DatosUsuario.Sexo">
+        <mat-radio-button *ngFor="let sex of sex" [value]="sex">
+          {{sex}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="col-sm-4">
       <form #actividadForm="ngForm" class="col-sm-10">
-        <h4>Actividad Laboral</h4>
-
-        <select name="ActividadLaboral" [(ngModel)]="ActividadLaboral.Categoria">
-          <option value="" disabled selected></option>
-          <option *ngFor="let list of list" [value]="">{{list}}</option>
-        </select>
-
+        <mat-form-field>
+          <mat-select #actividad="ngModel" name="ActividadLaboral" [(ngModel)]="ActividadLaboral.Categoria" placeholder="Actividad Laboral">
+            <mat-option *ngFor="let list of list" [value]="list">
+              {{list}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </form>
     </div>
 
-
     <br/>
-    <button (click)="cargar()" class="btn btn-lg btn-primary">Aceptar</button>
+    <button mat-flat-button color="primary" (click)="cargar()"
+            [disabled]="!pesoaprox.valid || !sexo.touched || !altura.valid || !edad.valid || !actividad.touched">Aceptar</button>
 
-    <button (click)="volver()" class="btn btn-lg btn-secundary">Cancelar</button>
+    <button mat-flat-button color="secundary"(click)="volver()">Cancelar</button>
 
     <div class="col-md-4"></div>
   </div>

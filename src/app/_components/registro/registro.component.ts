@@ -29,6 +29,7 @@ export class RegistroComponent implements OnInit {
 
   public singup() {
     this.Usuario.UserName.toLowerCase();
+    this.Usuario.Email.toLowerCase();
     this._UsuarioService.singup(this.Usuario).subscribe(
       response => {
         this.session = response;
