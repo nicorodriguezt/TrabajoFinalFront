@@ -37,9 +37,23 @@ export class DatosUsuarioService {
   }
 
   public cargar(datos, actividad) {
-    this.cargaDatosUsuario(datos);
-    // if error
-    this.cargarActividadLaboral(actividad);
+    this.cargaDatosUsuario(datos).subscribe(response => {
+      this.cargarActividadLaboral(actividad).subscribe(response2 => {
+        return true;
+        },
+        error1 => {
+        return error1;
+        }
+      );
+    },
+      error1 => {
+      return error1;
+      });
+  }
+
+  public getlist() {
+    return this._http.get(this.url + 'actividadlaboral/list', HttpOptions)
+      .pipe(map(res => res));
   }
 
 }

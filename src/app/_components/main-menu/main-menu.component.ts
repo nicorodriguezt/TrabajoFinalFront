@@ -25,6 +25,10 @@ export class MainMenuComponent implements OnInit {
     );
   }
 
+  public cargarDatos() {
+    this._router.navigate(['/datosUsuario']);
+  }
+
   ngOnInit() {
   }
 
