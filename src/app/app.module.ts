@@ -14,6 +14,7 @@ import { LoginComponent } from './_components/login/login.component';
 import { RegistroComponent } from './_components/registro/registro.component';
 import { MainMenuComponent } from './_components/main-menu/main-menu.component';
 import { DatosUsuarioComponent } from './_components/datos-usuario/datos-usuario.component';
+import { BuscarRecetasComponent } from './_components/buscar-recetas/buscar-recetas.component';
 
 // Guards
 import { AuthGuard} from './_guards/auth.guard';
@@ -22,13 +23,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegistroComponent,
     MainMenuComponent,
-    DatosUsuarioComponent
+    DatosUsuarioComponent,
+    BuscarRecetasComponent
   ],
   imports: [
     BrowserModule,
