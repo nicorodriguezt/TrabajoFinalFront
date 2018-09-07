@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import {UsuarioService} from '../../_services/usuario.service';
-import {Router} from '@angular/router';
-import {Usuario} from '../../_models/Usuario';
+import { UsuarioService} from '../../_services/usuario.service';
+import { Router} from '@angular/router';
+import { Usuario} from '../../_models/Usuario';
 
 @Component({
   selector: 'app-registro',
@@ -28,6 +28,8 @@ export class RegistroComponent implements OnInit {
   }
 
   public singup() {
+    this.Usuario.UserName.toLowerCase();
+    this.Usuario.Email.toLowerCase();
     this._UsuarioService.singup(this.Usuario).subscribe(
       response => {
         this.session = response;
@@ -40,6 +42,7 @@ export class RegistroComponent implements OnInit {
       }
       ,
       error1 => {
+        error1 = JSON.stringify(error1.error.message);
         var errorMensaje = <any>error1;
         if (errorMensaje) {
           this.errorMensaje = error1;

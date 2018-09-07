@@ -1,0 +1,11 @@
+<form class="form-inline my-2 my-lg-0">
+  <input matInput class="form-control mr-sm-1" type="search" placeholder="Buscar" [(ngModel)]="Receta.Nombre" name="busqueda" value="" [required]>
+  <button class="btn btn-outline-success my-2 my-sm-0"  (click)="buscar()">
+    <mat-icon aria-label="Side nav toggle icon">search</mat-icon>
+  </button>
+</form>
+
+<ul *ngIf="results">
+  <li class="list-group-item" *ngFor="let result of results">{{result.Nombre}}
+  </li>
+</ul>
