@@ -12,10 +12,10 @@ import { BuscarRecetasComponent} from './_components/buscar-recetas/buscar-recet
 // Guard
 import { AuthGuard} from './_guards/auth.guard';
 import {LoginGuard} from './_guards/login.guard';
-import {register} from 'ts-node';
+import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
+  { path: 'login', component: LoginRegisterViewComponent, canActivate: [LoginGuard]},
   { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path: 'main', component: MainMenuComponent, canActivate: [AuthGuard]},
   { path: 'registro', component: RegistroComponent, canActivate: [AuthGuard]},

@@ -16,6 +16,9 @@ import { MainMenuComponent } from './_components/main-menu/main-menu.component';
 import { DatosUsuarioComponent } from './_components/datos-usuario/datos-usuario.component';
 import { BuscarRecetasComponent } from './_components/buscar-recetas/buscar-recetas.component';
 
+// Views
+import { LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
+
 // Guards
 import { AuthGuard} from './_guards/auth.guard';
 import { LoginGuard} from './_guards/login.guard';
@@ -31,7 +34,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     RegistroComponent,
     MainMenuComponent,
     DatosUsuarioComponent,
-    BuscarRecetasComponent
+    BuscarRecetasComponent,
+    LoginRegisterViewComponent
   ],
   imports: [
     BrowserModule,
