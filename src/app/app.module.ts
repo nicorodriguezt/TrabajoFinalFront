@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 
 // Angular Material
-import { MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatInputModule} from '@angular/material';
+import { MatButtonModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatInputModule, MatCardModule} from '@angular/material';
 import { MatRadioModule, MatFormFieldModule, MatOptionModule, MatSelectModule, MatDialogModule, MatExpansionModule} from '@angular/material';
 
 // Guards
@@ -29,6 +29,7 @@ import { HeaderViewComponent } from './_views/header-view/header-view.component'
 import { CargaInicialViewComponent } from './_views/carga-inicial-view/carga-inicial-view.component';
 import { ModificarDatosUsuarioComponent } from './_components/modificar-datos-usuario/modificar-datos-usuario.component';
 import { ActividadLaboralComponent } from './_components/actividad-laboral/actividad-laboral.component';
+import { BuscadorViewComponent } from './_views/buscador-view/buscador-view.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ActividadLaboralComponent } from './_components/actividad-laboral/activ
     ActividadFisicaComponent,
     ActividadOverviewComponent,
     ModificarDatosUsuarioComponent,
-    ActividadLaboralComponent
+    ActividadLaboralComponent,
+    BuscadorViewComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ import { ActividadLaboralComponent } from './_components/actividad-laboral/activ
     MatOptionModule,
     MatSelectModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCardModule
   ],
   providers: [AuthGuard, LoginGuard],
   bootstrap: [AppComponent],
