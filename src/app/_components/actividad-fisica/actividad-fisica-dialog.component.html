@@ -1,0 +1,47 @@
+<form>
+  <div class="row">
+    <div class="col-xs-5">
+      <mat-form-field>
+        <mat-select #tipoactividad="ngModel"  name="tipoactividad" [(ngModel)]="data.ActividadFisica.TipoActividad" placeholder="Actividad" (selectionChange)="selectedTipo()" [required]>
+          <mat-option *ngFor="let list of ListTipos" [value]="list">
+            {{list}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="hideModalidad" class="col-xs-5">
+      <mat-form-field >
+        <mat-select #modalidad="ngModel" name="modalidad" [(ngModel)]="data.ActividadFisica.Modalidad" placeholder="Modalidad" (selectionChange)="selectedModalidad()">
+          <mat-option *ngFor="let list of ListModalidades" [value]="list">
+            {{list}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="hideDistancia" class="col-xs-5">
+      <mat-form-field>
+        <mat-select #distancia="ngModel" name="distancia" [(ngModel)]="data.ActividadFisica.Distancia" placeholder="Distancia/Velocidad">
+          <mat-option *ngFor="let list of ListDistancias" [value]="list">
+            {{list}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-5">
+      <mat-form-field>
+        <input type="number" matInput #cantidad="ngModel" name="Cantidad" [(ngModel)]="this.data.Cantidad"
+               placeholder="Horas Semanales" required/>
+        <span matSuffix>Hrs</span>
+      </mat-form-field>
+    </div>
+  </div>
+
+</form>
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="cargarActividad()"
+          [disabled]="data.ActividadFisica.TipoActividad == '' ||
+           (data.ActividadFisica.Modalidad == '' && hideModalidad ) ||
+           (data.ActividadFisica.Distancia == '' && hideDistancia) || !cantidad.valid">Añadir</button>
+
+  <button mat-stroked-button color="secundary" (click)="cancelar()">Cancelar</button>
+</div>
