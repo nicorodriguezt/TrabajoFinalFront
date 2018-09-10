@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DatosUsuarioComponent } from './datos-usuario.component';
+import { HeaderViewComponent } from './header-view.component';
 
-describe('DatosUsuarioComponent', () => {
-  let component: DatosUsuarioComponent;
-  let fixture: ComponentFixture<DatosUsuarioComponent>;
+describe('HeaderViewComponent', () => {
+  let component: HeaderViewComponent;
+  let fixture: ComponentFixture<HeaderViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatosUsuarioComponent ]
+      declarations: [ HeaderViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatosUsuarioComponent);
+    fixture = TestBed.createComponent(HeaderViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
