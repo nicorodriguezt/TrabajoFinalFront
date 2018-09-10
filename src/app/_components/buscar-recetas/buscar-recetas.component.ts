@@ -26,6 +26,7 @@ export class BuscarRecetasComponent implements OnInit {
         aux.forEach(value => {
           this.results.push(value);
         });
+        console.log(this.results)
       });
     }
   }

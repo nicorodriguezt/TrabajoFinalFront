@@ -30,6 +30,7 @@ import { CargaInicialViewComponent } from './_views/carga-inicial-view/carga-ini
 import { ModificarDatosUsuarioComponent } from './_components/modificar-datos-usuario/modificar-datos-usuario.component';
 import { ActividadLaboralComponent } from './_components/actividad-laboral/actividad-laboral.component';
 import { BuscadorViewComponent } from './_views/buscador-view/buscador-view.component';
+import { InformacionRecetaComponent } from './_components/informacion-receta/informacion-receta.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { BuscadorViewComponent } from './_views/buscador-view/buscador-view.comp
     ActividadOverviewComponent,
     ModificarDatosUsuarioComponent,
     ActividadLaboralComponent,
-    BuscadorViewComponent
+    BuscadorViewComponent,
+    InformacionRecetaComponent
   ],
   imports: [
     BrowserModule,
