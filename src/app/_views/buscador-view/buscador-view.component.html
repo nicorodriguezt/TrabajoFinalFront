@@ -1,3 +1,8 @@
 <div>
-  <app-buscar-recetas></app-buscar-recetas>
+  <app-buscar-recetas [hidden]="verReceta" [RecetaBuscada]="RecetaBuscada" (sendReceta)="getReceta($event)"></app-buscar-recetas>
+  <app-informacion-receta *ngIf="verReceta" [RecetaElegida]="RecetaElegida" (volverEvent)="verReceta = $event"></app-informacion-receta>
 </div>
+
+
+
+

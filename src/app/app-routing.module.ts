@@ -12,7 +12,6 @@ import { BuscadorViewComponent} from './_views/buscador-view/buscador-view.compo
 import { AuthGuard} from './_guards/auth.guard';
 import {LoginGuard} from './_guards/login.guard';
 
-
 const routes: Routes = [
   { path: 'login', component: LoginRegisterViewComponent, canActivate: [LoginGuard]},
   { path: '', redirectTo: '/main', pathMatch: 'full'},

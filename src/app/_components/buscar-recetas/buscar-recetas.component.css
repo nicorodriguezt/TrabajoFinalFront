@@ -12,3 +12,10 @@
   font-weight: bold;
   font-size: large;
 }
+
+.momento-style {
+  font-weight: bold;
+  font-size: small;
+  font-style: oblique;
+  text-align: left;
+}

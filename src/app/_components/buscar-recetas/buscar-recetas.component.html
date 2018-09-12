@@ -1,5 +1,5 @@
 <form class="form-inline my-2 my-lg-0">
-  <input matInput class="form-control mr-sm-1" type="search" placeholder="Buscar" [(ngModel)]="Receta.Nombre"
+  <input matInput class="form-control mr-sm-1" type="search" placeholder="Buscar" [(ngModel)]="RecetaBuscada.Nombre"
          name="busqueda" value="" [required]>
   <button class="btn btn-outline-success my-2 my-sm-0" (click)="buscar()">
     <mat-icon aria-label="Side nav toggle icon">search</mat-icon>
@@ -17,15 +17,20 @@
         Aca va la descripcion de la receta
       </p>
     </mat-card-content>
+    <mat-card-content class="momento-style">
+      <p>
+        <span>Para: </span>
+        <span *ngFor="let momento of receta.MomentoDelDia" class="momento-style"> {{momento.Nombre}} - </span>
+      </p>
+    </mat-card-content>
     <mat-card-actions align="right">
       <button mat-button color="primary">Compartir
         <mat-icon color="primary">share</mat-icon>
       </button>
-      <button mat-button color="primary">Ver más
+      <button mat-button color="primary" (click)="verMas(receta)">Ver más
         <mat-icon color="primary">arrow_right</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>
-
 </div>
 
