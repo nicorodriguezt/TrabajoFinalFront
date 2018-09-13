@@ -23,6 +23,7 @@ export class BuscarRecetasComponent implements OnInit {
       this._RecetaService.buscar(this.RecetaBuscada).subscribe(response => {
         const aux = (Object.values(response));
         aux.forEach(value => {
+          value.Nombre =  value.Nombre[0].toUpperCase() +  value.Nombre.substr(1).toLowerCase();
           this.results.push(value);
         });
       });
