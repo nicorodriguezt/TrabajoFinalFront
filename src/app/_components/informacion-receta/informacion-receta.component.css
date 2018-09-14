@@ -1,0 +1,37 @@
+.ver-receta-style {
+  padding: 15px;
+}
+
+.title-style {
+  font-style: inherit;
+  font-size: 30px;
+}
+
+.image-style {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.pasos-style {
+  text-align: justify;
+}
+
+.subtitle-style {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.info-style {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.icon-style {
+  font-size: 14px;
+}
+
+.ingredientes-style {
+  text-align: justify;
+}

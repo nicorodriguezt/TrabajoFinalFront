@@ -3,8 +3,7 @@
 }
 
 .description-style {
-  text-align: left;
-  text-justify: auto;
+  text-align: justify;
 }
 
 .title-style {
@@ -18,4 +17,10 @@
   font-size: small;
   font-style: oblique;
   text-align: left;
+}
+
+.buscar-receta-style {
+  padding: 10px;
+  text-align: center;
+  width: 100%;
 }
