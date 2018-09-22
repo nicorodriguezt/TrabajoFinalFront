@@ -23,6 +23,11 @@ export class ActividadLaboralComponent implements OnInit, OnChanges {
         this.list.push(value);
       });
     });
+    this._DatosUsuarioService.getActividad().subscribe(response => {
+      if (response != null) {
+        this.ActividadLaboral.Categoria = response.toString();
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {

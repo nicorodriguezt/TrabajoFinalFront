@@ -21,10 +21,7 @@ export class RecetaService {
   }
 
   public buscar(datos) {
-    const json = JSON.stringify(datos);
-    const params = json;
-
-    return this._http.post(this.url + 'find', params, HttpOptions)
+    return this._http.get(this.url + 'find/' + datos.Nombre, HttpOptions)
       .pipe(map(res => res));
   }
 

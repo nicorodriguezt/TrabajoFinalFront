@@ -39,11 +39,13 @@ import {ActividadFisicaComponent, ActividadOverviewComponent} from './_component
 // Views
 import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
 import {HeaderViewComponent} from './_views/header-view/header-view.component';
-import {CargaInicialViewComponent} from './_views/carga-inicial-view/carga-inicial-view.component';
-import {ModificarDatosUsuarioComponent} from './_components/modificar-datos-usuario/modificar-datos-usuario.component';
 import {ActividadLaboralComponent} from './_components/actividad-laboral/actividad-laboral.component';
 import {BuscadorViewComponent} from './_views/buscador-view/buscador-view.component';
 import {InformacionRecetaComponent} from './_components/informacion-receta/informacion-receta.component';
+import { VerMenuViewComponent } from './_views/ver-menu-view/ver-menu-view.component';
+import { ProximosMenuViewComponent } from './_views/proximos-menu-view/proximos-menu-view.component';
+import { ListaComprasComponent } from './_components/lista-compras/lista-compras.component';
+import { ModificarDatosViewComponent } from './_views/modificar-datos-view/modificar-datos-view.component';
 
 @NgModule({
   declarations: [
@@ -55,13 +57,15 @@ import {InformacionRecetaComponent} from './_components/informacion-receta/infor
     BuscarRecetasComponent,
     LoginRegisterViewComponent,
     HeaderViewComponent,
-    CargaInicialViewComponent,
     ActividadFisicaComponent,
     ActividadOverviewComponent,
-    ModificarDatosUsuarioComponent,
     ActividadLaboralComponent,
     BuscadorViewComponent,
-    InformacionRecetaComponent
+    InformacionRecetaComponent,
+    VerMenuViewComponent,
+    ProximosMenuViewComponent,
+    ListaComprasComponent,
+    ModificarDatosViewComponent
   ],
   imports: [
     BrowserModule,

@@ -14,3 +14,12 @@
 .right-button{
   text-align: right;
 }
+
+body {
+  background-color: darkslateblue;
+}
+
+.vertical {
+  padding-top: 30%;
+  margin-bottom: auto;
+}

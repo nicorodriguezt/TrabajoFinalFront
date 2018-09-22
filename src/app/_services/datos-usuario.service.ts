@@ -28,23 +28,11 @@ export class DatosUsuarioService {
       .pipe(map(res => res));
   }
 
-  public cargarActividadLaboral(actividad) {
-    const json = JSON.stringify(actividad);
-    const params = json;
-
-    return this._http.put(this.url + 'actividadlaboral/add', params, HttpOptions)
-      .pipe(map(res => res));
-  }
-
   public cargar(datos, actividad) {
+    datos.ActividadLaboral = actividad.Categoria;
+    delete datos.Preferencias;
     this.cargaDatosUsuario(datos).subscribe(response => {
-      this.cargarActividadLaboral(actividad).subscribe(response2 => {
-        return true;
-        },
-        error1 => {
-        return error1;
-        }
-      );
+      return true;
     },
       error1 => {
       return error1;
@@ -54,6 +42,14 @@ export class DatosUsuarioService {
   public getlist() {
     return this._http.get(this.url + 'actividadlaboral/list', HttpOptions)
       .pipe(map(res => res));
+  }
+
+  public getDatos() {
+    return this._http.get(this.url + 'info', HttpOptions).pipe(map(res => res));
+  }
+
+  public getActividad() {
+    return this._http.get(this.url + 'actividadlaboral/info', HttpOptions).pipe(map(res => res));
   }
 
 }
