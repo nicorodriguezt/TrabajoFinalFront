@@ -5,14 +5,21 @@
 
     <p align="justify">{{DatosReceta?.Descripcion}}</p>
   </div>
-  <div class="info-style row">
-      <mat-icon class="icon-style col-sm-6">info</mat-icon>{{DatosReceta?.Porciones}} Porcion/es
-      <mat-icon class="icon-style col-sm-6">done</mat-icon>{{DatosReceta?.Calorias}} Calorias
+  <div class="info-style">
+    <div class="row">
+      <mat-icon class="icon-style col-sm-6">info</mat-icon>
+      {{DatosReceta?.Porciones}} Porcion/es
+      <mat-icon class="icon-style col-sm-6">done</mat-icon>
+      {{DatosReceta?.Calorias}} Calorias
+    </div>
+    <div>
       <mat-icon class="icon-style col-sm-6">restaurant</mat-icon>
       <span *ngFor="let momento of DatosReceta?.MomentoDelDia">
         {{momento.Nombre}} -
       </span>
+    </div>
   </div>
+
   <br/>
   <div>
     <h4 class="subtitle-style">Ingredientes</h4>
