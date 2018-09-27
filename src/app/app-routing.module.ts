@@ -3,20 +3,22 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 // Componentes
-import { LoginComponent } from './_components/login/login.component';
+import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
+import {CargaInicialViewComponent} from './_views/carga-inicial-view/carga-inicial-view.component';
 import { MainMenuComponent } from './_components/main-menu/main-menu.component';
-import { RegistroComponent} from './_components/registro/registro.component';
+import { BuscarRecetasComponent} from './_components/buscar-recetas/buscar-recetas.component';
 
 // Guard
 import { AuthGuard} from './_guards/auth.guard';
 import {LoginGuard} from './_guards/login.guard';
-import {register} from 'ts-node';
+
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
+  { path: 'login', component: LoginRegisterViewComponent, canActivate: [LoginGuard]},
   { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path: 'main', component: MainMenuComponent, canActivate: [AuthGuard]},
-  { path: 'registro', component: RegistroComponent, canActivate: [AuthGuard]}
+  { path: 'registroDatos', component: CargaInicialViewComponent, canActivate: [AuthGuard]},
+  { path: 'buscador', component: BuscarRecetasComponent, canActivate: [AuthGuard]}
 ];
 
 

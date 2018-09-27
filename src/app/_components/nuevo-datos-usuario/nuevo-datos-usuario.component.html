@@ -1,0 +1,38 @@
+<div class="container">
+  <div>
+    <h3 align="center">Carga Tus Datos</h3>
+    <div>
+      <section class="datos-form">
+        <form #datosForm="ngForm" class="width-control">
+          <div class="row">
+            <div class="col-xs-6" >
+              <mat-form-field class="colums-confg">
+                <input type="number" matInput #pesoaprox="ngModel" name="Peso" [(ngModel)]="DatosUsuario.PesoAprox"
+                       placeholder="Peso" required/>
+              </mat-form-field>
+
+              <mat-form-field class="colums-confg">
+                <input type="number" matInput #altura="ngModel" name="Altura" [(ngModel)]="DatosUsuario.Altura"
+                       placeholder="Altura" required/>
+              </mat-form-field>
+            </div>
+            <div class="col-xs-6">
+              <mat-form-field class="colums-confg">
+                <input type="number" matInput #edad="ngModel" name="Edad" [(ngModel)]="DatosUsuario.Edad"
+                       placeholder="Edad" required/>
+              </mat-form-field>
+
+              <mat-form-field class="colums-confg">
+                <mat-select  #sexo="ngModel" name="Sexo" [(ngModel)]="DatosUsuario.Sexo" placeholder="Sexo">
+                  <mat-option *ngFor="let sex of sexos" [value]="sex.value">
+                    {{sex.titulo}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

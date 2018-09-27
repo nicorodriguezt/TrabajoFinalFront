@@ -1,0 +1,8 @@
+<div *ngIf="login">
+  <app-login></app-login>
+  <button (click)="change()">Registro</button>
+</div>
+<div *ngIf="!login">
+  <app-registro></app-registro>
+  <button (click)="change()">Login</button>
+</div>

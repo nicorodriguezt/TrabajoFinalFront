@@ -1,0 +1,28 @@
+<div *ngIf="errorMensaje">
+  <div class="alert alert-danger">
+    <strong>Error: </strong> Datos Incompletos
+  </div>
+</div>
+<div>
+  <app-nuevo-datos-usuario [DatosUsuario]="DatosUsuario" (ngOnChanges)="getDatosUsuario($event)" align="center"></app-nuevo-datos-usuario>
+</div>
+
+<div>
+  <app-actividad-laboral [ActividadLaboral]="ActividadLaboral" (ngOnChanges)="getActividad($event)" align="center"></app-actividad-laboral>
+</div>
+
+<div>
+  <app-actividad-fisica></app-actividad-fisica>
+  <br>
+</div>
+
+<div align="center">
+  <button mat-flat-button color="primary" type="submit" (click)="cargarDatos()" >Aceptar</button>
+
+  <button mat-flat-button color="secundary" (click)="volver()">Cancelar</button>
+</div>
+
+
+
+
+

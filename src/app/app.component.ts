@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import {Usuario} from './_models/Usuario';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,8 @@ import {Usuario} from './_models/Usuario';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'TrabajoFinalFront';
+
+  constructor(public _router: Router) {
+  }
 }
+

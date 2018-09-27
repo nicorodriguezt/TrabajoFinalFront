@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import {UsuarioService} from '../../_services/usuario.service';
 import {Router} from '@angular/router';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {UsuarioService} from '../../_services/usuario.service';
 
 @Component({
-  selector: 'app-main-menu',
-  templateUrl: './main-menu.component.html',
-  styleUrls: ['./main-menu.component.css'],
+  selector: 'app-header-view',
+  templateUrl: './header-view.component.html',
+  styleUrls: ['./header-view.component.css'],
   providers: [UsuarioService]
 })
-export class MainMenuComponent implements OnInit {
+export class HeaderViewComponent implements OnInit {
+
+  constructor(public _router: Router,
+              private breakpointObserver: BreakpointObserver,
+              private _UsuarioService: UsuarioService) { }
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
-
-  constructor(private _router: Router,
-              private _UsuarioService: UsuarioService,
-              private breakpointObserver: BreakpointObserver) { }
+  title = 'TrabajoFinalFront';
 
   public logout() {
     this._UsuarioService.logout().subscribe(

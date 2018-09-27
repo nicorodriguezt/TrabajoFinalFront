@@ -1,0 +1,35 @@
+<div align="center">
+  <h3>Actividad fisica</h3>
+  <div class="alert alert-success" *ngIf="successMensaje">
+    Borrado con exito
+  </div>
+  <div class="alert alert-danger" *ngIf="errorMensaje">
+    <strong>Error: </strong> Pruebe mas tarde
+  </div>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let list of ListActividadesUsuario" class="expansion-sytle">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{list.ActividadFisica.TipoActividad}}: {{list.ActividadFisica.Modalidad}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div align="left">
+        <div *ngIf="list.ActividadFisica.Distancia != null">
+          Distancia: {{list.ActividadFisica.Distancia}}
+          <mat-divider></mat-divider>
+        </div>
+        Cantidad: {{list.Cantidad}}
+        <mat-divider></mat-divider>
+      </div>
+      <div align="right">
+        <button mat-flat-button color="error" (click)="eliminarActividad(list.ActividadFisica)">Eliminar</button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+    </mat-expansion-panel>
+  </mat-accordion>
+    <button mat-flat-button color="primary" (click)="openDialogNuevo()">Añadir actividad
+      <mat-icon>add</mat-icon>
+    </button>
+</div>
