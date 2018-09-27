@@ -20,7 +20,8 @@ import {
   MatSelectModule,
   MatDialogModule,
   MatCardModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatTooltipModule
 } from '@angular/material';
 
 // Guards
@@ -86,7 +87,8 @@ import { ModificarDatosViewComponent } from './_views/modificar-datos-view/modif
     MatSelectModule,
     MatDialogModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule
   ],
   providers: [AuthGuard, LoginGuard],
   bootstrap: [AppComponent],

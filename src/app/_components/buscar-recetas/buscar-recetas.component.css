@@ -6,6 +6,11 @@
   text-align: justify;
 }
 
+.busqueda-style {
+  width: 100%;
+  padding: 10px;
+}
+
 .title-style {
   text-align: left;
   font-weight: bold;
@@ -19,11 +24,6 @@
   text-align: left;
 }
 
-.buscar-receta-style {
-  padding: 10px;
-  text-align: center;
-  width: 100%;
-}
 .button-style {
   isIconButton: true;
 }

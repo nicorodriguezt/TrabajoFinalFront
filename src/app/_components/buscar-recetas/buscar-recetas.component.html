@@ -1,15 +1,11 @@
-<form class="buscar-receta-style">
-  <div class="form-row">
-    <div class="col-9">
-      <input matInput type="text" placeholder="Buscar" class="form-control" [(ngModel)]="RecetaBuscada.Nombre"
-             name="busqueda" value="" [required]>
-    </div>
-    <div class="col-2">
-      <button mat-stroked-button color="primary" class="button-style" (click)="buscar()">
-        <mat-icon>search</mat-icon>
-      </button>
-    </div>
-  </div>
+<form >
+  <mat-form-field class="busqueda-style">
+    <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="RecetaBuscada.Nombre" value="" minlength="3" placeholder="Buscar..">
+    <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="primary" (click)="buscar()">
+      <mat-icon>search</mat-icon>
+    </button>
+    <mat-hint>Minimo 3 caracteres</mat-hint>
+  </mat-form-field>
 </form>
 
 <section class="buscar-receta-style">
