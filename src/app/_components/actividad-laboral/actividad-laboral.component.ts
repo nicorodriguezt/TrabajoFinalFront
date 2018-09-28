@@ -10,6 +10,7 @@ import {DatosUsuarioService} from '../../_services/datos-usuario.service';
 export class ActividadLaboralComponent implements OnInit, OnChanges {
   @Input() ActividadLaboral: ActividadLaboral;
   @Output() sendData: EventEmitter<any> = new EventEmitter();
+  datosactuales;
 
   public list = [];
 
@@ -25,7 +26,8 @@ export class ActividadLaboralComponent implements OnInit, OnChanges {
     });
     this._DatosUsuarioService.getActividad().subscribe(response => {
       if (response != null) {
-        this.ActividadLaboral.Categoria = response.toString();
+        this.datosactuales = response;
+        this.ActividadLaboral.Categoria = this.datosactuales.ActividadLaboral.Categoria;
       }
     });
   }
