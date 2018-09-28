@@ -57,7 +57,6 @@ export class ActividadFisicaComponent implements OnInit {
       aux.forEach(value => {
         this.ListActividadesUsuario.push(value);
       });
-      console.log(this.ListActividadesUsuario);
     });
   }
 
@@ -153,9 +152,6 @@ export class ActividadOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*    this.data.TipoActividad = null;
-        this.data.Modalidad = null;
-        this.data.Distancia = null;*/
     this.ListTipos = Array.from(new Set(this.data.ListActividades.map(item => item.TipoActividad)));
   }
 

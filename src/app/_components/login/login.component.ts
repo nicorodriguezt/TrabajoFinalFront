@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-    this.Usuario.UserName.toLowerCase();
+    this.Usuario.UserName = this.Usuario.UserName.toLowerCase();
     this._UsuarioService.login(this.Usuario).subscribe(
       response => {
         this.session = response;

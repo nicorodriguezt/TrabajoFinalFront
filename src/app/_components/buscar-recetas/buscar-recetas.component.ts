@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { RecetaService} from '../../_services/receta.service';
 import { Receta} from '../../_models/Receta';
-import {Router} from '@angular/router';
-import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-buscar-recetas',
@@ -11,7 +9,8 @@ import {Location} from '@angular/common';
   providers: [RecetaService]
 })
 export class BuscarRecetasComponent implements OnInit {
-  public Receta = new Receta('', '', null, '', null, '', false, null, null);
+  @Input() public RecetaBuscada: Receta;
+  @Output()  sendReceta: EventEmitter<any> = new EventEmitter();
   public results = [];
 
   constructor(
@@ -20,14 +19,19 @@ export class BuscarRecetasComponent implements OnInit {
 
   public buscar() {
     this.results = [];
-    if (this.Receta.Nombre !== '') {
-      this._RecetaService.buscar(this.Receta).subscribe(response => {
+    if (this.RecetaBuscada.Nombre !== '') {
+      this._RecetaService.buscar(this.RecetaBuscada).subscribe(response => {
         const aux = (Object.values(response));
         aux.forEach(value => {
+          value.Nombre =  value.Nombre[0].toUpperCase() +  value.Nombre.substr(1).toLowerCase();
           this.results.push(value);
         });
       });
     }
+  }
+
+  verMas(recetaElegida) {
+    this.sendReceta.emit(recetaElegida);
   }
 
   ngOnInit() {

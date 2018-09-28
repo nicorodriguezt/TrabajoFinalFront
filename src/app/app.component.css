@@ -14,3 +14,8 @@
 .right-button{
   text-align: right;
 }
+
+.vertical {
+  padding-top: 30%;
+  margin-bottom: auto;
+}

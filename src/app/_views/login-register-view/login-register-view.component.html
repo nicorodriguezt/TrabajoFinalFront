@@ -1,8 +1,19 @@
-<div *ngIf="login">
+<body>
+
+<div *ngIf="login" align="center">
   <app-login></app-login>
-  <button (click)="change()">Registro</button>
+  <div class="cambio-button">
+    <button mat-stroked-button color="primary" (click)="change()" class="button-style">
+      REGISTRATE
+    </button>
+  </div>
 </div>
-<div *ngIf="!login">
+
+<div *ngIf="!login" align="center">
   <app-registro></app-registro>
-  <button (click)="change()">Login</button>
+  <div class="cambio-button">
+    <button  mat-stroked-button color="primary" (click)="change()" class="button-style">INICIA SESIÓN</button>
+  </div>
 </div>
+
+</body>
