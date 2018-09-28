@@ -23,13 +23,9 @@ export class RegistroComponent implements OnInit {
     this.Usuario = new Usuario('','','','','');
   }
 
-  public volver() {
-    this._location.back();
-  }
-
   public singup() {
-    this.Usuario.UserName.toLowerCase();
-    this.Usuario.Email.toLowerCase();
+    this.Usuario.UserName = this.Usuario.UserName.toLowerCase();
+    this.Usuario.Email = this.Usuario.Email.toLowerCase();
     this._UsuarioService.singup(this.Usuario).subscribe(
       response => {
         this.session = response;
@@ -43,7 +39,7 @@ export class RegistroComponent implements OnInit {
       ,
       error1 => {
         error1 = JSON.stringify(error1.error.message);
-        var errorMensaje = <any>error1;
+        let errorMensaje = <any>error1;
         if (errorMensaje) {
           this.errorMensaje = error1;
         }

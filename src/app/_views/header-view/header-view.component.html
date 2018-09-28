@@ -14,8 +14,11 @@
       <a mat-list-item href="/buscador">
         <mat-icon>search</mat-icon> Buscar recetas
       </a>
-      <a mat-list-item href="/registroDatos">
+      <a mat-list-item href="/cargarDatos">
         <mat-icon>person</mat-icon>Tus Datos
+      </a>
+      <a mat-list-item href="/verMenu">
+        <mat-icon>list</mat-icon>Tus Menus
       </a>
       <mat-divider></mat-divider>
       <a mat-list-item (click)="logout()">
@@ -34,8 +37,10 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Menu Principal</span>
-
+      <span>App Recetas</span>
     </mat-toolbar>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

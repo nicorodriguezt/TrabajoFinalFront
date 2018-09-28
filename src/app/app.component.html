@@ -1,9 +1,11 @@
+<body>
+
 <div *ngIf="(_router.url != '/login') ">
   <app-header-view></app-header-view>
-  <router-outlet></router-outlet>
 </div>
 
-<div *ngIf="(_router.url == '/login')">
-  <router-outlet></router-outlet>
+<div *ngIf="(_router.url == '/login')" class="vertical">
+  <router-outlet ></router-outlet>
 </div>
 
+</body>

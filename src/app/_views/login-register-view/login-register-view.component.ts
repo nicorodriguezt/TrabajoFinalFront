@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-login-register-view',
@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class LoginRegisterViewComponent implements OnInit {
   public login = true;
 
-  constructor() { }
+  constructor() {
+  }
 
   public change() {
-    if(this.login == true) this.login = false;
-    else this.login = true;
+    if (this.login == true) { this.login = false; } else { this.login = true; }
   }
 
   ngOnInit() {

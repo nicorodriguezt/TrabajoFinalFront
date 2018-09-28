@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CargaInicialViewComponent } from './carga-inicial-view.component';
+import { MainViewComponent } from './main-view.component';
 
-describe('CargaInicialViewComponent', () => {
-  let component: CargaInicialViewComponent;
-  let fixture: ComponentFixture<CargaInicialViewComponent>;
+describe('MainViewComponent', () => {
+  let component: MainViewComponent;
+  let fixture: ComponentFixture<MainViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CargaInicialViewComponent ]
+      declarations: [ MainViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CargaInicialViewComponent);
+    fixture = TestBed.createComponent(MainViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

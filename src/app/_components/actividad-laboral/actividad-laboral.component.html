@@ -1,5 +1,5 @@
-<div class="col-sm-4">
-  <form #actividadForm="ngForm" class="col-sm-10">
+<div>
+  <form #actividadForm="ngForm">
     <mat-form-field>
       <mat-select #actividad="ngModel" name="ActividadLaboral" [(ngModel)]="ActividadLaboral.Categoria" placeholder="Actividad Laboral">
         <mat-option *ngFor="let list of list" [value]="list">
@@ -7,5 +7,9 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+   <div data-toggle="tooltip">
+     <button mat-icon-button ><mat-icon>help</mat-icon></button>
+   </div>
   </form>
 </div>
+
