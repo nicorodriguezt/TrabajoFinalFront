@@ -34,6 +34,11 @@
                      placeholder="Contraseña" required/>
             </mat-form-field>
 
+            <mat-form-field>
+              <input matInput type="password" #password2="ngModel" name="password2" [(ngModel)]="controlPassword"
+                     placeholder="Repita la contraseña" required/>
+            </mat-form-field>
+
             <div></div>
 
             <button mat-raised-button color="primary" type="submit" (click)="singup()" [disabled]="!username.valid || !Nombre.valid ||

@@ -14,37 +14,44 @@ export class RegistroComponent implements OnInit {
   public Usuario: Usuario;
   public errorMensaje;
   public session;
+  controlPassword;
 
   constructor(
     private _UsuarioService: UsuarioService,
     private _router: Router,
     private _location: Location
   ) {
-    this.Usuario = new Usuario('','','','','');
+    this.Usuario = new Usuario(null, null, null, null, null);
   }
 
   public singup() {
-    this.Usuario.UserName = this.Usuario.UserName.toLowerCase();
-    this.Usuario.Email = this.Usuario.Email.toLowerCase();
-    this._UsuarioService.singup(this.Usuario).subscribe(
-      response => {
-        this.session = response;
-        if (!this.session.passport.user) {
-          alert('Error en el servidor');
-        } else {
-          this._UsuarioService.sendSession(this.session.passport.user);
-          this._router.navigate(['/main']);
+    if (this.Usuario.Password !== this.controlPassword) {
+      this.errorMensaje = 'Contraseñas no coincide';
+      this.Usuario.Password = null;
+      this.controlPassword = null;
+    } else {
+      this.Usuario.UserName = this.Usuario.UserName.toLowerCase();
+      this.Usuario.Email = this.Usuario.Email.toLowerCase();
+      this._UsuarioService.singup(this.Usuario).subscribe(
+        response => {
+          this.session = response;
+          if (!this.session.passport.user) {
+            alert('Error en el servidor');
+          } else {
+            this._UsuarioService.sendSession(this.session.passport.user);
+            this._router.navigate(['/main']);
+          }
         }
-      }
-      ,
-      error1 => {
-        error1 = JSON.stringify(error1.error.message);
-        let errorMensaje = <any>error1;
-        if (errorMensaje) {
-          this.errorMensaje = error1;
+        ,
+        error1 => {
+          error1 = JSON.stringify(error1.error.message);
+          let errorMensaje = <any>error1;
+          if (errorMensaje) {
+            this.errorMensaje = error1;
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   ngOnInit() {
