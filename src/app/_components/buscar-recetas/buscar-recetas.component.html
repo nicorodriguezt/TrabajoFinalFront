@@ -1,6 +1,6 @@
 <form >
-  <mat-form-field class="busqueda-style">
-    <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="RecetaBuscada.Nombre" value="" minlength="3" placeholder="Buscar..">
+  <mat-form-field class="busqueda-style" id="Buscardor">
+    <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="RecetaBuscada.Nombre" value="" minlength="3" placeholder="Buscar.." (change)="TextoBuscadoReset()">
     <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="primary" (click)="buscar()">
       <mat-icon>search</mat-icon>
     </button>
@@ -8,7 +8,7 @@
   </mat-form-field>
 </form>
 
-<section class="buscar-receta-style">
+<section class="buscar-receta-style" id="Mostrar Recetas">
   <div align="center">
     <mat-card *ngFor="let receta of results">
       <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" class="image-ratio">
@@ -37,5 +37,10 @@
     </mat-card>
   </div>
 </section>
+<div *ngIf="pagina != 0" class="paginas-style" id="Paginas">
+  <button mat-icon-button *ngIf="pagina != 1" (click)="backward()"><mat-icon>arrow_back_ios</mat-icon></button>
+  <span>{{pagina}}</span>
+  <button mat-icon-button *ngIf="controlPaginas==6" (click)="forward()"><mat-icon>arrow_forward_ios</mat-icon></button>
+</div>
 
 
