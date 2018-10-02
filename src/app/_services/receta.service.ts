@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Observable } from 'rxjs/Observable';
 import {backend} from './globalconfig';
@@ -9,7 +9,8 @@ const HttpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
   }),
-  withCredentials: true
+  withCredentials: true,
+  params: {}
 };
 
 @Injectable()
@@ -20,8 +21,10 @@ export class RecetaService {
     this.url = backend + 'receta/';
   }
 
-  public buscar(datos) {
-    return this._http.get(this.url + 'find/' + datos.Nombre, HttpOptions)
+  public buscar(datos, skip, limit) {
+    const params = new HttpParams().set('Nombre', datos.Nombre).set('Saltar', skip).set('Limite', limit);
+    HttpOptions.params = params;
+    return this._http.get(this.url + 'find', HttpOptions)
       .pipe(map(res => res));
   }
 
