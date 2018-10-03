@@ -1,6 +1,8 @@
-import {Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, Inject} from '@angular/core';
 import { ActividadLaboral} from '../../_models/ActividadLaboral';
-import {DatosUsuarioService} from '../../_services/datos-usuario.service';
+import { DatosUsuarioService} from '../../_services/datos-usuario.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {ActividadOverviewComponent} from '../actividad-fisica/actividad-fisica.component';
 
 @Component({
   selector: 'app-actividad-laboral',
@@ -14,8 +16,7 @@ export class ActividadLaboralComponent implements OnInit, OnChanges {
 
   public list = [];
 
-  constructor(
-    private _DatosUsuarioService: DatosUsuarioService) {}
+  constructor( public dialog: MatDialog, private _DatosUsuarioService: DatosUsuarioService) {}
 
   ngOnInit() {
     this._DatosUsuarioService.getlist().subscribe(response => {
@@ -27,13 +28,32 @@ export class ActividadLaboralComponent implements OnInit, OnChanges {
     this._DatosUsuarioService.getActividad().subscribe(response => {
       if (response != null) {
         this.datosactuales = response;
-        this.ActividadLaboral.Categoria = this.datosactuales.ActividadLaboral.Categoria;
+        this.ActividadLaboral = this.datosactuales.ActividadLaboral;
       }
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.sendData.emit(this.ActividadLaboral);
+    this.sendData.emit(this.list);
   }
+
+  openInfo(): void {
+    this.dialog.open(ActividadLaboralInfoComponent, {
+      width: '250px',
+      data: this.list
+    });
+  }
+
+}
+
+@Component({
+  selector: 'app-actividad-laboral-info',
+  templateUrl: './actividad-laboral-info.component.html',
+})
+export class ActividadLaboralInfoComponent implements OnInit {
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  ngOnInit() { console.log(this.data)}
 
 }

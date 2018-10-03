@@ -13,7 +13,7 @@ import {DatosUsuario} from '../../_models/DatosUsuario';
 })
 export class ModificarDatosViewComponent implements OnInit {
   DatosUsuario = new DatosUsuario(null, null, null, '', null, null, '', '', '');
-  ActividadLaboral = new ActividadLaboral('', null, '');
+  ActividadLaboral = new ActividadLaboral(null, null, null, null);
   errorMensaje = false;
 
 
@@ -38,6 +38,7 @@ export class ModificarDatosViewComponent implements OnInit {
     if (!this.DatosUsuario.PesoAprox || !this.DatosUsuario.Altura || !this.DatosUsuario.Edad || this.DatosUsuario.Sexo == '' || this.ActividadLaboral.Categoria == '') {
       this.errorMensaje = true;
     } else {
+      debugger;
       this._DatosUsuarioService.cargar(this.DatosUsuario, this.ActividadLaboral);
       this._router.navigate(['main']);
     }
