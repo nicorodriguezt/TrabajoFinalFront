@@ -12,7 +12,7 @@ import {DatosUsuario} from '../../_models/DatosUsuario';
   providers: [DatosUsuarioService]
 })
 export class ModificarDatosViewComponent implements OnInit {
-  DatosUsuario = new DatosUsuario(null, null, null, '', null, null, '', '', '');
+  DatosUsuario = new DatosUsuario(null, null, null, null, null, null, null, null, null);
   ActividadLaboral = new ActividadLaboral(null, null, null, null);
   errorMensaje = false;
 
@@ -27,18 +27,17 @@ export class ModificarDatosViewComponent implements OnInit {
   }
 
   public getDatosUsuario(data) {
-    this.DatosUsuario = data;
+    this.DatosUsuario = data.Datos;
   }
 
   public getActividad(data) {
-    this.ActividadLaboral = data.Datos;
+    this.ActividadLaboral = data;
   }
 
   public cargarDatos() {
     if (!this.DatosUsuario.PesoAprox || !this.DatosUsuario.Altura || !this.DatosUsuario.Edad || this.DatosUsuario.Sexo == '' || this.ActividadLaboral.Categoria == '') {
       this.errorMensaje = true;
     } else {
-      debugger;
       this._DatosUsuarioService.cargar(this.DatosUsuario, this.ActividadLaboral);
       this._router.navigate(['main']);
     }

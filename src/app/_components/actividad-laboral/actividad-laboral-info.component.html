@@ -1,7 +1,7 @@
 <div>
-  <!--<div *ngFor="let actividad of data.ActividadLaboral">-->
-    <!--<h6>{{actividad?.Categoria}}</h6>-->
-    <!--<p>{{actividad?.Descripcion}}</p>-->
-  <!--</div>-->
+  <div *ngFor="let actividad of data" class="dialog-style">
+    <b class="titulo-style">{{actividad?.Categoria}}</b>
+    <p class="description-style">{{actividad?.Descripcion}}</p>
+  </div>
 </div>
 

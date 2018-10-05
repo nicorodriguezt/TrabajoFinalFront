@@ -1,8 +1,8 @@
 export class ActividadLaboral {
   constructor(
-    public id: string,
+    public _id: string,
     public Categoria: string,
-    public Consumo: number,
+    public Descripcion: string,
     public Detalles: [object]
   ) {}
 }

@@ -1,7 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, Inject} from '@angular/core';
-import { ActividadLaboral} from '../../_models/ActividadLaboral';
-import { DatosUsuarioService} from '../../_services/datos-usuario.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {Component, Input, Output, EventEmitter, OnInit, Inject} from '@angular/core';
+import {ActividadLaboral} from '../../_models/ActividadLaboral';
+import {DatosUsuarioService} from '../../_services/datos-usuario.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ActividadOverviewComponent} from '../actividad-fisica/actividad-fisica.component';
 
 @Component({
@@ -9,14 +9,15 @@ import {ActividadOverviewComponent} from '../actividad-fisica/actividad-fisica.c
   templateUrl: './actividad-laboral.component.html',
   styleUrls: ['./actividad-laboral.component.css']
 })
-export class ActividadLaboralComponent implements OnInit, OnChanges {
+export class ActividadLaboralComponent implements OnInit {
   @Input() ActividadLaboral: ActividadLaboral;
-  @Output() sendData: EventEmitter<any> = new EventEmitter();
+  @Output() sendDataActividad: EventEmitter<any> = new EventEmitter();
   datosactuales;
 
   public list = [];
 
-  constructor( public dialog: MatDialog, private _DatosUsuarioService: DatosUsuarioService) {}
+  constructor(public dialog: MatDialog, private _DatosUsuarioService: DatosUsuarioService) {
+  }
 
   ngOnInit() {
     this._DatosUsuarioService.getlist().subscribe(response => {
@@ -29,17 +30,23 @@ export class ActividadLaboralComponent implements OnInit, OnChanges {
       if (response != null) {
         this.datosactuales = response;
         this.ActividadLaboral = this.datosactuales.ActividadLaboral;
+        this.sendDataActividad.emit(this.ActividadLaboral);
       }
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.sendData.emit(this.list);
+  changedata() {
+    for (let i = 0; i < this.list.length; i++) {
+      if (this.list[i].Categoria == this.ActividadLaboral.Categoria) {
+        this.ActividadLaboral._id = this.list[i]._id;
+      }
+    }
+    this.sendDataActividad.emit(this.ActividadLaboral);
   }
 
   openInfo(): void {
     this.dialog.open(ActividadLaboralInfoComponent, {
-      width: '250px',
+      width: '80%',
       data: this.list
     });
   }
@@ -49,11 +56,15 @@ export class ActividadLaboralComponent implements OnInit, OnChanges {
 @Component({
   selector: 'app-actividad-laboral-info',
   templateUrl: './actividad-laboral-info.component.html',
+  styleUrls: ['./actividad-laboral.component.css']
 })
 export class ActividadLaboralInfoComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  }
 
-  ngOnInit() { console.log(this.data)}
+  ngOnInit() {
+    console.log(this.data);
+  }
 
 }

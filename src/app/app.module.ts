@@ -22,7 +22,8 @@ import {
   MatDialogModule,
   MatCardModule,
   MatExpansionModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 // Guards
@@ -92,7 +93,8 @@ import { RecetasFavoritasViewComponent } from './_views/recetas-favoritas-view/r
     MatDialogModule,
     MatExpansionModule,
     MatCardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   providers: [AuthGuard, LoginGuard],
   bootstrap: [AppComponent],
