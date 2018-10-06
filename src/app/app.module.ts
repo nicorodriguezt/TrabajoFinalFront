@@ -23,7 +23,8 @@ import {
   MatCardModule,
   MatExpansionModule,
   MatTooltipModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTabsModule
 } from '@angular/material';
 
 // Guards
@@ -50,6 +51,7 @@ import { VerMenuViewComponent } from './_views/ver-menu-view/ver-menu-view.compo
 import { ProximosMenuViewComponent } from './_views/proximos-menu-view/proximos-menu-view.component';
 import { ModificarDatosViewComponent } from './_views/modificar-datos-view/modificar-datos-view.component';
 import { RecetasFavoritasViewComponent } from './_views/recetas-favoritas-view/recetas-favoritas-view.component';
+import {MatTabHeaderBase} from '@angular/material/tabs/typings/tab-header';
 
 @NgModule({
   declarations: [
@@ -94,7 +96,8 @@ import { RecetasFavoritasViewComponent } from './_views/recetas-favoritas-view/r
     MatExpansionModule,
     MatCardModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule
   ],
   providers: [AuthGuard, LoginGuard],
   bootstrap: [AppComponent],

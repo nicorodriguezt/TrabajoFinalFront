@@ -29,7 +29,8 @@ export class RecetaService {
   }
 
   public verInformacionReceta(datos) {
-    return this._http.get(this.url + 'verReceta/' + datos.Nombre, HttpOptions)
+    HttpOptions.params = {};
+    return this._http.get(this.url + 'verReceta/' + datos._id, HttpOptions)
       .pipe(map(res => res));
   }
 }
