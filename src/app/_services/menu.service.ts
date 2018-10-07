@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {backend} from './globalconfig';
 import {Router} from '@angular/router';
-import * as moment from 'moment';
+import * as moment from 'moment-timezone';
 
 const HttpOptions = {
   headers: new HttpHeaders({
@@ -26,7 +26,7 @@ export class MenuService {
   }
 
   public infoMenu() {
-    const fecha = moment().utc().format('YYYY-MM-DD');
+    const fecha = moment().tz('America/Argentina/Cordoba').format('MM-DD-YYYY');
     return this._http.get(this.url + 'infoMenu/' + fecha, HttpOptions)
       .pipe(map(res => res));
   }
