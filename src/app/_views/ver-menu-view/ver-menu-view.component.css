@@ -1,0 +1,16 @@
+.alignleft {
+  float: left;
+}
+
+.alignright {
+  float: right;
+}
+
+.titulo-style {
+  background-color: white;
+  text-decoration: underline;
+}
+
+.card-style {
+  max-height: 175px;
+}

@@ -12,8 +12,8 @@ import {DatosUsuario} from '../../_models/DatosUsuario';
   providers: [DatosUsuarioService]
 })
 export class ModificarDatosViewComponent implements OnInit {
-  DatosUsuario = new DatosUsuario(null, null, null, '', null, null, '', '', '');
-  ActividadLaboral = new ActividadLaboral('', null, '');
+  DatosUsuario = new DatosUsuario(null, null, null, null, null, null, null, null, null);
+  ActividadLaboral = new ActividadLaboral(null, null, null, null);
   errorMensaje = false;
 
 
@@ -27,11 +27,11 @@ export class ModificarDatosViewComponent implements OnInit {
   }
 
   public getDatosUsuario(data) {
-    this.DatosUsuario = data;
+    this.DatosUsuario = data.Datos;
   }
 
   public getActividad(data) {
-    this.ActividadLaboral = data.Datos;
+    this.ActividadLaboral = data;
   }
 
   public cargarDatos() {

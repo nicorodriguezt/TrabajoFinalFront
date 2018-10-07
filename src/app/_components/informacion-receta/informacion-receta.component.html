@@ -1,21 +1,21 @@
 <section class="ver-receta-style">
   <div align="center">
-    <h1 class="title-style">{{DatosReceta?.Nombre}}</h1>
+    <h1 class="title-style">{{RecetaElegida?.Nombre}}</h1>
     <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" class="image-style">
 
-    <p align="justify">{{DatosReceta?.Descripcion}}</p>
+    <p align="justify">{{RecetaElegida?.Descripcion}}</p>
   </div>
   <div class="info-style">
     <div class="row">
       <mat-icon class="icon-style col-sm-6">info</mat-icon>
-      {{DatosReceta?.Porciones}} Porcion/es
+      {{RecetaElegida?.Porciones}} Porcion/es
       <mat-icon class="icon-style col-sm-6">done</mat-icon>
-      {{DatosReceta?.Calorias}} Calorias
+      {{RecetaElegida?.Calorias}} Calorias
     </div>
     <div>
       <mat-icon class="icon-style col-sm-6">restaurant</mat-icon>
-      <span *ngFor="let momento of DatosReceta?.MomentoDelDia">
-        {{momento.Nombre}} -
+      <span *ngFor="let momento of RecetaElegida?.MomentoDelDia">
+        {{momento?.Nombre}} -
       </span>
     </div>
   </div>
@@ -23,15 +23,15 @@
   <br/>
   <div>
     <h4 class="subtitle-style">Ingredientes</h4>
-    <div *ngFor="let ingrediente of DatosReceta?.Ingredientes">
+    <div *ngFor="let ingrediente of RecetaElegida?.Ingredientes">
       <p class="ingredientes-style">
-        {{ingrediente.Ingrediente.Nombre}} -&nbsp;&nbsp;{{ingrediente.Cantidad}} {{ingrediente.Unidad}}
+        {{ingrediente?.Ingrediente?.Nombre}} -&nbsp;&nbsp;{{ingrediente?.Cantidad}} {{ingrediente?.Unidad}}
       </p>
     </div>
   </div>
   <div>
     <h4 class="subtitle-style">Como preparar</h4>
-    <p *ngFor="let pasos of DatosReceta?.Pasos; let i = index" class="pasos-style">
+    <p *ngFor="let pasos of RecetaElegida?.Pasos; let i = index" class="pasos-style">
       {{i+1}}) {{pasos}}
     </p>
   </div>
