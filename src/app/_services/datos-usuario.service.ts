@@ -29,7 +29,7 @@ export class DatosUsuarioService {
   }
 
   public cargar(datos, actividad) {
-    datos.ActividadLaboral = actividad.Categoria;
+    datos.ActividadLaboral = actividad;
     delete datos.Preferencias;
     this.cargaDatosUsuario(datos).subscribe(response => {
       return true;

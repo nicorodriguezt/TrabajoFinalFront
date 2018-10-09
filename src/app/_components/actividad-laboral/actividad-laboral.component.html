@@ -1,15 +1,18 @@
 <div>
   <form #actividadForm="ngForm">
-    <mat-form-field>
-      <mat-select #actividad="ngModel" name="ActividadLaboral" [(ngModel)]="ActividadLaboral.Categoria" placeholder="Actividad Laboral">
-        <mat-option *ngFor="let list of list" [value]="list">
-          {{list}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-   <div data-toggle="tooltip">
-     <button mat-icon-button ><mat-icon>help</mat-icon></button>
-   </div>
+    <div>
+      <mat-form-field>
+        <mat-select #actividad="ngModel" name="ActividadLaboral" (selectionChange)="changedata()"
+                    [(ngModel)]="ActividadLaboral.Categoria" placeholder="Actividad Laboral">
+          <mat-option *ngFor="let obj of list" [value]="obj.Categoria">
+            {{obj.Categoria}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-icon-button (click)="openInfo()">
+        <mat-icon>help</mat-icon>
+      </button>
+    </div>
   </form>
 </div>
 

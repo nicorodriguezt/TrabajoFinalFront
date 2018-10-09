@@ -4,11 +4,11 @@
   </div>
 </div>
 <div>
-  <app-nuevo-datos-usuario [DatosUsuario]="DatosUsuario" (ngOnChanges)="getDatosUsuario($event)" align="center"></app-nuevo-datos-usuario>
+  <app-nuevo-datos-usuario [DatosUsuario]="DatosUsuario" (sendDataUsuario)="getDatosUsuario($event)" align="center"></app-nuevo-datos-usuario>
 </div>
 
 <div>
-  <app-actividad-laboral [ActividadLaboral]="ActividadLaboral" (ngOnChanges)="getActividad($event)" align="center"></app-actividad-laboral>
+  <app-actividad-laboral [ActividadLaboral]="ActividadLaboral" (sendDataActividad)="getActividad($event)" align="center"></app-actividad-laboral>
 </div>
 
 <div>

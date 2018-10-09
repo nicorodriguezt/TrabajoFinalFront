@@ -1,7 +1,7 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {ActividadfisicaService} from '../../_services/actividadfisica.service';
 import {ActividadFisica} from '../../_models/ActividadFisica';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-actividad-fisica',
@@ -14,15 +14,21 @@ export class ActividadFisicaComponent implements OnInit {
   ListActividades = [];
   ListActividadesUsuario = [];
   errorMensaje = false;
-  successMensaje = false;
 
   public ActividadFisica: ActividadFisica;
   public Cantidad: number;
 
   constructor(public dialog: MatDialog,
-              public _ActividadFisicaService: ActividadfisicaService) {
+              public _ActividadFisicaService: ActividadfisicaService,
+              public snackBar: MatSnackBar) {
     this.ActividadFisica = new ActividadFisica(null, null, null);
   }
+
+  openSnackBar(message: string, action: string) {
+  this.snackBar.open(message, action, {
+    duration: 2000,
+  });
+}
 
   ngOnInit() {
     this.cargarListActividadesUsuario();
@@ -62,10 +68,9 @@ export class ActividadFisicaComponent implements OnInit {
 
   eliminarActividad(actividad) {
     this.errorMensaje = false;
-    this.successMensaje = false;
     this._ActividadFisicaService.deleteActividadUsuario(actividad).subscribe(response => {
-        this.successMensaje = true;
         this.cargarListActividadesUsuario();
+        this.openSnackBar('Borrado con Exito', 'Descartar');
       },
       error1 => {
         this.errorMensaje = true;

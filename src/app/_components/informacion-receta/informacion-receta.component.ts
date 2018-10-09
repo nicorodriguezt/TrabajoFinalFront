@@ -18,8 +18,9 @@ export class InformacionRecetaComponent implements OnInit {
   ngOnInit() {
     this._RecetaService.verInformacionReceta(this.RecetaElegida).subscribe(response => {
       this.DatosReceta = response;
-      this.DatosReceta.Nombre = this.DatosReceta.Nombre[0].toUpperCase() +  this.DatosReceta.Nombre.substr(1).toLowerCase();
-      this.DatosReceta.Ingredientes.forEach(function (element) {
+      this.RecetaElegida = this.DatosReceta;
+      this.RecetaElegida.Nombre = this.RecetaElegida.Nombre[0].toUpperCase() +  this.RecetaElegida.Nombre.substr(1).toLowerCase();
+      this.RecetaElegida.Ingredientes.forEach(function (element) {
         element.Ingrediente.Nombre = element.Ingrediente.Nombre[0].toUpperCase() + element.Ingrediente.Nombre.substr(1).toLowerCase();
       });
     });

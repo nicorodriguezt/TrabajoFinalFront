@@ -11,7 +11,7 @@ import { DatosUsuarioService} from '../../_services/datos-usuario.service';
 export class NuevoDatosUsuarioComponent implements OnInit, OnChanges {
   @Input() DatosUsuario: DatosUsuario;
   @Input() DatosValid: boolean;
-  @Output() sendData: EventEmitter<any> = new EventEmitter();
+  @Output() sendDataUsuario: EventEmitter<any> = new EventEmitter();
   DatosActuales;
 
   public sexos = [
@@ -21,7 +21,7 @@ export class NuevoDatosUsuarioComponent implements OnInit, OnChanges {
   constructor( public _DatosUsuarioService: DatosUsuarioService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.sendData.emit({Datos: this.DatosUsuario, Valid: this.DatosValid});
+    this.sendDataUsuario.emit({Datos: this.DatosUsuario, Valid: this.DatosValid});
   }
 
   ngOnInit(): void {
