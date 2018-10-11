@@ -1,8 +1,8 @@
 <div *ngIf="menuExist">
   <div>
     <div [hidden]="verReceta">
-      <mat-tab-group style="flex: auto">
-        <mat-tab label="{{menuDay}}" style="flex: auto" >
+      <mat-tab-group>
+        <mat-tab label="{{menuDay}}">
           <div>
             <mat-card *ngFor="let receta of Menu?.Recetas" class="card-style">
               <mat-card-title>{{receta.Receta.Nombre}}</mat-card-title>
