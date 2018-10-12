@@ -28,17 +28,6 @@ export class DatosUsuarioService {
       .pipe(map(res => res));
   }
 
-  public cargar(datos, actividad) {
-    datos.ActividadLaboral = actividad;
-    delete datos.Preferencias;
-    this.cargaDatosUsuario(datos).subscribe(response => {
-      return true;
-    },
-      error1 => {
-      return error1;
-      });
-  }
-
   public getlist() {
     return this._http.get(this.url + 'actividadlaboral/list', HttpOptions)
       .pipe(map(res => res));
