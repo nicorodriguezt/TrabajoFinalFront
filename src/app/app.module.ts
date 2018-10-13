@@ -24,7 +24,8 @@ import {
   MatExpansionModule,
   MatTooltipModule,
   MatSnackBarModule,
-  MatTabsModule
+  MatTabsModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 // Guards
@@ -97,7 +98,8 @@ import {MatTabHeaderBase} from '@angular/material/tabs/typings/tab-header';
     MatCardModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule
   ],
   providers: [AuthGuard, LoginGuard],
   bootstrap: [AppComponent],

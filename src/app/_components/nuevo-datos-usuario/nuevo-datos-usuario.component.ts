@@ -22,7 +22,6 @@ export class NuevoDatosUsuarioComponent implements OnInit, OnChanges {
   constructor( public _DatosUsuarioService: DatosUsuarioService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.DatosUsuario.PesoAprox)
     this.sendDataUsuario.emit({Datos: this.DatosUsuario, Valid: this.DatosValid});
   }
 

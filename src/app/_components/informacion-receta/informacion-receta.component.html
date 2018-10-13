@@ -1,44 +1,50 @@
 <section class="ver-receta-style">
-  <div align="center">
-    <h1 class="title-style">{{RecetaElegida?.Nombre}}</h1>
-    <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" class="image-style">
-
-    <p align="justify">{{RecetaElegida?.Descripcion}}</p>
+  <div *ngIf="recetaCargandoInfo; else terminado" align="center">
+    <br><br>
+    <mat-spinner></mat-spinner>
   </div>
-  <div class="info-style">
-    <div class="row">
-      <mat-icon class="icon-style col-sm-6">info</mat-icon>
-      {{RecetaElegida?.Porciones}} Porcion/es
-      <mat-icon class="icon-style col-sm-6">done</mat-icon>
-      {{RecetaElegida?.Calorias}} Calorias
+
+  <ng-template #terminado>
+    <div align="center">
+      <h1 class="title-style">{{RecetaElegida?.Nombre}}</h1>
+      <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" class="image-style">
+
+      <p align="justify">{{RecetaElegida?.Descripcion}}</p>
     </div>
-    <div>
-      <mat-icon class="icon-style col-sm-6">restaurant</mat-icon>
-      <span *ngFor="let momento of RecetaElegida?.MomentoDelDia">
+    <div class="info-style">
+      <div class="row">
+        <mat-icon class="icon-style col-sm-6">info</mat-icon>
+        {{RecetaElegida?.Porciones}} Porcion/es
+        <mat-icon class="icon-style col-sm-6">done</mat-icon>
+        {{RecetaElegida?.Calorias}} Calorias
+      </div>
+      <div>
+        <mat-icon class="icon-style col-sm-6">restaurant</mat-icon>
+        <span *ngFor="let momento of RecetaElegida?.MomentoDelDia">
         {{momento?.Nombre}} -
       </span>
+      </div>
     </div>
-  </div>
-
-  <br/>
-  <div>
-    <h4 class="subtitle-style">Ingredientes</h4>
-    <div *ngFor="let ingrediente of RecetaElegida?.Ingredientes">
-      <p class="ingredientes-style">
-        {{ingrediente?.Ingrediente?.Nombre}} -&nbsp;&nbsp;{{ingrediente?.Cantidad}} {{ingrediente?.Unidad}}
+    <br/>
+    <div>
+      <h4 class="subtitle-style">Ingredientes</h4>
+      <div *ngFor="let ingrediente of RecetaElegida?.Ingredientes">
+        <p class="ingredientes-style">
+          {{ingrediente?.Ingrediente?.Nombre}} -&nbsp;&nbsp;{{ingrediente?.Cantidad}} {{ingrediente?.Unidad}}
+        </p>
+      </div>
+    </div>
+    <div>
+      <h4 class="subtitle-style">Como preparar</h4>
+      <p *ngFor="let pasos of RecetaElegida?.Pasos; let i = index" class="pasos-style">
+        {{i+1}}) {{pasos}}
       </p>
     </div>
-  </div>
-  <div>
-    <h4 class="subtitle-style">Como preparar</h4>
-    <p *ngFor="let pasos of RecetaElegida?.Pasos; let i = index" class="pasos-style">
-      {{i+1}}) {{pasos}}
-    </p>
-  </div>
-  <div>
-    <button mat-flat-button color="primary" (click)="volver()">
-      <mat-icon>arrow_left</mat-icon>
-      Volver
-    </button>
-  </div>
+    <div>
+      <button mat-flat-button color="primary" (click)="volver()">
+        <mat-icon>arrow_left</mat-icon>
+        Volver
+      </button>
+    </div>
+  </ng-template>
 </section>
