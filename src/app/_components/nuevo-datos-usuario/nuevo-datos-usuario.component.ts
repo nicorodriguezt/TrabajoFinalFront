@@ -11,6 +11,7 @@ import { DatosUsuarioService} from '../../_services/datos-usuario.service';
 export class NuevoDatosUsuarioComponent implements OnInit, OnChanges {
   @Input() DatosUsuario: DatosUsuario;
   @Input() DatosValid: boolean;
+  @Output() sendExist: EventEmitter<boolean> = new EventEmitter();
   @Output() sendDataUsuario: EventEmitter<any> = new EventEmitter();
   DatosActuales;
 
@@ -21,6 +22,7 @@ export class NuevoDatosUsuarioComponent implements OnInit, OnChanges {
   constructor( public _DatosUsuarioService: DatosUsuarioService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.DatosUsuario.PesoAprox)
     this.sendDataUsuario.emit({Datos: this.DatosUsuario, Valid: this.DatosValid});
   }
 
@@ -32,6 +34,8 @@ export class NuevoDatosUsuarioComponent implements OnInit, OnChanges {
         this.DatosUsuario.Altura = this.DatosActuales.Altura;
         this.DatosUsuario.Edad = this.DatosActuales.Edad;
         this.DatosUsuario.PesoAprox = this.DatosActuales.PesoAprox;
+      } else {
+        this.sendExist.emit(true);
       }
     });
   }

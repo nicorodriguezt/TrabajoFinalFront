@@ -16,7 +16,7 @@ export class ModificarDatosViewComponent implements OnInit {
   DatosUsuario = new DatosUsuario(null, null, null, null, null, null, null, null, null);
   ActividadLaboral = new ActividadLaboral(null, null, null, null);
   errorMensaje = null;
-
+  existDatos = false;
 
   constructor(private _location: Location,
               private _router: Router,
@@ -51,6 +51,7 @@ export class ModificarDatosViewComponent implements OnInit {
       this._DatosUsuarioService.cargaDatosUsuario(this.DatosUsuario).subscribe(response => {
           this.errorMensaje = null;
           this.openSnackBar('Datos guardados con exito', 'Descartar');
+          this.existDatos = false;
         },
         error1 => {
           this.errorMensaje = 'Servidor no disponible';

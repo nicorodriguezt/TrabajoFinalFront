@@ -7,18 +7,20 @@
           <div class="row">
             <div class="col-xs-6" >
               <mat-form-field class="colums-confg">
-                <input type="number" matInput #pesoaprox="ngModel" name="Peso" [(ngModel)]="DatosUsuario.PesoAprox"
+                <input matInput type="number"  name="Peso" [(ngModel)]="DatosUsuario.PesoAprox"
                        placeholder="Peso" required/>
+                <span matSuffix>Kg</span>
               </mat-form-field>
 
               <mat-form-field class="colums-confg">
-                <input type="number" matInput #altura="ngModel" name="Altura" [(ngModel)]="DatosUsuario.Altura"
+                <input type="number" matInput  name="Altura" [(ngModel)]="DatosUsuario.Altura"
                        placeholder="Altura" required/>
+                <span matSuffix>cm</span>
               </mat-form-field>
             </div>
             <div class="col-xs-6">
               <mat-form-field class="colums-confg">
-                <input type="number" matInput #edad="ngModel" name="Edad" [(ngModel)]="DatosUsuario.Edad"
+                <input type="number" matInput  name="Edad" [(ngModel)]="DatosUsuario.Edad"
                        placeholder="Edad" required/>
               </mat-form-field>
 
