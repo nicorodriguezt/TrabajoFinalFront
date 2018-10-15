@@ -21,18 +21,32 @@ export class MenuService {
     this.url = backend + 'menu/';
   }
 
-  public generarMenu() {
-    const fecinicio = moment().tz('America/Argentina/Cordoba').format('YYYY-MM-DD');
-    const fecfin = moment().add(3, 'days').tz('America/Argentina/Cordoba').format('YYYY-MM-DD');
-    const params = new HttpParams().set('FechaInicio', fecinicio).set('FechaFin', fecfin);
-    HttpOptions.params = params;
+  public generarMenu(cantidad) {
+    const fecinicio = moment().add(cantidad + 1, 'days').tz('America/Argentina/Cordoba').format('YYYY-MM-DD');
+    const fecfin = moment().add(6, 'days').tz('America/Argentina/Cordoba').format('YYYY-MM-DD');
+    HttpOptions.params = new HttpParams().set('FechaInicio', fecinicio).set('FechaFin', fecfin);
     return this._http.get(this.url + 'menucompleto/', HttpOptions)
       .pipe(map(res => res));
   }
 
-  public infoMenu() {
-    const fecha = moment().tz('America/Argentina/Cordoba').format('YYYY-MM-DD');
-    return this._http.get(this.url + 'infoMenu/' + fecha, HttpOptions)
+  public infoMenuHoy(fecha) {
+    return this._http.get(this.url + 'infoMenuHoy/' + fecha, HttpOptions)
       .pipe(map(res => res));
   }
+
+  public infoMenuCompleto() {
+    const fecinicio = moment().add(1, 'days').tz('America/Argentina/Cordoba').format('YYYY-MM-DD');
+    const fecfin = moment().add(6, 'days').tz('America/Argentina/Cordoba').format('YYYY-MM-DD');
+    HttpOptions.params = new HttpParams().set('FechaInicio', fecinicio).set('FechaFin', fecfin);
+    return this._http.get(this.url + 'infoMenuCompleto', HttpOptions)
+      .pipe(map(res => res));
+  }
+
+  public cantidadRecetas() {
+      const fecinicio = moment().add(1, 'days').tz('America/Argentina/Cordoba').format('YYYY-MM-DD');
+      const fecfin = moment().add(6, 'days').tz('America/Argentina/Cordoba').format('YYYY-MM-DD');
+      HttpOptions.params = new HttpParams().set('FechaInicio', fecinicio).set('FechaFin', fecfin);
+      return this._http.get(this.url + 'countRecetas', HttpOptions)
+        .pipe(map(res => res));
+    }
 }

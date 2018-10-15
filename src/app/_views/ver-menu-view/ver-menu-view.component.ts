@@ -11,34 +11,53 @@ import {Receta} from '../../_models/Receta';
   providers: [MenuService]
 })
 export class VerMenuViewComponent implements OnInit {
+  fechaHoy = moment().tz('America/Argentina/Cordoba').format('YYYY-MM-DD');
   RecetaElegida = new Receta(null, null, null, null, null, null, null, null, false, null, null, null);
+  Menu = new Menu(null, null, null);
+  auxiliar;
   verReceta: boolean;
   menuExist: boolean;
-  Menu = new Menu(null, null, null);
-  response;
   menuDay: string;
 
   constructor(public _MenuService: MenuService) {
   }
 
+  async verMenus() {
+    await this.verMenuHoy();
+    await this.generarMenuCompleto();
+  }
 
-  verMenu() {
-    this._MenuService.infoMenu().subscribe(response => {
-      if (response != null) {
-        this.menuExist = true;
-        this.response = response;
-        this.Menu = this.response;
-        this.Menu.Recetas.forEach(function (element) {
-          element.Receta.Nombre = element.Receta.Nombre[0].toUpperCase() + element.Receta.Nombre.substr(1).toLowerCase();
-        });
-        moment.locale('es');
-        if (moment().tz('America/Argentina/Cordoba').format('MM-DD-YYYY') ===
-          moment(this.Menu.Fecha).tz('America/Argentina/Cordoba').format('MM-DD-YYYY')) {
-          this.menuDay = 'Menu de Hoy';
-        } else {
-          this.menuDay = moment(this.Menu.Fecha).tz('America/Argentina/Cordoba').format('dddd');
-        }
-      }
+
+  async verMenuHoy() {
+    this.auxiliar = await this._MenuService.infoMenuHoy(this.fechaHoy).toPromise();
+    if (this.auxiliar != null) {
+      this.menuExist = true;
+      this.Menu = this.auxiliar;
+      this.Menu.Recetas.forEach(function (element) {
+        element.Receta.Nombre = element.Receta.Nombre[0].toUpperCase() + element.Receta.Nombre.substr(1).toLowerCase();
+      });
+      moment.locale('es');
+      // if (moment().tz('America/Argentina/Cordoba').format('MM-DD-YYYY') ===
+      //   moment(this.Menu.Fecha).tz('America/Argentina/Cordoba').format('MM-DD-YYYY')) {
+      //   this.menuDay = 'Menu de Hoy';
+      // } else {
+      //   this.menuDay = moment(this.Menu.Fecha).tz('America/Argentina/Cordoba').format('dddd');
+      // }
+    }
+  }
+
+  async generarMenuCompleto() {
+    let count = await this._MenuService.cantidadRecetas().toPromise();
+    count = Number(count);
+    if (count !== 7) {
+      await this._MenuService.generarMenu(count).toPromise();
+    }
+  }
+
+  verMenuCompleto() {
+    console.log('c');
+    this._MenuService.infoMenuCompleto().subscribe(response => {
+      console.log(response);
     });
   }
 
@@ -47,19 +66,18 @@ export class VerMenuViewComponent implements OnInit {
     this.verReceta = true;
   }
 
-  crearMenu() {
-    this._MenuService.generarMenu().subscribe(response => {
-      if (response != null) {
-        this.verMenu();
-      }
-    });
-  }
+  // generarMenu() {
+  //   this._MenuService.generarMenu().subscribe(response => {
+  //     if (response != null) {
+  //       this.verMenu();
+  //     }
+  //   });
+  // }
 
   ngOnInit() {
     this.menuExist = false;
     this.verReceta = false;
-    this.verMenu();
-
+    this.verMenus();
   }
 
 }

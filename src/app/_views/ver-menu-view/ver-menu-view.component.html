@@ -1,4 +1,9 @@
-<div *ngIf="menuExist">
+<div *ngIf="!menuExist; else terminado" align="center">
+  <br><br>
+  <mat-spinner></mat-spinner>
+  <span><strong>Cargando..</strong></span>
+</div>
+<ng-template #terminado>
   <div>
     <div [hidden]="verReceta">
       <mat-tab-group>
@@ -25,14 +30,5 @@
     </div>
     <app-informacion-receta *ngIf="verReceta" [RecetaElegida]="RecetaElegida" (volverEvent)="verReceta = $event"></app-informacion-receta>
   </div>
-</div>
-<div *ngIf="!menuExist">
-  <div align="center">
-    <p>
-      No hay menu existentes<br>
-      ¿Desea crear uno?
-    </p>
-    <button mat-flat-button (click)="crearMenu()">Crear</button>
-  </div>
-</div>
+</ng-template>
 
