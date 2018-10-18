@@ -25,6 +25,7 @@ export class VerMenuViewComponent implements OnInit {
   async verMenus() {
     await this.verMenuHoy();
     await this.generarMenuCompleto();
+    this.verMenuCompleto();
   }
 
 
@@ -47,10 +48,10 @@ export class VerMenuViewComponent implements OnInit {
   }
 
   async generarMenuCompleto() {
-    let count = await this._MenuService.cantidadRecetas().toPromise();
-    count = Number(count);
-    if (count !== 7) {
-      await this._MenuService.generarMenu(count).toPromise();
+    const count = await this._MenuService.cantidadMenus().toPromise();
+    if (count < 7) {
+      const menus = await this._MenuService.generarMenu().toPromise();
+      console.log(menus);
     }
   }
 
