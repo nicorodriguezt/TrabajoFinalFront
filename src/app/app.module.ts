@@ -6,13 +6,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LayoutModule} from '@angular/cdk/layout';
 
-// init
-import {AppInitService} from './_services/app-init.service';
-
-export function UsuarioLoggeado(firstLoadService: AppInitService) {
-  return () => firstLoadService.UserLogged();
-}
-
 // Angular Material
 import {
   MatButtonModule,
@@ -33,6 +26,7 @@ import {
   MatTabsModule,
   MatProgressSpinnerModule
 } from '@angular/material';
+import { NguCarouselModule } from '@ngu/carousel';
 
 // Guards
 import {AuthGuard} from './_guards/auth.guard';
@@ -55,11 +49,9 @@ import {LoginRegisterViewComponent} from './_views/login-register-view/login-reg
 import {HeaderViewComponent} from './_views/header-view/header-view.component';
 import {BuscadorViewComponent} from './_views/buscador-view/buscador-view.component';
 import {VerMenuViewComponent} from './_views/ver-menu-view/ver-menu-view.component';
-import {ProximosMenuViewComponent} from './_views/proximos-menu-view/proximos-menu-view.component';
 import {ModificarDatosViewComponent} from './_views/modificar-datos-view/modificar-datos-view.component';
 import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/recetas-favoritas-view.component';
-import {MatTabHeaderBase} from '@angular/material/tabs/typings/tab-header';
-import {MenuService} from './_services/menu.service';
+import { FooterVerMenuComponent } from './_components/footer-ver-menu/footer-ver-menu.component';
 
 
 @NgModule({
@@ -79,10 +71,10 @@ import {MenuService} from './_services/menu.service';
     BuscadorViewComponent,
     InformacionRecetaComponent,
     VerMenuViewComponent,
-    ProximosMenuViewComponent,
     ListaComprasComponent,
     ModificarDatosViewComponent,
-    RecetasFavoritasViewComponent
+    RecetasFavoritasViewComponent,
+    FooterVerMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -107,18 +99,12 @@ import {MenuService} from './_services/menu.service';
     MatTooltipModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NguCarouselModule
   ],
   providers: [
     AuthGuard,
-    LoginGuard,
-    AppInitService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: UsuarioLoggeado,
-      deps: [AppInitService],
-      multi: true
-    },
+    LoginGuard
   ],
   bootstrap: [AppComponent],
   entryComponents: [ActividadOverviewComponent, ActividadLaboralInfoComponent]

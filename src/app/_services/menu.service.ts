@@ -26,8 +26,8 @@ export class MenuService {
       .pipe(map(res => res));
   }
 
-  public infoMenuHoy(fecha) {
-    return this._http.get(this.url + 'infoMenuHoy/' + fecha, HttpOptions)
+  public infoMenuHoy() {
+    return this._http.get(this.url + 'menuHoy/', HttpOptions)
       .pipe(map(res => res));
   }
 

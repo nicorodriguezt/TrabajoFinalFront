@@ -24,13 +24,12 @@ export class VerMenuViewComponent implements OnInit {
 
   async verMenus() {
     await this.verMenuHoy();
-    await this.generarMenuCompleto();
     this.verMenuCompleto();
   }
 
 
   async verMenuHoy() {
-    this.auxiliar = await this._MenuService.infoMenuHoy(this.fechaHoy).toPromise();
+    this.auxiliar = await this._MenuService.infoMenuHoy().toPromise();
     if (this.auxiliar != null) {
       this.menuExist = true;
       this.Menu = this.auxiliar;
@@ -67,13 +66,6 @@ export class VerMenuViewComponent implements OnInit {
     this.verReceta = true;
   }
 
-  // generarMenu() {
-  //   this._MenuService.generarMenu().subscribe(response => {
-  //     if (response != null) {
-  //       this.verMenu();
-  //     }
-  //   });
-  // }
 
   ngOnInit() {
     this.menuExist = false;

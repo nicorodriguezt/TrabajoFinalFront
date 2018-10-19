@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProximosMenuViewComponent } from './proximos-menu-view.component';
+import { FooterVerMenuComponent } from './footer-ver-menu.component';
 
-describe('ProximosMenuViewComponent', () => {
-  let component: ProximosMenuViewComponent;
-  let fixture: ComponentFixture<ProximosMenuViewComponent>;
+describe('FooterVerMenuComponent', () => {
+  let component: FooterVerMenuComponent;
+  let fixture: ComponentFixture<FooterVerMenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProximosMenuViewComponent ]
+      declarations: [ FooterVerMenuComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProximosMenuViewComponent);
+    fixture = TestBed.createComponent(FooterVerMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
