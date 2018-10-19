@@ -26,7 +26,7 @@ export class AppInitService {
         localStorage.setItem('Logged', this.response._id);
         this._http.get(this.url + 'menu/countMenus', HttpOptions).toPromise().then(count => {
           if (count < 7) {
-            this._http.get(this.url + 'menu/menucompleto/', HttpOptions).subscribe();
+            // this._http.get(this.url + 'menu/menucompleto/', HttpOptions).subscribe();
           }
           resolve();
         }).catch(function () {
