@@ -1,35 +1,53 @@
-<div *ngIf="!menuExist; else terminado" align="center">
-  <br><br>
-  <mat-spinner></mat-spinner>
-  <span><strong>Cargando..</strong></span>
-</div>
-<ng-template #terminado>
-  <div>
-    <div [hidden]="verReceta">
-      <mat-tab-group>
-        <mat-tab label="{{menuDay}}">
-          <div>
-            <mat-card *ngFor="let receta of Menu?.Recetas" class="card-style">
-              <mat-card-title>{{receta.Receta.Nombre}}</mat-card-title>
-              <mat-card-content>
-                <p class="alignleft">
-                  <b>Momento:</b> {{receta.MomentoDelDia.Nombre}}<br>
-                  <b>Porcion/es:</b> {{receta.PorcionSugerida}} <b>Calorias:</b> {{receta.Receta.Calorias*(receta.PorcionSugerida)}}
-                </p>
-                <p class="alignright">
-                  <button mat-icon-button color="primary" (click)="verMas(receta.Receta)">Ver
-                    <mat-icon color="primary">arrow_right</mat-icon>
-                  </button>
-                </p>
-                <div style="clear: both;"></div>
-              </mat-card-content>
-            </mat-card>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-    <app-informacion-receta *ngIf="verReceta" [RecetaElegida]="RecetaElegida" (volverEvent)="verReceta = $event"></app-informacion-receta>
+<body>
+<section>
+  <div *ngIf="!menuExist; else terminado" align="center">
+    <br><br>
+    <mat-spinner></mat-spinner>
+    <span><strong>Cargando..</strong></span>
   </div>
-</ng-template>
-<app-footer-ver-menu class="footer"></app-footer-ver-menu>
+  <ng-template #terminado>
+    <ngu-carousel #carousel [inputs]="carouselTileConfig" [dataSource]="Menus">
+      <ngu-tile *nguCarouselDef="let item; let i = index;">
+        <div>
+          <div [hidden]="verReceta">
+            <div>
+              <div id="header" align="center">
+                <h1>{{item?.FechaLetra}}</h1>
+              </div>
+              <mat-card *ngFor="let receta of item?.Recetas" class="card-style">
+                <mat-card-title>{{receta.Receta.Nombre}}</mat-card-title>
+                <mat-card-content>
+                  <p class="alignleft">
+                    <b>Momento:</b> {{receta.MomentoDelDia.Nombre}}<br>
+                    <b>Porcion/es:</b> {{receta.PorcionSugerida}} <b>Calorias:</b>
+                    {{receta.Receta.Calorias*(receta.PorcionSugerida)}}
+                  </p>
+                  <p class="alignright">
+                    <button mat-icon-button color="primary" (click)="verMas(receta.Receta)">Ver
+                      <mat-icon color="primary">arrow_right</mat-icon>
+                    </button>
+                  </p>
+                  <div style="clear: both;"></div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </ngu-tile>
+      <ul class="myPoint" NguCarouselPoint>
+        <li *ngFor="let i of carousel.pointNumbers; let i = index" [class.active]="i==carousel.activePoint"
+            (click)="carousel.moveTo(i)"></li>
+      </ul>
+    </ngu-carousel>
+    <app-informacion-receta
+      *ngIf="verReceta" [RecetaElegida]="RecetaElegida" (volverEvent)="verReceta = $event">
+    </app-informacion-receta>
+  </ng-template>
+</section>
+</body>
+
+
+
+
+
 

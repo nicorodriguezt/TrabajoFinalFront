@@ -31,13 +31,9 @@ export class MenuService {
       .pipe(map(res => res));
   }
 
-  public infoMenuCompleto() {
-    return this._http.get(this.url + 'infoMenuCompleto', HttpOptions)
+  public MenuCompleto() {
+    return this._http.get(this.url + 'menucompleto/', HttpOptions)
       .pipe(map(res => res));
   }
 
-  public cantidadMenus() {
-    return this._http.get(this.url + 'countMenus', HttpOptions)
-        .pipe(map(res => res));
-    }
 }

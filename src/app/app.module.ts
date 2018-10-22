@@ -51,7 +51,6 @@ import {BuscadorViewComponent} from './_views/buscador-view/buscador-view.compon
 import {VerMenuViewComponent} from './_views/ver-menu-view/ver-menu-view.component';
 import {ModificarDatosViewComponent} from './_views/modificar-datos-view/modificar-datos-view.component';
 import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/recetas-favoritas-view.component';
-import { FooterVerMenuComponent } from './_components/footer-ver-menu/footer-ver-menu.component';
 
 
 @NgModule({
@@ -73,8 +72,7 @@ import { FooterVerMenuComponent } from './_components/footer-ver-menu/footer-ver
     VerMenuViewComponent,
     ListaComprasComponent,
     ModificarDatosViewComponent,
-    RecetasFavoritasViewComponent,
-    FooterVerMenuComponent
+    RecetasFavoritasViewComponent
   ],
   imports: [
     BrowserModule,
