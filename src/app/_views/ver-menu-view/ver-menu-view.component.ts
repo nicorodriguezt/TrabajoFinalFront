@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable, interval} from 'rxjs';
-import {NguCarouselConfig} from '@ngu/carousel';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {NguCarouselConfig, NguCarousel} from '@ngu/carousel';
 import * as moment from 'moment-timezone';
 import {MenuService} from '../../_services/menu.service';
 import {Menu} from '../../_models/Menu';
@@ -19,6 +18,8 @@ export class VerMenuViewComponent implements OnInit {
   auxiliar;
   verReceta: boolean;
   menuExist: boolean;
+  mainSlide;
+  @ViewChild('carousel') carousel: NguCarousel<any>;
 
   // Carousel Config
   public Menus = [];
@@ -29,7 +30,7 @@ export class VerMenuViewComponent implements OnInit {
       visible: true
     },
     touch: true,
-    loop: true,
+    loop: false,
     animation: 'lazy'
   };
 
@@ -38,13 +39,14 @@ export class VerMenuViewComponent implements OnInit {
 
   async verMenus() {
     await this.verMenuHoy();
-    this.verMenuCompleto();
+    await this.verMenuCompleto();
+    this.verMenuAnterio();
   }
-
 
   async verMenuHoy() {
     this.auxiliar = await this._MenuService.infoMenuHoy().toPromise();
     if (this.auxiliar != null) {
+      this.mainSlide = 0;
       this.Menus.push(this.auxiliar);
       this.menuExist = true;
       this.Menu = this.auxiliar;
@@ -55,9 +57,9 @@ export class VerMenuViewComponent implements OnInit {
     }
   }
 
-  verMenuCompleto() {
-    this._MenuService.MenuCompleto().subscribe(response => {
-      const aux = (Object.values(response));
+  async verMenuCompleto() {
+    const response = await this._MenuService.MenuCompleto().toPromise();
+    const aux = (Object.values(response));
       for (let i = 0; i < aux.length; i++) {
         aux[i].Recetas.forEach(function (element) {
           element.Receta.Nombre = element.Receta.Nombre[0].toUpperCase() + element.Receta.Nombre.substr(1).toLowerCase();
@@ -65,20 +67,31 @@ export class VerMenuViewComponent implements OnInit {
         this.setFecha(aux[i]);
         this.Menus.push(aux[i]);
       }
+  }
+
+  verMenuAnterio() {
+    this._MenuService.MenuAnterior().subscribe(response => {
+      const aux = (Object.values(response));
+      for (let i = 0; i < aux.length; i++) {
+        aux[i].Recetas.forEach(function (element) {
+          element.Receta.Nombre = element.Receta.Nombre[0].toUpperCase() + element.Receta.Nombre.substr(1).toLowerCase();
+        });
+        this.setFecha(aux[i]);
+        this.Menus.unshift(aux[i]);
+        this.mainSlide++;
+      }
+      this.carousel.moveTo(this.mainSlide, true);
     });
   }
 
   onmoveFn(movimiento) {
-    console.log(this.Menu);
+    console.log(movimiento)
     const i = movimiento.currentSlide;
     this.Menu = movimiento.dataSource[i];
-    console.log(this.Menu);
   }
 
   reemplazarMenu(id) {
     this._MenuService.reemplazarMenu(id).subscribe(response => {
-      debugger;
-      console.log(response);
     });
   }
 
@@ -92,7 +105,6 @@ export class VerMenuViewComponent implements OnInit {
       menu.FechaLetra = menu.FechaLetra[0].toUpperCase() + menu.FechaLetra.substr(1).toLowerCase();
     }
   }
-
 
   verMas(receta) {
     this.RecetaElegida = receta;

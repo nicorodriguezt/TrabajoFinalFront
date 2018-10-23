@@ -34,5 +34,10 @@ export class MenuService {
       .pipe(map(res => res));
   }
 
+  public MenuAnterior() {
+    return this._http.get(this.url + 'menuanterior/', HttpOptions)
+      .pipe(map(res => res));
+  }
+
 
 }
