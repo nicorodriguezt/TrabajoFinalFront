@@ -14,3 +14,13 @@
 .card-style {
   max-height: 175px;
 }
+
+.footer-buttom {
+  max-width: 30%;
+  min-width: 30%;
+}
+
+.dia-style {
+  font-size: 32px;
+  font-weight: bold;
+}
