@@ -12,6 +12,7 @@ export class InformacionRecetaComponent implements OnInit {
   @Input() RecetaElegida: Receta;
   @Output() volverEvent: EventEmitter<boolean> = new EventEmitter();
   DatosReceta;
+  recetaCargandoInfo = true;
 
   constructor(public _RecetaService: RecetaService) { }
 
@@ -23,6 +24,7 @@ export class InformacionRecetaComponent implements OnInit {
       this.RecetaElegida.Ingredientes.forEach(function (element) {
         element.Ingrediente.Nombre = element.Ingrediente.Nombre[0].toUpperCase() + element.Ingrediente.Nombre.substr(1).toLowerCase();
       });
+      this.recetaCargandoInfo = false;
     });
   }
 

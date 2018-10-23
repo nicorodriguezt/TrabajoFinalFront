@@ -1,10 +1,10 @@
 <div *ngIf="errorMensaje">
   <div class="alert alert-danger">
-    <strong>Error: </strong> Datos Incompletos
+    <strong>Error: </strong> {{errorMensaje}}
   </div>
 </div>
 <div>
-  <app-nuevo-datos-usuario [DatosUsuario]="DatosUsuario" (sendDataUsuario)="getDatosUsuario($event)" align="center"></app-nuevo-datos-usuario>
+  <app-nuevo-datos-usuario [DatosUsuario]="DatosUsuario" (sendDataUsuario)="getDatosUsuario($event)" (sendExist)="existDatos = $event" align="center"></app-nuevo-datos-usuario>
 </div>
 
 <div>
@@ -12,7 +12,7 @@
 </div>
 
 <div>
-  <app-actividad-fisica></app-actividad-fisica>
+  <app-actividad-fisica [hidden]="existDatos"></app-actividad-fisica>
   <br>
 </div>
 

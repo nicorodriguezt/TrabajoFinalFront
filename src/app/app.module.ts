@@ -1,11 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, APP_INITIALIZER} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LayoutModule} from '@angular/cdk/layout';
-
 
 // Angular Material
 import {
@@ -24,34 +23,35 @@ import {
   MatExpansionModule,
   MatTooltipModule,
   MatSnackBarModule,
-  MatTabsModule
+  MatTabsModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
+import { NguCarouselModule } from '@ngu/carousel';
 
 // Guards
 import {AuthGuard} from './_guards/auth.guard';
 import {LoginGuard} from './_guards/login.guard';
 
 // Components
-import { AppComponent} from './app.component';
-import { LoginComponent} from './_components/login/login.component';
-import { RegistroComponent} from './_components/registro/registro.component';
-import { MainMenuComponent} from './_components/main-menu/main-menu.component';
-import { NuevoDatosUsuarioComponent} from './_components/nuevo-datos-usuario/nuevo-datos-usuario.component';
-import { BuscarRecetasComponent} from './_components/buscar-recetas/buscar-recetas.component';
-import { ActividadFisicaComponent, ActividadOverviewComponent} from './_components/actividad-fisica/actividad-fisica.component';
-import { InformacionRecetaComponent} from './_components/informacion-receta/informacion-receta.component';
-import { ActividadLaboralComponent, ActividadLaboralInfoComponent} from './_components/actividad-laboral/actividad-laboral.component';
-import { ListaComprasComponent } from './_components/lista-compras/lista-compras.component';
+import {AppComponent} from './app.component';
+import {LoginComponent} from './_components/login/login.component';
+import {RegistroComponent} from './_components/registro/registro.component';
+import {MainMenuComponent} from './_components/main-menu/main-menu.component';
+import {NuevoDatosUsuarioComponent} from './_components/nuevo-datos-usuario/nuevo-datos-usuario.component';
+import {BuscarRecetasComponent} from './_components/buscar-recetas/buscar-recetas.component';
+import {ActividadFisicaComponent, ActividadOverviewComponent} from './_components/actividad-fisica/actividad-fisica.component';
+import {InformacionRecetaComponent} from './_components/informacion-receta/informacion-receta.component';
+import {ActividadLaboralComponent, ActividadLaboralInfoComponent} from './_components/actividad-laboral/actividad-laboral.component';
+import {ListaComprasComponent} from './_components/lista-compras/lista-compras.component';
 
 // Views
-import { LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
-import { HeaderViewComponent} from './_views/header-view/header-view.component';
-import { BuscadorViewComponent} from './_views/buscador-view/buscador-view.component';
-import { VerMenuViewComponent } from './_views/ver-menu-view/ver-menu-view.component';
-import { ProximosMenuViewComponent } from './_views/proximos-menu-view/proximos-menu-view.component';
-import { ModificarDatosViewComponent } from './_views/modificar-datos-view/modificar-datos-view.component';
-import { RecetasFavoritasViewComponent } from './_views/recetas-favoritas-view/recetas-favoritas-view.component';
-import {MatTabHeaderBase} from '@angular/material/tabs/typings/tab-header';
+import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
+import {HeaderViewComponent} from './_views/header-view/header-view.component';
+import {BuscadorViewComponent} from './_views/buscador-view/buscador-view.component';
+import {VerMenuViewComponent} from './_views/ver-menu-view/ver-menu-view.component';
+import {ModificarDatosViewComponent} from './_views/modificar-datos-view/modificar-datos-view.component';
+import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/recetas-favoritas-view.component';
+
 
 @NgModule({
   declarations: [
@@ -70,7 +70,6 @@ import {MatTabHeaderBase} from '@angular/material/tabs/typings/tab-header';
     BuscadorViewComponent,
     InformacionRecetaComponent,
     VerMenuViewComponent,
-    ProximosMenuViewComponent,
     ListaComprasComponent,
     ModificarDatosViewComponent,
     RecetasFavoritasViewComponent
@@ -97,11 +96,16 @@ import {MatTabHeaderBase} from '@angular/material/tabs/typings/tab-header';
     MatCardModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule,
+    NguCarouselModule
   ],
-  providers: [AuthGuard, LoginGuard],
+  providers: [
+    AuthGuard,
+    LoginGuard
+  ],
   bootstrap: [AppComponent],
-  entryComponents: [ ActividadOverviewComponent, ActividadLaboralInfoComponent]
+  entryComponents: [ActividadOverviewComponent, ActividadLaboralInfoComponent]
 })
 export class AppModule {
 }

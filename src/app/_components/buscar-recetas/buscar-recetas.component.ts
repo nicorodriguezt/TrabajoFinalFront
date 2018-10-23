@@ -16,6 +16,8 @@ export class BuscarRecetasComponent {
   limit = 6;
   pagina = 0;
   controlPaginas;
+  recetasSearching = false;
+  MensajeBusqueda = '';
 
   constructor(
     private _RecetaService: RecetaService
@@ -23,9 +25,12 @@ export class BuscarRecetasComponent {
   }
 
   public buscar() {
+    this.recetasSearching = true;
+    this.MensajeBusqueda = '';
     this.results = [];
     if (this.RecetaBuscada.Nombre !== '') {
       this._RecetaService.buscar(this.RecetaBuscada, this.skip, this.limit).subscribe(response => {
+        this.recetasSearching = false;
         const aux = (Object.values(response));
         if (aux.length !== 0) {
           this.controlPaginas = aux.length;
@@ -36,9 +41,18 @@ export class BuscarRecetasComponent {
               this.results.push(aux[i]);
             }
           }
+        } else {
+          this.MensajeBusqueda = 'No se encontraron recetas';
         }
       });
     }
+  }
+
+  public handleBuscar() {
+    this.skip = 0;
+    this.limit = 6;
+    this.pagina = 0;
+    this.buscar();
   }
 
   public forward() {
@@ -53,13 +67,6 @@ export class BuscarRecetasComponent {
     this.pagina--;
     this.pagina--;
     this.buscar();
-  }
-
-  TextoBuscadoReset() {
-    this.pagina = 0;
-    this.skip = 0;
-    this.limit = 6;
-    this.results = [];
   }
 
   verMas(recetaElegida) {
