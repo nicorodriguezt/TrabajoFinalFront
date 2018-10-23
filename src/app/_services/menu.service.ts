@@ -2,8 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {backend} from './globalconfig';
-import {Router} from '@angular/router';
-import * as moment from 'moment-timezone';
 
 const HttpOptions = {
   headers: new HttpHeaders({
@@ -17,13 +15,8 @@ const HttpOptions = {
 export class MenuService {
   public url: string;
 
-  constructor(private _http: HttpClient, private _router: Router) {
+  constructor(private _http: HttpClient) {
     this.url = backend + 'menu/';
-  }
-
-  public generarMenu() {
-    return this._http.get(this.url + 'menucompleto/', HttpOptions)
-      .pipe(map(res => res));
   }
 
   public infoMenuHoy() {
@@ -35,5 +28,11 @@ export class MenuService {
     return this._http.get(this.url + 'menucompleto/', HttpOptions)
       .pipe(map(res => res));
   }
+
+  public reemplazarMenu(id) {
+    return this._http.get(this.url + 'modificarmenu/' + id, HttpOptions)
+      .pipe(map(res => res));
+  }
+
 
 }

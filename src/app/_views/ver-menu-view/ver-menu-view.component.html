@@ -6,8 +6,8 @@
     <span><strong>Cargando..</strong></span>
   </div>
   <ng-template #terminado>
-    <ngu-carousel #carousel [inputs]="carouselTileConfig" [dataSource]="Menus">
-      <ngu-tile *nguCarouselDef="let item; let i = index;">
+    <ngu-carousel #carousel [inputs]="carouselTileConfig" [dataSource]="Menus"  (onMove)="onmoveFn($event)" (carouselLoad)="onmoveFn($event)" >
+      <ngu-tile *nguCarouselDef="let item;" >
         <div>
           <div [hidden]="verReceta">
             <div>
@@ -34,11 +34,13 @@
           </div>
         </div>
       </ngu-tile>
-      <ul class="myPoint" NguCarouselPoint>
-        <li *ngFor="let i of carousel.pointNumbers; let i = index" [class.active]="i==carousel.activePoint"
-            (click)="carousel.moveTo(i)"></li>
-      </ul>
     </ngu-carousel>
+    <div align="center">
+      <button mat-flat-button color="primary" (click)="reemplazarMenu(Menu._id)">Reemplazar</button>
+    </div>
+
+
+
     <app-informacion-receta
       *ngIf="verReceta" [RecetaElegida]="RecetaElegida" (volverEvent)="verReceta = $event">
     </app-informacion-receta>

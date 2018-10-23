@@ -15,7 +15,7 @@ import {Receta} from '../../_models/Receta';
 })
 export class VerMenuViewComponent implements OnInit {
   RecetaElegida = new Receta(null, null, null, null, null, null, null, null, false, null, null, null);
-  Menu = new Menu(null, null, null);
+  Menu = new Menu(null, null, null, null);
   auxiliar;
   verReceta: boolean;
   menuExist: boolean;
@@ -68,6 +68,19 @@ export class VerMenuViewComponent implements OnInit {
     });
   }
 
+  onmoveFn(movimiento) {
+    console.log(this.Menu);
+    const i = movimiento.currentSlide;
+    this.Menu = movimiento.dataSource[i];
+    console.log(this.Menu);
+  }
+
+  reemplazarMenu(id) {
+    this._MenuService.reemplazarMenu(id).subscribe(response => {
+      debugger;
+      console.log(response);
+    });
+  }
 
   setFecha(menu) {
     moment.locale('es');
@@ -82,7 +95,6 @@ export class VerMenuViewComponent implements OnInit {
 
 
   verMas(receta) {
-    debugger;
     this.RecetaElegida = receta;
     this.verReceta = true;
   }
