@@ -26,7 +26,7 @@ import {
   MatTabsModule,
   MatProgressSpinnerModule
 } from '@angular/material';
-import { NguCarouselModule } from '@ngu/carousel';
+import {NguCarouselModule} from '@ngu/carousel';
 
 // Guards
 import {AuthGuard} from './_guards/auth.guard';
@@ -48,7 +48,11 @@ import {ListaComprasComponent} from './_components/lista-compras/lista-compras.c
 import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
 import {HeaderViewComponent} from './_views/header-view/header-view.component';
 import {BuscadorViewComponent} from './_views/buscador-view/buscador-view.component';
-import {VerMenuViewComponent} from './_views/ver-menu-view/ver-menu-view.component';
+import {
+  VerMenuViewComponent,
+  VerMenuCargarRecetaComponent,
+  VerMenuConfirmRemComponent
+} from './_views/ver-menu-view/ver-menu-view.component';
 import {ModificarDatosViewComponent} from './_views/modificar-datos-view/modificar-datos-view.component';
 import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/recetas-favoritas-view.component';
 
@@ -70,6 +74,8 @@ import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/rec
     BuscadorViewComponent,
     InformacionRecetaComponent,
     VerMenuViewComponent,
+    VerMenuCargarRecetaComponent,
+    VerMenuConfirmRemComponent,
     ListaComprasComponent,
     ModificarDatosViewComponent,
     RecetasFavoritasViewComponent
@@ -105,7 +111,12 @@ import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/rec
     LoginGuard
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ActividadOverviewComponent, ActividadLaboralInfoComponent]
+  entryComponents: [
+    ActividadOverviewComponent,
+    ActividadLaboralInfoComponent,
+    VerMenuConfirmRemComponent,
+    VerMenuCargarRecetaComponent
+  ]
 })
 export class AppModule {
 }

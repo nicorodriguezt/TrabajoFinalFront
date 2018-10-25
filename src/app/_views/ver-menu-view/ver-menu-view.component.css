@@ -15,12 +15,22 @@
   max-height: 175px;
 }
 
-.footer-buttom {
-  max-width: 30%;
-  min-width: 30%;
-}
 
 .dia-style {
   font-size: 32px;
   font-weight: bold;
+}
+
+footer.footer-menu {
+  position:fixed;
+  bottom:0px;
+  background-color: #3f51b5;
+  width:100%;
+}
+
+footer.footer-menu button {
+  width: 33%;
+  align-items: center;
+  height: 50px;
+  color: white;
 }

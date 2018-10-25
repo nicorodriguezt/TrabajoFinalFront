@@ -47,11 +47,18 @@
           </div>
         </ngu-tile>
       </ngu-carousel>
-      <div align="center">
-        <button mat-stroked-button color="primary" [disabled]="mainSlide>carousel.currentSlide" class="footer-buttom" (click)="reemplazarMenu(Menu._id)">Reemplazar</button>
-        <button mat-stroked-button color="primary" class="footer-buttom">Cambiar Receta</button>
-        <button mat-stroked-button color="primary" [disabled]="mainSlide>carousel.currentSlide" >Lista de compras</button>
-      </div>
+      <div style="height: 50px"></div>
+      <footer class="footer-menu">
+        <button mat-icon-button [disabled]="mainSlide>carousel.currentSlide" class="btn-block" (click)="reemplazarMenu(Menu._id)">
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-icon-button >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button [disabled]="mainSlide>carousel.currentSlide" >
+          <mat-icon>local_grocery_store</mat-icon>
+        </button>
+      </footer>
     </div>
     <app-informacion-receta
       *ngIf="verReceta" [RecetaElegida]="RecetaElegida" (volverEvent)="verReceta = $event">
