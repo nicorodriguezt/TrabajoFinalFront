@@ -22,8 +22,10 @@ import {
   MatCardModule,
   MatExpansionModule,
   MatTooltipModule,
+  MatTableModule,
   MatSnackBarModule,
   MatTabsModule,
+  MatCheckboxModule,
   MatProgressSpinnerModule
 } from '@angular/material';
 import {NguCarouselModule} from '@ngu/carousel';
@@ -104,7 +106,9 @@ import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/rec
     MatSnackBarModule,
     MatTabsModule,
     MatProgressSpinnerModule,
-    NguCarouselModule
+    MatCheckboxModule,
+    NguCarouselModule,
+    MatTableModule
   ],
   providers: [
     AuthGuard,

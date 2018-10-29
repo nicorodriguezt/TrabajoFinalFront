@@ -68,6 +68,7 @@ export class VerMenuViewComponent implements OnInit {
       this.setFecha(aux[i]);
       this.Menus.push(aux[i]);
     }
+    this.carousel.moveTo(this.mainSlide, true);
   }
 
   verMenuAnterio() {
@@ -127,12 +128,21 @@ export class VerMenuViewComponent implements OnInit {
     });
   }
 
+  cambiarInfoReceta() {
+    const dialogRef = this.dialog.open(VerMenuCargarRecetaComponent, {
+      maxWidth: '95%',
+      data: this.Menu
+    });
+
+    dialogRef.afterClosed().subscribe();
+  }
+
 }
 
 @Component({
   selector: 'app-ver-menu-view-confirmar',
   templateUrl: './ver-menu-view-confirmar.component.html',
-  styleUrls: ['./ver-menu-view.component.css'],
+  styleUrls: ['./ver-menu-view.component.css']
 })
 export class VerMenuConfirmRemComponent {
 
@@ -154,12 +164,19 @@ export class VerMenuConfirmRemComponent {
   selector: 'app-ver-menu-view-cargar-receta',
   templateUrl: './ver-menu-view-cargar-receta.component.html',
   styleUrls: ['./ver-menu-view.component.css'],
+  providers: [MenuService]
 })
 export class VerMenuCargarRecetaComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              public dialogRef: MatDialogRef<VerMenuConfirmRemComponent>) {
+              public dialogRef: MatDialogRef<VerMenuCargarRecetaComponent>,
+              public _MenuService: MenuService) {
   }
 
+  modificarReceta() {
+    this._MenuService.cambiarEstado(this.data).subscribe(response => {
+    });
+
+  }
 }
 
