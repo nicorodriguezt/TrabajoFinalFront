@@ -4,7 +4,8 @@ import * as moment from 'moment-timezone';
 import {MenuService} from '../../_services/menu.service';
 import {Menu} from '../../_models/Menu';
 import {Receta} from '../../_models/Receta';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import {ActividadfisicaService} from '../../_services/actividadfisica.service';
 
 
 @Component({
@@ -35,7 +36,14 @@ export class VerMenuViewComponent implements OnInit {
     animation: 'lazy'
   };
 
-  constructor(public _MenuService: MenuService, public dialog: MatDialog) {
+  constructor(public _MenuService: MenuService, public dialog: MatDialog,
+              public snackBar: MatSnackBar) {
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
   async verMenus() {
@@ -134,7 +142,11 @@ export class VerMenuViewComponent implements OnInit {
       data: this.Menu
     });
 
-    dialogRef.afterClosed().subscribe();
+    dialogRef.afterClosed().subscribe( x => {
+      if (x) {
+        this.openSnackBar('Cargado con exito', 'Descartar');
+      }
+    });
   }
 
 }
@@ -174,9 +186,12 @@ export class VerMenuCargarRecetaComponent {
   }
 
   modificarReceta() {
-    this._MenuService.cambiarEstado(this.data).subscribe(response => {
-    });
+    this._MenuService.cambiarEstado(this.data).subscribe();
+    this.dialogRef.close(true);
+  }
 
+  cancelar() {
+    this.dialogRef.close(false);
   }
 }
 
