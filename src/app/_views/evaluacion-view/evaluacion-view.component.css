@@ -1,0 +1,18 @@
+.example-stretched-tabs {
+  max-width: 800px;
+}
+
+
+footer.footer-menu {
+  position:fixed;
+  bottom:0px;
+  background-color: #3f51b5;
+  width:100%;
+}
+
+footer.footer-menu button {
+  width: 33%;
+  align-items: center;
+  height: 50px;
+  color: white;
+}

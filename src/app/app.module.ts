@@ -30,6 +30,7 @@ import {
 } from '@angular/material';
 import {NguCarouselModule} from '@ngu/carousel';
 
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 // Guards
 import {AuthGuard} from './_guards/auth.guard';
 import {LoginGuard} from './_guards/login.guard';
@@ -57,6 +58,7 @@ import {
 } from './_views/ver-menu-view/ver-menu-view.component';
 import {ModificarDatosViewComponent} from './_views/modificar-datos-view/modificar-datos-view.component';
 import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/recetas-favoritas-view.component';
+import { EvaluacionViewComponent } from './_views/evaluacion-view/evaluacion-view.component';
 
 
 @NgModule({
@@ -80,7 +82,8 @@ import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/rec
     VerMenuConfirmRemComponent,
     ListaComprasComponent,
     ModificarDatosViewComponent,
-    RecetasFavoritasViewComponent
+    RecetasFavoritasViewComponent,
+    EvaluacionViewComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +111,8 @@ import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/rec
     MatProgressSpinnerModule,
     MatCheckboxModule,
     NguCarouselModule,
-    MatTableModule
+    MatTableModule,
+    NgxChartsModule
   ],
   providers: [
     AuthGuard,
