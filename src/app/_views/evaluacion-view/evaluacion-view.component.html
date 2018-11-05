@@ -1,4 +1,7 @@
 <div>
+  <div>
+    <span style="color: sandybrown;">Evaluacion: {{diaEvaluacion}}</span>
+  </div>
   <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
     <mat-tab label="Calorias">
       <div style="display: block; flex: auto" align="center">
@@ -28,7 +31,7 @@
   <button mat-icon-button >
     <mat-icon>edit</mat-icon>
   </button>
-  <button mat-icon-button class="config">
+  <button mat-icon-button class="config" (click)="configuracion()">
     <mat-icon>settings</mat-icon>
   </button>
 </footer>

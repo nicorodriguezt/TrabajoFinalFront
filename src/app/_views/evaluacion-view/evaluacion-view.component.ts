@@ -11,6 +11,9 @@ import {VerMenuConfirmRemComponent} from '../ver-menu-view/ver-menu-view.compone
 })
 export class EvaluacionViewComponent implements OnInit {
 
+  mostrarSemana = true;
+  diaEvaluacion = 'Semana';
+
   public radarChartLabels: string[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
 
   public radarChartData: any = [
@@ -87,12 +90,24 @@ export class EvaluacionViewComponent implements OnInit {
   }
 
   switchSemana() {
-    const dialogRef = this.dialog.open(EvaluacionSwitchComponent, {
-      width: '80%'
-    });
-    dialogRef.afterClosed().subscribe(res => {
-    });
-
+    this.mostrarSemana = !this.mostrarSemana;
+    if (!this.mostrarSemana) {
+      const dialogRef = this.dialog.open(EvaluacionSwitchComponent, {
+        width: '80%'
+      });
+      dialogRef.afterClosed().subscribe(res => {
+        if (res !== undefined) {
+          this.diaEvaluacion = res;
+        } else {
+          this.mostrarSemana = !this.mostrarSemana;
+        }
+      });
+      dialogRef.backdropClick().subscribe(x => {
+        this.mostrarSemana = !this.mostrarSemana;
+      });
+    } else {
+      this.diaEvaluacion = 'Semana';
+    }
   }
 
   historial() {
@@ -109,6 +124,9 @@ export class EvaluacionViewComponent implements OnInit {
       width: '80%'
     });
     dialogRef.afterClosed().subscribe(res => {
+      if (res !== undefined) {
+        console.log(res);
+      }
     });
 
   }
@@ -126,8 +144,11 @@ export class EvaluacionSwitchComponent {
               public dialogRef: MatDialogRef<EvaluacionSwitchComponent>) {
   }
 
-  confirmar() {
-    this.dialogRef.close();
+  DiasSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+  Selected;
+
+  confirmar(dia) {
+    this.dialogRef.close(dia);
   }
 
   cancelar() {
@@ -147,8 +168,17 @@ export class EvaluacionConfigComponent {
               public dialogRef: MatDialogRef<EvaluacionConfigComponent>) {
   }
 
-  modificarReceta() {
-    this.dialogRef.close();
+  DiasSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+  Selected = {
+    dia: null,
+    config: null
+  }
+  defaultConfig = [
+    {value: true, titulo: 'Semana'},
+    {value: false, titulo: 'Dia'}];
+
+  confirmar(res) {
+    this.dialogRef.close(res);
   }
 
   cancelar() {
