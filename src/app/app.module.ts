@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, APP_INITIALIZER} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
@@ -28,9 +28,18 @@ import {
   MatCheckboxModule,
   MatProgressSpinnerModule
 } from '@angular/material';
-import {NguCarouselModule} from '@ngu/carousel';
+import { NguCarouselModule} from '@ngu/carousel';
 
-import {NgxChartsModule} from '@swimlane/ngx-charts';
+// Charts
+import { ChartsModule } from 'ng2-charts';
+import { FusionChartsModule} from 'angular-fusioncharts';
+import * as Widgets from 'fusioncharts/fusioncharts.widgets';
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import * as PowerCharts from 'fusioncharts/fusioncharts.powercharts';
+FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme, PowerCharts);
+
 // Guards
 import {AuthGuard} from './_guards/auth.guard';
 import {LoginGuard} from './_guards/login.guard';
@@ -58,7 +67,12 @@ import {
 } from './_views/ver-menu-view/ver-menu-view.component';
 import {ModificarDatosViewComponent} from './_views/modificar-datos-view/modificar-datos-view.component';
 import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/recetas-favoritas-view.component';
-import { EvaluacionViewComponent } from './_views/evaluacion-view/evaluacion-view.component';
+import {
+  EvaluacionViewComponent,
+  EvaluacionConfigComponent,
+  EvaluacionHistorialComponent,
+  EvaluacionSwitchComponent
+} from './_views/evaluacion-view/evaluacion-view.component';
 
 
 @NgModule({
@@ -83,7 +97,10 @@ import { EvaluacionViewComponent } from './_views/evaluacion-view/evaluacion-vie
     ListaComprasComponent,
     ModificarDatosViewComponent,
     RecetasFavoritasViewComponent,
-    EvaluacionViewComponent
+    EvaluacionViewComponent,
+    EvaluacionConfigComponent,
+    EvaluacionHistorialComponent,
+    EvaluacionSwitchComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +129,8 @@ import { EvaluacionViewComponent } from './_views/evaluacion-view/evaluacion-vie
     MatCheckboxModule,
     NguCarouselModule,
     MatTableModule,
-    NgxChartsModule
+    ChartsModule,
+    FusionChartsModule
   ],
   providers: [
     AuthGuard,
@@ -123,7 +141,10 @@ import { EvaluacionViewComponent } from './_views/evaluacion-view/evaluacion-vie
     ActividadOverviewComponent,
     ActividadLaboralInfoComponent,
     VerMenuConfirmRemComponent,
-    VerMenuCargarRecetaComponent
+    VerMenuCargarRecetaComponent,
+    EvaluacionConfigComponent,
+    EvaluacionHistorialComponent,
+    EvaluacionSwitchComponent
   ]
 })
 export class AppModule {

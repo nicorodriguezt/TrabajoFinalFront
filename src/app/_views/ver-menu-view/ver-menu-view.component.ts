@@ -5,7 +5,6 @@ import {MenuService} from '../../_services/menu.service';
 import {Menu} from '../../_models/Menu';
 import {Receta} from '../../_models/Receta';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
-import {ActividadfisicaService} from '../../_services/actividadfisica.service';
 
 
 @Component({

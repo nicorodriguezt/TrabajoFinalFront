@@ -18,8 +18,13 @@ export class EvaluacionService {
     this.url = backend + 'evaluacion/';
   }
 
-  public getEvaluacion() {
-    return this._http.get(this.url + 'resultados/', HttpOptions)
+  public getEvaluacionSemana() {
+    return this._http.get(this.url + 'EvaluacionSemana/', HttpOptions)
+      .pipe(map(res => res));
+  }
+
+  public getEvaluacionDia() {
+    return this._http.get(this.url + 'EvaluacionDia/', HttpOptions)
       .pipe(map(res => res));
   }
 }
