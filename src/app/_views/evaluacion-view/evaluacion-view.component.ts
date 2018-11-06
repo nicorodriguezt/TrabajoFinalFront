@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {EvaluacionService} from '../../_services/evaluacion.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import * as moment from 'moment-timezone';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-evaluacion-view',
@@ -10,14 +12,19 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/ma
 })
 export class EvaluacionViewComponent implements OnInit {
 
-  mostrarSemana = true;
-  diaEvaluacion = 'Semana';
   ValoresSemana;
   ValoresDia;
   ValoresSelected;
+  cargaDatos = false;
+
+  // Periodo
+  mostrarSemana = true;
+  diaEvaluacion = 'Semana';
+
+  // Gauge Declaraciones
   CaloriasRecomendada;
   CaloriasRequerida;
-  cargaDatos = false;
+
 
   public InfoCalorias = {
     // Configuracion
@@ -85,15 +92,15 @@ export class EvaluacionViewComponent implements OnInit {
 
   public InfoValores = {
     radarChartLabels:
-      ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
+      [],
     radarChartData: [{
       data:
-        [65, 59, 90, 81, 56, 55, 40],
-      label: 'Series A'
+        [],
+      label: 'Ingerido'
     }, {
       data:
-        [28, 48, 40, 19, 96, 27, 100],
-      label: 'Series B'
+        [],
+      label: 'Sugerido'
     }],
     radarChartType: 'radar'
   };
@@ -110,22 +117,30 @@ export class EvaluacionViewComponent implements OnInit {
 
     console.log(this.ValoresDia);
     if (this.mostrarSemana) {
+
       this.graficoCalorias(this.ValoresSemana);
+      this.graficoValores(this.ValoresSemana);
+
     } else {
-      this.graficoCalorias(this.ValoresDia);
+      for (let i = 0; i < this.ValoresDia.length; i++) {
+        const diaA = moment(this.ValoresDia[i].FechaInicio).format('MM DD YYYY');
+        const diaB = moment().subtract(i, 'days').format('MM DD YYYY');
+        if (diaA === diaB) {
+          this.graficoCalorias(this.ValoresDia[i]);
+          this.graficoValores(this.ValoresDia[i]);
+        }
+      }
     }
   }
 
-  async graficoCalorias(Periodo) {
+  graficoCalorias(Periodo) {
     // Definiciones
     let i = 0, ubicacion = 0;
-    const porcMin = [0, 0.1, 0.3, 0.7, 0.9];
-    const porcMax = [0.1, 0.3, 0.7, 0.9, 1];
+    const porcMin = [0, 0.15, 0.42, 0.58, 0.85];
+    const porcMax = [0.15, 0.42, 0.58, 0.85, 1];
     const colores = ['#e44a00', '#f8bd19', '#6baa01', '#f8bd19', '#e44a00'];
     const subCaption = ['MUY BAJO', 'BAJO', 'BIEN', 'ALTO', 'DEMASIADO'];
     this.ValoresSelected = Periodo;
-
-    console.log(Periodo);
     const calorias = Periodo.Valores.find(x => x.ValorNutricional.Nombre === 'Calorias');
 
     // Calorias requeridas SIN COLACION (CAMBIAR)
@@ -134,10 +149,10 @@ export class EvaluacionViewComponent implements OnInit {
     this.CaloriasRecomendada = calorias.CantidadConsumida;
 
     this.InfoCalorias.chart.upperLimit = CaloriasRequerida * 2;
-    this.InfoCalorias.colorRange.color.forEach(function (element) {
-      element.minValue = ((CaloriasRequerida * 2) * porcMin[i]);
-      element.maxValue = ((CaloriasRequerida * 2) * porcMax[i]);
-      if (element.minValue < calorias.CantidadConsumida && element.maxValue > calorias.CantidadConsumida) {
+    this.InfoCalorias.colorRange.color.forEach(function (elem) {
+      elem.minValue = ((CaloriasRequerida * 2) * porcMin[i]);
+      elem.maxValue = ((CaloriasRequerida * 2) * porcMax[i]);
+      if (elem.minValue < calorias.CantidadConsumida && elem.maxValue > calorias.CantidadConsumida) {
         ubicacion = i;
       }
       i++;
@@ -145,11 +160,25 @@ export class EvaluacionViewComponent implements OnInit {
     this.InfoCalorias.dials.dial.forEach(x => x.value = calorias.CantidadConsumida);
     this.InfoCalorias.chart.subCaption = subCaption[ubicacion];
     this.InfoCalorias.chart.subcaptionFontColor = colores[ubicacion];
-
   }
 
-  async graficoValores() {
+  graficoValores(Periodo) {
+    this.ValoresSelected = Periodo;
 
+    for (let i = 0; i < Periodo.Valores.length; i++) {
+      const elemento = Periodo.Valores[i];
+      if (elemento.ValorNutricional.Nombre !== 'Calorias') {
+        this.InfoValores.radarChartLabels.push(elemento.ValorNutricional.Nombre);
+        this.InfoValores.radarChartData.map(x => {
+          if (x.label === 'Ingerido') {
+            x.data.push(elemento.CantidadConsumida);
+          } else {
+            x.data.push(elemento.CantidadRequerida);
+          }
+        });
+      }
+    }
+    console.log(this.InfoValores);
   }
 
   openSnackBar(message: string, action: string) {
@@ -167,6 +196,13 @@ export class EvaluacionViewComponent implements OnInit {
       dialogRef.afterClosed().subscribe(res => {
         if (res !== undefined) {
           this.diaEvaluacion = res;
+          for (let i = 0; i < this.ValoresDia.length; i++) {
+            let dia = moment(this.ValoresDia[i].FechaInicio).format('dddd D/MM');
+            dia = dia[0].toUpperCase() + dia.substr(1).toLowerCase();
+            if (dia === res) {
+              this.graficoCalorias(this.ValoresDia[i]);
+            }
+          }
         } else {
           this.mostrarSemana = !this.mostrarSemana;
         }
@@ -176,6 +212,7 @@ export class EvaluacionViewComponent implements OnInit {
       });
     } else {
       this.diaEvaluacion = 'Semana';
+      this.graficoCalorias(this.ValoresSemana);
     }
   }
 
@@ -207,13 +244,13 @@ export class EvaluacionViewComponent implements OnInit {
   templateUrl: './evaluacion-view-switch.component.html',
   styleUrls: ['./evaluacion-view.component.css'],
 })
-export class EvaluacionSwitchComponent {
+export class EvaluacionSwitchComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<EvaluacionSwitchComponent>) {
   }
 
-  DiasSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+  DiasSemana = [];
   Selected;
 
   confirmar(dia) {
@@ -222,6 +259,15 @@ export class EvaluacionSwitchComponent {
 
   cancelar() {
     this.dialogRef.close();
+  }
+
+  ngOnInit() {
+    moment.locale('es');
+    for (let i = 1; i < 8; i++) {
+      let dia = moment().tz('America/Argentina/Cordoba').subtract(i, 'days').format('dddd D/MM');
+      dia = dia[0].toUpperCase() + dia.substr(1).toLowerCase();
+      this.DiasSemana.push(dia);
+    }
   }
 
 }

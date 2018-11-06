@@ -22,7 +22,7 @@
               <br>
               <b>Consumiste: </b> {{CaloriasRecomendada}}/{{CaloriasRequerida}} cal.
               <br>
-              En base a todos tus valores nutricionales te sugerimos lo siguiente:
+              Te sugerimos los siguientes consejos:
             </mat-card>
             <div *ngFor="let consejo of ValoresSelected?.Consejos">
               <mat-card>{{consejo}}</mat-card>
@@ -39,6 +39,20 @@
                   [labels]="InfoValores.radarChartLabels"
                   [chartType]="InfoValores.radarChartType"
           ></canvas>
+        </div>
+        <div align="justify">
+          <mat-card>
+            <span>
+              <b>Pediodo de evalacion: </b>{{diaEvaluacion}}
+            </span>
+            <br>
+            <b>Consumiste: </b> {{CaloriasRecomendada}}/{{CaloriasRequerida}} cal.
+            <br>
+            Te sugerimos los siguientes consejos:
+          </mat-card>
+          <div *ngFor="let consejo of ValoresSelected?.Consejos">
+            <mat-card>{{consejo}}</mat-card>
+          </div>
         </div>
       </mat-tab>
     </mat-tab-group>
