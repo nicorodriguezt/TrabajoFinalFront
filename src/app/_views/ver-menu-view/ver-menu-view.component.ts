@@ -19,6 +19,7 @@ export class VerMenuViewComponent implements OnInit {
   Menu = new Menu(null, null, null, null);
   auxiliar;
   verReceta: boolean;
+  verListaCompras: boolean;
   menuExist: boolean;
   mainSlide;
 
@@ -109,10 +110,15 @@ export class VerMenuViewComponent implements OnInit {
     this.verReceta = true;
   }
 
+  listaCompras() {
+    this.verListaCompras = true;
+  }
+
   ngOnInit() {
     this.Menus = [];
     this.menuExist = false;
     this.verReceta = false;
+    this.verListaCompras = false;
     this.verMenus();
   }
 

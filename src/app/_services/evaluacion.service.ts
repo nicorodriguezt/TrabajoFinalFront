@@ -27,4 +27,12 @@ export class EvaluacionService {
     return this._http.get(this.url + 'EvaluacionDia/', HttpOptions)
       .pipe(map(res => res));
   }
+
+  public configuracionUsuario(datos) {
+    const json = JSON.stringify(datos);
+    const params = json;
+
+    return this._http.post(this.url + 'configuracion/', params, HttpOptions)
+      .pipe(map(res => res));
+  }
 }

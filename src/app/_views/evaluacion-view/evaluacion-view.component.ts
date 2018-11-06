@@ -2,13 +2,13 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {EvaluacionService} from '../../_services/evaluacion.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import * as moment from 'moment-timezone';
-import {element} from 'protractor';
+import {DatosUsuarioService} from '../../_services/datos-usuario.service';
 
 @Component({
   selector: 'app-evaluacion-view',
   templateUrl: './evaluacion-view.component.html',
   styleUrls: ['./evaluacion-view.component.css'],
-  providers: [EvaluacionService]
+  providers: [EvaluacionService, DatosUsuarioService]
 })
 export class EvaluacionViewComponent implements OnInit {
 
@@ -16,9 +16,10 @@ export class EvaluacionViewComponent implements OnInit {
   ValoresDia;
   ValoresSelected;
   cargaDatos = false;
+  datosUsuario;
 
   // Periodo
-  mostrarSemana = true;
+  mostrarSemana;
   diaEvaluacion = 'Semana';
 
   // Gauge Declaraciones
@@ -106,26 +107,32 @@ export class EvaluacionViewComponent implements OnInit {
   };
 
   constructor(private _EvaluacionService: EvaluacionService,
+              private _DatosUsuarioService: DatosUsuarioService,
               public dialog: MatDialog,
               public snackBar: MatSnackBar) {
   }
 
   async ngOnInit() {
+    this.datosUsuario = await this._DatosUsuarioService.getDatos().toPromise();
     this.ValoresDia = await this._EvaluacionService.getEvaluacionDia().toPromise();
     this.ValoresSemana = await this._EvaluacionService.getEvaluacionSemana().toPromise();
     this.cargaDatos = true;
+    this.mostrarSemana = this.datosUsuario.DefaultEvaluacion;
 
-    console.log(this.ValoresDia);
+    console.log(this.ValoresSemana);
+
     if (this.mostrarSemana) {
-
       this.graficoCalorias(this.ValoresSemana);
       this.graficoValores(this.ValoresSemana);
 
     } else {
       for (let i = 0; i < this.ValoresDia.length; i++) {
         const diaA = moment(this.ValoresDia[i].FechaInicio).format('MM DD YYYY');
-        const diaB = moment().subtract(i, 'days').format('MM DD YYYY');
+        const diaB = moment().subtract(1, 'days').format('MM DD YYYY');
         if (diaA === diaB) {
+          moment.locale('es');
+          this.diaEvaluacion = moment().subtract(1, 'days').format('dddd D/MM');
+          this.diaEvaluacion = this.diaEvaluacion[0].toUpperCase() + this.diaEvaluacion.substr(1).toLowerCase();
           this.graficoCalorias(this.ValoresDia[i]);
           this.graficoValores(this.ValoresDia[i]);
         }
@@ -178,7 +185,6 @@ export class EvaluacionViewComponent implements OnInit {
         });
       }
     }
-    console.log(this.InfoValores);
   }
 
   openSnackBar(message: string, action: string) {
@@ -227,16 +233,17 @@ export class EvaluacionViewComponent implements OnInit {
 
   configuracion() {
     const dialogRef = this.dialog.open(EvaluacionConfigComponent, {
-      width: '80%'
+      width: '80%',
+      data: this.datosUsuario
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res !== undefined) {
-        console.log(res);
+        this._EvaluacionService.configuracionUsuario(res).subscribe(respo => {
+          this.openSnackBar('Guardado con Exito', 'Descartar');
+        });
       }
     });
-
   }
-
 }
 
 @Component({
@@ -283,7 +290,16 @@ export class EvaluacionConfigComponent {
               public dialogRef: MatDialogRef<EvaluacionConfigComponent>) {
   }
 
-  DiasSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+  DiasSemana = [
+    {value: 'Monday', dia: 'Lunes'},
+    {value: 'Tuesday', dia: 'Martes'},
+    {value: 'Wednesday', dia: 'Miercoles'},
+    {value: 'Thursday', dia: 'Jueves'},
+    {value: 'Friday', dia: 'Viernes'},
+    {value: 'Saturday', dia: 'Sabado'},
+    {value: 'Sunday', dia: 'Domgino'},
+
+  ];
   Selected = {
     dia: null,
     config: null
@@ -292,8 +308,8 @@ export class EvaluacionConfigComponent {
     {value: true, titulo: 'Semana'},
     {value: false, titulo: 'Dia'}];
 
-  confirmar(res) {
-    this.dialogRef.close(res);
+  confirmar(datos) {
+    this.dialogRef.close(datos);
   }
 
   cancelar() {

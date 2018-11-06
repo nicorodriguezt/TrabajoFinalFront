@@ -6,7 +6,7 @@
     <span><strong>Cargando..</strong></span>
   </div>
   <ng-template #terminado>
-    <div [hidden]="verReceta">
+    <div [hidden]="(verReceta || verListaCompras)">
       <ngu-carousel #carousel [inputs]="carouselTileConfig" [dataSource]="Menus" (onMove)="onmoveFn($event)">
         <ngu-tile *nguCarouselDef="let item; let i=index">
           <div>
@@ -55,7 +55,7 @@
         <button mat-icon-button (click)="cambiarInfoReceta()">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button [disabled]="mainSlide>carousel.currentSlide" >
+        <button mat-icon-button [disabled]="mainSlide>carousel.currentSlide" (click)="listaCompras()">
           <mat-icon>local_grocery_store</mat-icon>
         </button>
       </footer>
@@ -63,6 +63,9 @@
     <app-informacion-receta
       *ngIf="verReceta" [RecetaElegida]="RecetaElegida" (volverEvent)="verReceta = $event">
     </app-informacion-receta>
+    <app-lista-compras
+      *ngIf="verListaCompras" [MenuLista]="Menu" (volverEvent)="verListaCompras = $event">
+    </app-lista-compras>
   </ng-template>
 </main>
 </body>

@@ -1,3 +1,43 @@
-<p>
-  lista-compras works!
-</p>
+<div *ngIf="cargaDatos; else terminado" align="center">
+  <br><br>
+  <mat-spinner></mat-spinner>
+</div>
+
+<ng-template #terminado>
+  <div align="center">
+    <h2>
+      <mat-icon>local_grocery_store</mat-icon>
+      Lista de Compras
+    </h2>
+
+    <mat-card>
+      <table>
+        <thead>
+        <tr>
+          <th width="70%">INGREDIENTE</th>
+          <th width="15%">CANTIDAD</th>
+          <th width="10%">UNIDAD</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let item of ListaCompra">
+          <td>{{item.Ingrediente.Nombre}}</td>
+          <td>{{item.Cantidad}}</td>
+          <td>{{item.Unidad}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </mat-card>
+    <br>
+
+    <div align="left">
+      <button mat-flat-button color="primary" (click)="volver()">
+        <mat-icon>arrow_left</mat-icon>
+        Volver
+      </button>
+    </div>
+
+  </div>
+
+</ng-template>

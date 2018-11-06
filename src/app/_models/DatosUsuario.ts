@@ -8,7 +8,7 @@ export class DatosUsuario {
     public PesoTeorico: number,
     public Usuario: string,
     public ActividadLaboral: string,
-    public Preferencias: string
+    public Preferencias: string,
   ) {
   }
 }

@@ -3,9 +3,9 @@
     <span>Guardar evaluacion semanal el:</span>
   </div>
   <mat-form-field>
-    <mat-select placeholder="Dia" [(value)]="Selected.dia">
-      <mat-option *ngFor="let dia of DiasSemana" [value]="dia">
-        {{dia}}
+    <mat-select placeholder="Dia" [(value)]="data.FechaEvaluacion">
+      <mat-option *ngFor="let dia of DiasSemana" [value]="dia.value">
+        {{dia.dia}}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -13,14 +13,14 @@
     <span>Mostrar evaluacion por:</span>
   </div>
   <mat-form-field>
-    <mat-select placeholder="Defecto" [(value)]="Selected.config">
+    <mat-select placeholder="Defecto" [(value)]="data.DefaultEvaluacion">
       <mat-option *ngFor="let config of defaultConfig" [value]="config.value">
         {{config.titulo}}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <div>
-    <button mat-flat-button color="primary" (click)="confirmar(Selected)">Aceptar</button>
+    <button mat-flat-button color="primary" (click)="confirmar(data)">Aceptar</button>
     <button mat-stroked-button color="secundary" (click)="cancelar()">Cancelar</button>
   </div>
 </div>
