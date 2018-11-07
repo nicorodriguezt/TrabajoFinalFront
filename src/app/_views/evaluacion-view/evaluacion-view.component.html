@@ -32,27 +32,29 @@
       </mat-tab>
 
       <mat-tab label="Valores Nutricionales">
-        <div style="display: flex">
-          <canvas baseChart
-                  width="100%"
-                  [datasets]="InfoValores.radarChartData"
-                  [labels]="InfoValores.radarChartLabels"
-                  [chartType]="InfoValores.radarChartType"
-          ></canvas>
-        </div>
+        <!--<div style="display: flex">-->
+          <!--<canvas baseChart-->
+                  <!--width="100%"-->
+                  <!--[datasets]="InfoValores.radarChartData"-->
+                  <!--[labels]="InfoValores.radarChartLabels"-->
+                  <!--[chartType]="InfoValores.radarChartType"-->
+          <!--&gt;</canvas>-->
+        <!--</div>-->
         <div align="justify">
           <mat-card>
-            <span>
-              <b>Pediodo de evalacion: </b>{{diaEvaluacion}}
-            </span>
-            <br>
-            <b>Consumiste: </b> {{CaloriasRecomendada}}/{{CaloriasRequerida}} cal.
-            <br>
-            Te sugerimos los siguientes consejos:
+            <mat-card-subtitle>
+              Selecciona un valor para ver más detalles
+            </mat-card-subtitle>
+            <mat-card-content>
+              <div *ngFor="let valor of InfoValores">
+                <mat-card>
+                  {{valor.ValorNutricional.Nombre}}:
+                  <span [style.color]="valor.ColorResultado">{{valor.Resultado}}</span>
+                </mat-card>
+              </div>
+            </mat-card-content>
           </mat-card>
-          <div *ngFor="let consejo of ValoresSelected?.Consejos">
-            <mat-card>{{consejo}}</mat-card>
-          </div>
+
         </div>
       </mat-tab>
     </mat-tab-group>

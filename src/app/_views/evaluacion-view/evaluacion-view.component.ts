@@ -3,6 +3,7 @@ import {EvaluacionService} from '../../_services/evaluacion.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import * as moment from 'moment-timezone';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-evaluacion-view',
@@ -25,6 +26,36 @@ export class EvaluacionViewComponent implements OnInit {
   // Gauge Declaraciones
   CaloriasRecomendada;
   CaloriasRequerida;
+
+  // Resultado Valor
+  Colores = ['#e44a00', '#f8bd19', '#6baa01', '#f8bd19', '#e44a00'];
+  Clasificacion = ['MUY BAJO', 'BAJO', 'BIEN', 'ALTO', 'DEMASIADO'];
+  porcMin = [0, 0.15, 0.42, 0.58, 0.85];
+  porcMax = [0.15, 0.42, 0.58, 0.85, 1];
+
+  ColorPaletGauge = [
+    {
+      minValue: 0,
+      maxValue: 20,
+      code: '#e44a00',
+    }, {
+      minValue: 20,
+      maxValue: 40,
+      code: '#f8bd19'
+    },
+    {
+      minValue: 40,
+      maxValue: 60,
+      code: '#6baa01'
+    }, {
+      minValue: 60,
+      maxValue: 80,
+      code: '#f8bd19'
+    }, {
+      minValue: 80,
+      maxValue: 100,
+      code: '#e44a00'
+    }];
 
 
   public InfoCalorias = {
@@ -60,28 +91,7 @@ export class EvaluacionViewComponent implements OnInit {
     },
     // Colores
     colorRange: {
-      color: [{
-        minValue: 0,
-        maxValue: 20,
-        code: '#e44a00',
-      }, {
-        minValue: 20,
-        maxValue: 40,
-        code: '#f8bd19'
-      }, {
-        minValue: 40,
-        maxValue: 60,
-        code: '#6baa01',
-        display: 'Hola'
-      }, {
-        minValue: 60,
-        maxValue: 80,
-        code: '#f8bd19'
-      }, {
-        minValue: 80,
-        maxValue: 100,
-        code: '#e44a00'
-      }]
+      color: this.ColorPaletGauge
     },
     // Datos
     dials: {
@@ -91,20 +101,22 @@ export class EvaluacionViewComponent implements OnInit {
     }
   };
 
-  public InfoValores = {
-    radarChartLabels:
-      [],
-    radarChartData: [{
-      data:
-        [],
-      label: 'Ingerido'
-    }, {
-      data:
-        [],
-      label: 'Sugerido'
-    }],
-    radarChartType: 'radar'
-  };
+  // public InfoValores = {
+  //   radarChartLabels:
+  //     [],
+  //   radarChartData: [{
+  //     data:
+  //       [],
+  //     label: 'Ingerido'
+  //   }, {
+  //     data:
+  //       [],
+  //     label: 'Sugerido'
+  //   }],
+  //   radarChartType: 'radar'
+  // };
+
+  public InfoValores = [];
 
   constructor(private _EvaluacionService: EvaluacionService,
               private _DatosUsuarioService: DatosUsuarioService,
@@ -143,10 +155,6 @@ export class EvaluacionViewComponent implements OnInit {
   graficoCalorias(Periodo) {
     // Definiciones
     let i = 0, ubicacion = 0;
-    const porcMin = [0, 0.15, 0.42, 0.58, 0.85];
-    const porcMax = [0.15, 0.42, 0.58, 0.85, 1];
-    const colores = ['#e44a00', '#f8bd19', '#6baa01', '#f8bd19', '#e44a00'];
-    const subCaption = ['MUY BAJO', 'BAJO', 'BIEN', 'ALTO', 'DEMASIADO'];
     this.ValoresSelected = Periodo;
     const calorias = Periodo.Valores.find(x => x.ValorNutricional.Nombre === 'Calorias');
 
@@ -156,36 +164,51 @@ export class EvaluacionViewComponent implements OnInit {
     this.CaloriasRecomendada = calorias.CantidadConsumida;
 
     this.InfoCalorias.chart.upperLimit = CaloriasRequerida * 2;
-    this.InfoCalorias.colorRange.color.forEach(function (elem) {
-      elem.minValue = ((CaloriasRequerida * 2) * porcMin[i]);
-      elem.maxValue = ((CaloriasRequerida * 2) * porcMax[i]);
+    this.InfoCalorias.colorRange.color.forEach(elem => {
+      elem.minValue = ((CaloriasRequerida * 2) * this.porcMin[i]);
+      elem.maxValue = ((CaloriasRequerida * 2) * this.porcMax[i]);
       if (elem.minValue < calorias.CantidadConsumida && elem.maxValue > calorias.CantidadConsumida) {
         ubicacion = i;
       }
       i++;
     });
     this.InfoCalorias.dials.dial.forEach(x => x.value = calorias.CantidadConsumida);
-    this.InfoCalorias.chart.subCaption = subCaption[ubicacion];
-    this.InfoCalorias.chart.subcaptionFontColor = colores[ubicacion];
+    this.InfoCalorias.chart.subCaption = this.Clasificacion[ubicacion];
+    this.InfoCalorias.chart.subcaptionFontColor = this.Colores[ubicacion];
   }
 
   graficoValores(Periodo) {
     this.ValoresSelected = Periodo;
 
-    for (let i = 0; i < Periodo.Valores.length; i++) {
-      const elemento = Periodo.Valores[i];
+    // for (let i = 0; i < Periodo.Valores.length; i++) {
+    //   const elemento = Periodo.Valores[i];
+    //   if (elemento.ValorNutricional.Nombre !== 'Calorias') {
+    //     this.InfoValores.radarChartLabels.push(elemento.ValorNutricional.Nombre);
+    //     this.InfoValores.radarChartData.map(x => {
+    //       if (x.label === 'Ingerido') {
+    //         x.data.push(elemento.CantidadConsumida);
+    //       } else {
+    //         x.data.push(elemento.CantidadRequerida);
+    //       }
+    //     });
+    //   }
+    // }
+    Periodo.Valores.forEach(elemento => {
       if (elemento.ValorNutricional.Nombre !== 'Calorias') {
-        this.InfoValores.radarChartLabels.push(elemento.ValorNutricional.Nombre);
-        this.InfoValores.radarChartData.map(x => {
-          if (x.label === 'Ingerido') {
-            x.data.push(elemento.CantidadConsumida);
-          } else {
-            x.data.push(elemento.CantidadRequerida);
+        for (let i = 0; i < 5; i++) {
+          const minValue = ((elemento.CantidadRequerida * 2) * this.porcMin[i]);
+          const maxValue = ((elemento.CantidadRequerida * 2) * this.porcMax[i]);
+          if (minValue < elemento.CantidadConsumida && maxValue > elemento.CantidadConsumida) {
+            elemento.Resultado = this.Clasificacion[i];
+            elemento.ColorResultado = this.Colores[i];
           }
-        });
+        }
+        this.InfoValores.push(elemento);
       }
-    }
+      console.log(this.InfoValores);
+    });
   }
+
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
