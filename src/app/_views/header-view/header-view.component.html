@@ -19,10 +19,6 @@
           <mat-icon>search</mat-icon>
           Buscar recetas
         </a>
-        <a mat-list-item href="/cargarDatos">
-          <mat-icon>person</mat-icon>
-          Tus Datos
-        </a>
         <a mat-list-item href="/verMenu">
           <mat-icon>list</mat-icon>
           Tus Menus
@@ -31,7 +27,15 @@
           <mat-icon>bar_chart</mat-icon>
           Evaluacion
         </a>
+        <a mat-list-item href="/listaCompras">
+          <mat-icon>local_grocery_store</mat-icon>
+          Lista de Compras
+        </a>
         <mat-divider></mat-divider>
+        <a mat-list-item href="/cargarDatos">
+          <mat-icon>person</mat-icon>
+          Tus Datos
+        </a>
         <a mat-list-item (click)="logout()">
           <mat-icon>arrow_back</mat-icon>
           Salir

@@ -73,6 +73,7 @@ import {
   EvaluacionHistorialComponent,
   EvaluacionSwitchComponent
 } from './_views/evaluacion-view/evaluacion-view.component';
+import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-compras-view.component';
 
 
 @NgModule({
@@ -100,7 +101,8 @@ import {
     EvaluacionViewComponent,
     EvaluacionConfigComponent,
     EvaluacionHistorialComponent,
-    EvaluacionSwitchComponent
+    EvaluacionSwitchComponent,
+    ListaComprasViewComponent
   ],
   imports: [
     BrowserModule,

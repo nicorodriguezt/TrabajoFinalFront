@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ListaComprasService} from '../../_services/lista-compras.service';
-import {Receta} from '../../_models/Receta';
+
 
 @Component({
   selector: 'app-lista-compras',
@@ -18,7 +18,7 @@ export class ListaComprasComponent implements OnInit {
   constructor(private _ListaComprasService: ListaComprasService) { }
 
   async ngOnInit() {
-    this.ListaCompra = await this._ListaComprasService.getListaCompras(this.MenuLista._id).toPromise();
+    this.ListaCompra = await this._ListaComprasService.getListaCompras(this.MenuLista).toPromise();
     this.ListaCompra.forEach(function (element) {
       element.Ingrediente.Nombre = element.Ingrediente.Nombre[0].toUpperCase() + element.Ingrediente.Nombre.substr(1).toLowerCase();
     });

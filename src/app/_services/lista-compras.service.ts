@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {backend} from './globalconfig';
 
@@ -7,7 +7,8 @@ const HttpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
   }),
-  withCredentials: true
+  withCredentials: true,
+  params: {}
 };
 
 @Injectable()
@@ -18,8 +19,13 @@ export class ListaComprasService {
     this.url = backend + 'listacompras/';
   }
 
-  public getListaCompras(menu) {
-    return this._http.get(this.url + 'lista/' + menu, HttpOptions)
+  public getListaCompras(ids) {
+    let params = new HttpParams();
+    ids.forEach( x => {
+      params = params.append('Ids', x);
+    });
+    HttpOptions.params = params;
+    return this._http.get(this.url + 'lista/', HttpOptions)
       .pipe(map(res => res));
   }
 }

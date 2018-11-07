@@ -1,17 +1,17 @@
 <div *ngIf="cargaDatos; else terminado" align="center">
   <br><br>
   <mat-spinner></mat-spinner>
+  <span><strong>Cargando..</strong></span>
 </div>
 
 <ng-template #terminado>
   <div align="center">
-    <h2>
-      <mat-icon>local_grocery_store</mat-icon>
-      Lista de Compras
-    </h2>
-
     <mat-card>
-      <table>
+      <mat-card-title>
+        <mat-icon>local_grocery_store</mat-icon>
+        Lista de Compras
+      </mat-card-title>
+      <table class="mat-table">
         <thead>
         <tr>
           <th width="70%">INGREDIENTE</th>
