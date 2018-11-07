@@ -101,20 +101,59 @@ export class EvaluacionViewComponent implements OnInit {
     }
   };
 
-  // public InfoValores = {
-  //   radarChartLabels:
-  //     [],
-  //   radarChartData: [{
-  //     data:
-  //       [],
-  //     label: 'Ingerido'
-  //   }, {
-  //     data:
-  //       [],
-  //     label: 'Sugerido'
-  //   }],
-  //   radarChartType: 'radar'
-  // };
+  public GaugeLinearConf = {
+    chart: {
+      theme: 'fusion',
+      lowerLimit: 0,
+      upperLimit: 100,
+      numberSuffix: '',
+      chartBottomMargin: 40,
+      valueFontSize: 11,
+      valueFontBold: 0
+    },
+    colorRange: {
+      color: this.ColorPaletGauge
+    },
+    pointers: {
+      pointer: [{
+        value: 0
+      }]
+    },
+    'trendPoints': {
+      'point': [{
+        'startValue': '70',
+        'displayValue': ' ',
+        'dashed': '1',
+        'showValues': '0'
+      }, {
+        'startValue': '85',
+        'displayValue': ' ',
+        'dashed': '1',
+        'showValues': '0'
+      }, {
+        'startValue': '70',
+        'endValue': '85',
+        'displayValue': ' ',
+        'alpha': '40'
+      }]
+    }, 'annotations': {
+      'origw': '400',
+      'origh': '190',
+      'autoscale': '1',
+      'groups': [{
+        'id': 'range',
+        'items': [{
+          'id': 'rangeText',
+          'type': 'Text',
+          'fontSize': '11',
+          'fillcolor': '#ffffff',
+          'text': 'Recommended Utilization Range : 70% - 85%',
+          'x': '$chartCenterX',
+          'y': '$chartEndY-25'
+        }]
+      }]
+    }
+  };
 
   public InfoValores = [];
 
@@ -205,8 +244,8 @@ export class EvaluacionViewComponent implements OnInit {
         }
         this.InfoValores.push(elemento);
       }
-      console.log(this.InfoValores);
     });
+    console.log(this.InfoValores);
   }
 
 

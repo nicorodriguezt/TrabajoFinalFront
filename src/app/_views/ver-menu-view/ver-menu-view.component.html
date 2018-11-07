@@ -64,7 +64,7 @@
       *ngIf="verReceta" [RecetaElegida]="RecetaElegida" (volverEvent)="verReceta = $event">
     </app-informacion-receta>
     <app-lista-compras
-      *ngIf="verListaCompras" [MenuLista]="Menu._id" (volverEvent)="verListaCompras = $event">
+      *ngIf="verListaCompras" [MenuLista]="[Menu._id]" (volverEvent)="verListaCompras = $event">
     </app-lista-compras>
   </ng-template>
 </main>
