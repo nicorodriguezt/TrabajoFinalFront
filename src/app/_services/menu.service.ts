@@ -39,5 +39,14 @@ export class MenuService {
       .pipe(map(res => res));
   }
 
+  public cambiarEstado(data) {
+    const json = JSON.stringify(data);
+    const params = json;
+
+    return this._http.post(this.url + 'recetasugerida/update/', params, HttpOptions)
+      .pipe(map(res => res));
+  }
+
+
 
 }

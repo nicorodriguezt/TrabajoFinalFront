@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, APP_INITIALIZER} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
@@ -22,11 +22,23 @@ import {
   MatCardModule,
   MatExpansionModule,
   MatTooltipModule,
+  MatTableModule,
   MatSnackBarModule,
   MatTabsModule,
+  MatCheckboxModule,
   MatProgressSpinnerModule
 } from '@angular/material';
-import { NguCarouselModule } from '@ngu/carousel';
+import { NguCarouselModule} from '@ngu/carousel';
+
+// Charts
+import { ChartsModule } from 'ng2-charts';
+import { FusionChartsModule} from 'angular-fusioncharts';
+import * as Widgets from 'fusioncharts/fusioncharts.widgets';
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import * as PowerCharts from 'fusioncharts/fusioncharts.powercharts';
+FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme, PowerCharts);
 
 // Guards
 import {AuthGuard} from './_guards/auth.guard';
@@ -48,9 +60,20 @@ import {ListaComprasComponent} from './_components/lista-compras/lista-compras.c
 import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
 import {HeaderViewComponent} from './_views/header-view/header-view.component';
 import {BuscadorViewComponent} from './_views/buscador-view/buscador-view.component';
-import {VerMenuViewComponent} from './_views/ver-menu-view/ver-menu-view.component';
+import {
+  VerMenuViewComponent,
+  VerMenuCargarRecetaComponent,
+  VerMenuConfirmRemComponent
+} from './_views/ver-menu-view/ver-menu-view.component';
 import {ModificarDatosViewComponent} from './_views/modificar-datos-view/modificar-datos-view.component';
 import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/recetas-favoritas-view.component';
+import {
+  EvaluacionViewComponent,
+  EvaluacionConfigComponent,
+  EvaluacionHistorialComponent,
+  EvaluacionSwitchComponent
+} from './_views/evaluacion-view/evaluacion-view.component';
+import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-compras-view.component';
 
 
 @NgModule({
@@ -70,9 +93,16 @@ import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/rec
     BuscadorViewComponent,
     InformacionRecetaComponent,
     VerMenuViewComponent,
+    VerMenuCargarRecetaComponent,
+    VerMenuConfirmRemComponent,
     ListaComprasComponent,
     ModificarDatosViewComponent,
-    RecetasFavoritasViewComponent
+    RecetasFavoritasViewComponent,
+    EvaluacionViewComponent,
+    EvaluacionConfigComponent,
+    EvaluacionHistorialComponent,
+    EvaluacionSwitchComponent,
+    ListaComprasViewComponent
   ],
   imports: [
     BrowserModule,
@@ -98,14 +128,26 @@ import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/rec
     MatSnackBarModule,
     MatTabsModule,
     MatProgressSpinnerModule,
-    NguCarouselModule
+    MatCheckboxModule,
+    NguCarouselModule,
+    MatTableModule,
+    ChartsModule,
+    FusionChartsModule
   ],
   providers: [
     AuthGuard,
     LoginGuard
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ActividadOverviewComponent, ActividadLaboralInfoComponent]
+  entryComponents: [
+    ActividadOverviewComponent,
+    ActividadLaboralInfoComponent,
+    VerMenuConfirmRemComponent,
+    VerMenuCargarRecetaComponent,
+    EvaluacionConfigComponent,
+    EvaluacionHistorialComponent,
+    EvaluacionSwitchComponent
+  ]
 })
 export class AppModule {
 }

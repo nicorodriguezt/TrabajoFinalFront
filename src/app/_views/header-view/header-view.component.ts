@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
+import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {UsuarioService} from '../../_services/usuario.service';
@@ -9,13 +9,22 @@ import {UsuarioService} from '../../_services/usuario.service';
   selector: 'app-header-view',
   templateUrl: './header-view.component.html',
   styleUrls: ['./header-view.component.css'],
-  providers: [UsuarioService]
+  providers: [UsuarioService, BreakpointObserver, MediaMatcher]
 })
 export class HeaderViewComponent implements OnInit {
 
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
+
   constructor(public _router: Router,
               private breakpointObserver: BreakpointObserver,
-              private _UsuarioService: UsuarioService) { }
+              private _UsuarioService: UsuarioService,
+              changeDetectorRef: ChangeDetectorRef,
+              media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

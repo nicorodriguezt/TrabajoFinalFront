@@ -1,0 +1,45 @@
+<div *ngIf="cargaDatos; else terminado" align="center">
+  <br><br>
+  <mat-spinner></mat-spinner>
+  <span><strong>Cargando..</strong></span>
+</div>
+
+<ng-template #terminado>
+  <div align="center" [hidden]="verListaCompras">
+    <mat-card>
+      <mat-card-title>
+        <mat-icon>local_grocery_store</mat-icon>
+        Lista de Compras
+      </mat-card-title>
+      <mat-card-subtitle>
+        Elegi los menus de los que quieres hacer la lista:
+      </mat-card-subtitle>
+      <mat-card-content>
+        <mat-card>
+          <div>
+            <table>
+              <thead>
+              <tr>
+                <th width="70%"></th>
+                <th width="30%"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let menu of ListMenu">
+                <td width="70%">{{menu.FechaLetra}}</td>
+                <td width="30%"><mat-checkbox (change)="onCheck($event, menu)"></mat-checkbox></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-card>
+      </mat-card-content>
+      <mat-card-footer>
+        <button mat-flat-button color="primary" (click)="generarLista()">Generar Lista de Compras</button>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+  <app-lista-compras
+    *ngIf="verListaCompras" [MenuLista]="ListIds" (volverEvent)="verListaCompras = $event">
+  </app-lista-compras>
+</ng-template>

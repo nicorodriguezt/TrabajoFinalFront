@@ -1,0 +1,14 @@
+<div align="center">
+  <span>Mostrar evaluacion del:</span>
+  <mat-form-field>
+    <mat-select placeholder="Dia" [(value)]="Selected">
+      <mat-option *ngFor="let dia of DiasSemana" [value]="dia">
+        {{dia}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div>
+    <button mat-flat-button color="primary" (click)="confirmar(Selected)">Aceptar</button>
+    <button mat-stroked-button color="secundary" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>
