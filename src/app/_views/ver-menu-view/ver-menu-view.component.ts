@@ -49,7 +49,7 @@ export class VerMenuViewComponent implements OnInit {
   async verMenus() {
     await this.verMenuHoy();
     await this.verMenuCompleto();
-    this.verMenuAnterio();
+    await this.verMenuAnterio();
   }
 
   async verMenuHoy() {
@@ -57,7 +57,6 @@ export class VerMenuViewComponent implements OnInit {
     if (this.auxiliar != null) {
       this.mainSlide = 0;
       this.Menus.push(this.auxiliar);
-      this.menuExist = true;
       this.Menu = this.auxiliar;
       this.Menu.Recetas.forEach(function (element) {
         element.Receta.Nombre = element.Receta.Nombre[0].toUpperCase() + element.Receta.Nombre.substr(1).toLowerCase();
@@ -76,22 +75,22 @@ export class VerMenuViewComponent implements OnInit {
       this.setFecha(aux[i]);
       this.Menus.push(aux[i]);
     }
-    this.carousel.moveTo(this.mainSlide, true);
   }
 
-  verMenuAnterio() {
-    this._MenuService.MenuAnterior().subscribe(response => {
-      const aux = (Object.values(response));
-      for (let i = 0; i < aux.length; i++) {
-        aux[i].Recetas.forEach(function (element) {
-          element.Receta.Nombre = element.Receta.Nombre[0].toUpperCase() + element.Receta.Nombre.substr(1).toLowerCase();
-        });
-        this.setFecha(aux[i]);
-        this.Menus.unshift(aux[i]);
-        this.mainSlide++;
-      }
+  async verMenuAnterio() {
+    const response = await this._MenuService.MenuAnterior().toPromise();
+    const aux = (Object.values(response));
+    for (let i = 0; i < aux.length; i++) {
+      aux[i].Recetas.forEach(function (element) {
+        element.Receta.Nombre = element.Receta.Nombre[0].toUpperCase() + element.Receta.Nombre.substr(1).toLowerCase();
+      });
+      this.setFecha(aux[i]);
+      this.Menus.unshift(aux[i]);
+      this.mainSlide++;
+    }
+    setTimeout(x => {
       this.carousel.moveTo(this.mainSlide, true);
-    });
+    }, 0);
   }
 
   setFecha(menu) {
@@ -116,10 +115,11 @@ export class VerMenuViewComponent implements OnInit {
 
   ngOnInit() {
     this.Menus = [];
-    this.menuExist = false;
     this.verReceta = false;
+    this.menuExist = true;
     this.verListaCompras = false;
     this.verMenus();
+    this.menuExist = false;
   }
 
   onmoveFn(movimiento) {
@@ -147,7 +147,7 @@ export class VerMenuViewComponent implements OnInit {
       data: this.Menu
     });
 
-    dialogRef.afterClosed().subscribe( x => {
+    dialogRef.afterClosed().subscribe(x => {
       if (x) {
         this.openSnackBar('Cargado con exito', 'Descartar');
       }

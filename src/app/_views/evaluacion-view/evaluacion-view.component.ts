@@ -33,30 +33,6 @@ export class EvaluacionViewComponent implements OnInit {
   porcMin = [0, 0.15, 0.42, 0.58, 0.85];
   porcMax = [0.15, 0.42, 0.58, 0.85, 1];
 
-  ColorPaletGauge = [
-    {
-      minValue: 0,
-      maxValue: 20,
-      code: '#e44a00',
-    }, {
-      minValue: 20,
-      maxValue: 40,
-      code: '#f8bd19'
-    },
-    {
-      minValue: 40,
-      maxValue: 60,
-      code: '#6baa01'
-    }, {
-      minValue: 60,
-      maxValue: 80,
-      code: '#f8bd19'
-    }, {
-      minValue: 80,
-      maxValue: 100,
-      code: '#e44a00'
-    }];
-
 
   public InfoCalorias = {
     // Configuracion
@@ -91,7 +67,29 @@ export class EvaluacionViewComponent implements OnInit {
     },
     // Colores
     colorRange: {
-      color: this.ColorPaletGauge
+      color: [
+        {
+          minValue: 0,
+          maxValue: 20,
+          code: '#e44a00',
+        }, {
+          minValue: 20,
+          maxValue: 40,
+          code: '#f8bd19'
+        },
+        {
+          minValue: 40,
+          maxValue: 60,
+          code: '#6baa01'
+        }, {
+          minValue: 60,
+          maxValue: 80,
+          code: '#f8bd19'
+        }, {
+          minValue: 80,
+          maxValue: 100,
+          code: '#e44a00'
+        }]
     },
     // Datos
     dials: {
@@ -101,61 +99,58 @@ export class EvaluacionViewComponent implements OnInit {
     }
   };
 
-  public GaugeLinearConf = {
+  public InfoValores = [];
+
+  GaugeLinearConf = {
     chart: {
       theme: 'fusion',
       lowerLimit: 0,
       upperLimit: 100,
       numberSuffix: '',
-      chartBottomMargin: 40,
+      chartBottomMargin: 20,
       valueFontSize: 11,
-      valueFontBold: 0
+      valueFontBold: 0,
+      majorTMNumber: 3
     },
     colorRange: {
-      color: this.ColorPaletGauge
+      color: [
+        {
+          minValue: 0,
+          maxValue: 20,
+          code: '#e44a00',
+        }, {
+          minValue: 20,
+          maxValue: 40,
+          code: '#f8bd19'
+        },
+        {
+          minValue: 40,
+          maxValue: 60,
+          code: '#6baa01'
+        }, {
+          minValue: 60,
+          maxValue: 80,
+          code: '#f8bd19'
+        }, {
+          minValue: 80,
+          maxValue: 100,
+          code: '#e44a00'
+        }]
     },
     pointers: {
       pointer: [{
         value: 0
       }]
     },
-    'trendPoints': {
-      'point': [{
-        'startValue': '70',
-        'displayValue': ' ',
-        'dashed': '1',
-        'showValues': '0'
-      }, {
-        'startValue': '85',
-        'displayValue': ' ',
-        'dashed': '1',
-        'showValues': '0'
-      }, {
-        'startValue': '70',
-        'endValue': '85',
-        'displayValue': ' ',
-        'alpha': '40'
-      }]
-    }, 'annotations': {
-      'origw': '400',
-      'origh': '190',
-      'autoscale': '1',
-      'groups': [{
-        'id': 'range',
-        'items': [{
-          'id': 'rangeText',
-          'type': 'Text',
-          'fontSize': '11',
-          'fillcolor': '#ffffff',
-          'text': 'Recommended Utilization Range : 70% - 85%',
-          'x': '$chartCenterX',
-          'y': '$chartEndY-25'
-        }]
+    trendPoints: {
+      point: [{
+        startValue: 50,
+        displayValue: ' ',
+        dashed: 1,
+        showValues: 0
       }]
     }
   };
-
-  public InfoValores = [];
 
   constructor(private _EvaluacionService: EvaluacionService,
               private _DatosUsuarioService: DatosUsuarioService,
@@ -167,14 +162,14 @@ export class EvaluacionViewComponent implements OnInit {
     this.datosUsuario = await this._DatosUsuarioService.getDatos().toPromise();
     this.ValoresDia = await this._EvaluacionService.getEvaluacionDia().toPromise();
     this.ValoresSemana = await this._EvaluacionService.getEvaluacionSemana().toPromise();
-    this.cargaDatos = true;
     this.mostrarSemana = this.datosUsuario.DefaultEvaluacion;
+    this.cargaDatos = true;
 
     console.log(this.ValoresSemana);
 
     if (this.mostrarSemana) {
-      this.graficoCalorias(this.ValoresSemana);
-      this.graficoValores(this.ValoresSemana);
+      await this.graficoCalorias(this.ValoresSemana);
+      await this.graficoValores(this.ValoresSemana);
 
     } else {
       for (let i = 0; i < this.ValoresDia.length; i++) {
@@ -184,33 +179,26 @@ export class EvaluacionViewComponent implements OnInit {
           moment.locale('es');
           this.diaEvaluacion = moment().subtract(1, 'days').format('dddd D/MM');
           this.diaEvaluacion = this.diaEvaluacion[0].toUpperCase() + this.diaEvaluacion.substr(1).toLowerCase();
-          this.graficoCalorias(this.ValoresDia[i]);
-          this.graficoValores(this.ValoresDia[i]);
+          await this.graficoCalorias(this.ValoresDia[i]);
+          await this.graficoValores(this.ValoresDia[i]);
         }
       }
     }
-  }
+}
 
   graficoCalorias(Periodo) {
     // Definiciones
-    let i = 0, ubicacion = 0;
     this.ValoresSelected = Periodo;
     const calorias = Periodo.Valores.find(x => x.ValorNutricional.Nombre === 'Calorias');
 
     // Calorias requeridas SIN COLACION (CAMBIAR)
-    const CaloriasRequerida = Math.round((calorias.CantidadRequerida * 100) / 100) * 0.86;
+    const CaloriasRequerida = Math.round(calorias.CantidadRequerida ) * 0.86;
     this.CaloriasRequerida = CaloriasRequerida;
     this.CaloriasRecomendada = calorias.CantidadConsumida;
 
     this.InfoCalorias.chart.upperLimit = CaloriasRequerida * 2;
-    this.InfoCalorias.colorRange.color.forEach(elem => {
-      elem.minValue = ((CaloriasRequerida * 2) * this.porcMin[i]);
-      elem.maxValue = ((CaloriasRequerida * 2) * this.porcMax[i]);
-      if (elem.minValue < calorias.CantidadConsumida && elem.maxValue > calorias.CantidadConsumida) {
-        ubicacion = i;
-      }
-      i++;
-    });
+    const ubicacion = this.RangosGauge(this.InfoCalorias, CaloriasRequerida, calorias.CantidadConsumida);
+
     this.InfoCalorias.dials.dial.forEach(x => x.value = calorias.CantidadConsumida);
     this.InfoCalorias.chart.subCaption = this.Clasificacion[ubicacion];
     this.InfoCalorias.chart.subcaptionFontColor = this.Colores[ubicacion];
@@ -219,33 +207,43 @@ export class EvaluacionViewComponent implements OnInit {
   graficoValores(Periodo) {
     this.ValoresSelected = Periodo;
 
-    // for (let i = 0; i < Periodo.Valores.length; i++) {
-    //   const elemento = Periodo.Valores[i];
-    //   if (elemento.ValorNutricional.Nombre !== 'Calorias') {
-    //     this.InfoValores.radarChartLabels.push(elemento.ValorNutricional.Nombre);
-    //     this.InfoValores.radarChartData.map(x => {
-    //       if (x.label === 'Ingerido') {
-    //         x.data.push(elemento.CantidadConsumida);
-    //       } else {
-    //         x.data.push(elemento.CantidadRequerida);
-    //       }
-    //     });
-    //   }
-    // }
-    Periodo.Valores.forEach(elemento => {
-      if (elemento.ValorNutricional.Nombre !== 'Calorias') {
-        for (let i = 0; i < 5; i++) {
-          const minValue = ((elemento.CantidadRequerida * 2) * this.porcMin[i]);
-          const maxValue = ((elemento.CantidadRequerida * 2) * this.porcMax[i]);
-          if (minValue < elemento.CantidadConsumida && maxValue > elemento.CantidadConsumida) {
-            elemento.Resultado = this.Clasificacion[i];
-            elemento.ColorResultado = this.Colores[i];
-          }
+    Periodo.Valores.forEach(valor => {
+      if (valor.ValorNutricional.Nombre !== 'Calorias') {
+        valor.Gauge = JSON.parse(JSON.stringify(this.GaugeLinearConf));
+
+        let canR = Math.round(valor.CantidadRequerida);
+        let canC = Math.round(valor.CantidadConsumida);
+        if (canR >= 10000) {
+          canR = canR / 1000;
+          canC = canC / 1000;
+          valor.Gauge.numberSuffix = 'K';
         }
-        this.InfoValores.push(elemento);
+
+        const ubicacion = this.RangosGauge(valor.Gauge, canR, canC);
+        valor.Resultado = this.Clasificacion[ubicacion];
+        valor.ColorResultado = this.Colores[ubicacion];
+
+        valor.Gauge.trendPoints.point.forEach(x => x.startValue = canR);
+        valor.Gauge.chart.upperLimit = canR * 2;
+        valor.Gauge.pointers.pointer.forEach(x => x.value = canC);
+        console.log(this.InfoValores);
+        this.InfoValores.push(valor);
       }
     });
-    console.log(this.InfoValores);
+  }
+
+  RangosGauge(configGauge, calR, calC) {
+    let i = 0;
+    let ubicacion = 0;
+    configGauge.colorRange.color.forEach(elem => {
+      elem.minValue = ((calR * 2) * this.porcMin[i]);
+      elem.maxValue = ((calR * 2) * this.porcMax[i]);
+      if (elem.minValue < calC && elem.maxValue > calC) {
+        ubicacion = i;
+      }
+      i++;
+    });
+    return ubicacion;
   }
 
 

@@ -33,12 +33,12 @@
 
       <mat-tab label="Valores Nutricionales">
         <!--<div style="display: flex">-->
-          <!--<canvas baseChart-->
-                  <!--width="100%"-->
-                  <!--[datasets]="InfoValores.radarChartData"-->
-                  <!--[labels]="InfoValores.radarChartLabels"-->
-                  <!--[chartType]="InfoValores.radarChartType"-->
-          <!--&gt;</canvas>-->
+        <!--<canvas baseChart-->
+        <!--width="100%"-->
+        <!--[datasets]="InfoValores.radarChartData"-->
+        <!--[labels]="InfoValores.radarChartLabels"-->
+        <!--[chartType]="InfoValores.radarChartType"-->
+        <!--&gt;</canvas>-->
         <!--</div>-->
         <div align="justify">
           <mat-card>
@@ -50,6 +50,12 @@
                 <mat-card>
                   {{valor.ValorNutricional.Nombre}}:
                   <span [style.color]="valor.ColorResultado">{{valor.Resultado}}</span>
+                  <fusioncharts
+                    width="100%"
+                    height="120"
+                    type="hlineargauge"
+                    [dataSource]="valor.Gauge">
+                  </fusioncharts>
                 </mat-card>
               </div>
             </mat-card-content>
