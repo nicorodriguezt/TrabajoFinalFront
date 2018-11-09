@@ -206,6 +206,7 @@ export class EvaluacionViewComponent implements OnInit {
 
   graficoValores(Periodo) {
     this.ValoresSelected = Periodo;
+    this.InfoValores = [];
 
     Periodo.Valores.forEach(valor => {
       if (valor.ValorNutricional.Nombre !== 'Calorias') {
@@ -234,7 +235,7 @@ export class EvaluacionViewComponent implements OnInit {
 
   RangosGauge(configGauge, calR, calC) {
     let i = 0;
-    let ubicacion = 0;
+    let ubicacion = 4;
     configGauge.colorRange.color.forEach(elem => {
       elem.minValue = ((calR * 2) * this.porcMin[i]);
       elem.maxValue = ((calR * 2) * this.porcMax[i]);
@@ -267,6 +268,7 @@ export class EvaluacionViewComponent implements OnInit {
             dia = dia[0].toUpperCase() + dia.substr(1).toLowerCase();
             if (dia === res) {
               this.graficoCalorias(this.ValoresDia[i]);
+              this.graficoValores(this.ValoresDia[i]);
             }
           }
         } else {
