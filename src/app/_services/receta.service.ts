@@ -33,4 +33,16 @@ export class RecetaService {
     return this._http.get(this.url + 'verReceta/' + datos._id, HttpOptions)
       .pipe(map(res => res));
   }
+
+  public getMomentos() {
+    return this._http.get(this.url + 'getMomentos/', HttpOptions)
+      .pipe(map(res => res));
+  }
+
+  public buscarIngerida(datos) {
+    const params = new HttpParams().set('Nombre', datos);
+    HttpOptions.params = params;
+    return this._http.get(this.url + 'findIngerido/', HttpOptions)
+      .pipe(map(res => res));
+  }
 }

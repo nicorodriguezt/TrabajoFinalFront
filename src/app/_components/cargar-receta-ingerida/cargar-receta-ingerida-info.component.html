@@ -1,0 +1,32 @@
+<div align="justify">
+  <mat-card>
+    <mat-card-subtitle>
+      Descripción
+    </mat-card-subtitle>
+    <mat-card-content>
+      {{data.Descripcion}}
+    </mat-card-content>
+    <mat-card-subtitle>
+      Ingredientes
+    </mat-card-subtitle>
+    <mat-card-content >
+      <ul *ngFor="let ingrediente of data.Ingredientes">
+        <li>{{ingrediente}}</li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+  <br>
+  <div align="center" *ngIf="!confirmacionDiv">
+    <button mat-flat-button (click)="elegir()" class="alignleft">Elegir</button>
+    <button mat-stroked-button color="secundary" (click)="volver()" class="alignright">Volver</button>
+  </div>
+  <div align="center" *ngIf="confirmacionDiv">
+    <p style="font-style: italic">¿Desea cargar como ingerida esta receta?</p>
+    <button mat-icon-button (click)="confirmar()" class="alignleft">
+      <mat-icon>done</mat-icon>
+    </button>
+    <button mat-icon-button (click)="cancelar()" class="alignright">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</div>

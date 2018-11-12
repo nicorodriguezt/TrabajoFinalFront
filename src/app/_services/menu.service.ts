@@ -47,6 +47,14 @@ export class MenuService {
       .pipe(map(res => res));
   }
 
+  public recetaSugeridaNueva(data) {
+    const json = JSON.stringify(data);
+    const params = json;
+
+    return this._http.post(this.url + 'recetasugerida/RecetaSugeridaNueva/', params, HttpOptions)
+      .pipe(map(res => res));
+  }
+
 
 
 }

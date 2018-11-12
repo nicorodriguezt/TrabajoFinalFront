@@ -227,7 +227,6 @@ export class EvaluacionViewComponent implements OnInit {
         valor.Gauge.trendPoints.point.forEach(x => x.startValue = canR);
         valor.Gauge.chart.upperLimit = canR * 2;
         valor.Gauge.pointers.pointer.forEach(x => x.value = canC);
-        console.log(this.InfoValores);
         this.InfoValores.push(valor);
       }
     });

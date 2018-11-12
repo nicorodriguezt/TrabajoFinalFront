@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output, ViewChild} from '@angular/core';
 import {NguCarouselConfig, NguCarousel} from '@ngu/carousel';
 import * as moment from 'moment-timezone';
 import {MenuService} from '../../_services/menu.service';
@@ -18,6 +18,7 @@ export class VerMenuViewComponent implements OnInit {
   RecetaElegida = new Receta(null, null, null, null, null, null, null, null, false, null, null, null);
   Menu = new Menu(null, null, null, null);
   auxiliar;
+  enableAgregar;
   verReceta: boolean;
   verListaCompras: boolean;
   menuExist: boolean;
@@ -117,6 +118,7 @@ export class VerMenuViewComponent implements OnInit {
     this.Menus = [];
     this.verReceta = false;
     this.menuExist = true;
+    this.enableAgregar = false;
     this.verListaCompras = false;
     this.verMenus();
     this.menuExist = false;
@@ -148,10 +150,19 @@ export class VerMenuViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(x => {
-      if (x) {
+      if (x === true) {
         this.openSnackBar('Cargado con exito', 'Descartar');
+      } else {
+        if (x === 'nueva') {
+          this.enableAgregar = true;
+        }
       }
     });
+  }
+
+  terminarAgregar(event) {
+    this.enableAgregar = event;
+    this.ngOnInit();
   }
 
 }
@@ -197,6 +208,10 @@ export class VerMenuCargarRecetaComponent {
 
   cancelar() {
     this.dialogRef.close(false);
+  }
+
+  agregarRecetaIngerida() {
+    this.dialogRef.close('nueva');
   }
 }
 
