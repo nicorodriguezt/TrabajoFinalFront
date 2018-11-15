@@ -3,6 +3,7 @@ import {EvaluacionService} from '../../_services/evaluacion.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import * as moment from 'moment-timezone';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-evaluacion-view',
@@ -14,17 +15,25 @@ export class EvaluacionViewComponent implements OnInit {
 
   ValoresSemana;
   ValoresDia;
-  ValoresSelected;
+  Historial;
   cargaDatos = false;
+  enableHistorial = false;
   datosUsuario;
+  Consejos;
 
   // Periodo
   mostrarSemana;
-  diaEvaluacion = 'Semana';
+  diaEvaluacion = 'Semana Actual';
 
   // Gauge Declaraciones
   CaloriasRecomendada;
   CaloriasRequerida;
+
+  // Resultado Valor
+  Colores = ['#e44a00', '#f8bd19', '#6baa01', '#f8bd19', '#e44a00'];
+  Clasificacion = ['MUY BAJO', 'BAJO', 'BIEN', 'ALTO', 'DEMASIADO'];
+  porcMin = [0, 0.15, 0.42, 0.58, 0.85];
+  porcMax = [0.15, 0.42, 0.58, 0.85, 1];
 
 
   public InfoCalorias = {
@@ -60,28 +69,29 @@ export class EvaluacionViewComponent implements OnInit {
     },
     // Colores
     colorRange: {
-      color: [{
-        minValue: 0,
-        maxValue: 20,
-        code: '#e44a00',
-      }, {
-        minValue: 20,
-        maxValue: 40,
-        code: '#f8bd19'
-      }, {
-        minValue: 40,
-        maxValue: 60,
-        code: '#6baa01',
-        display: 'Hola'
-      }, {
-        minValue: 60,
-        maxValue: 80,
-        code: '#f8bd19'
-      }, {
-        minValue: 80,
-        maxValue: 100,
-        code: '#e44a00'
-      }]
+      color: [
+        {
+          minValue: 0,
+          maxValue: 20,
+          code: '#e44a00',
+        }, {
+          minValue: 20,
+          maxValue: 40,
+          code: '#f8bd19'
+        },
+        {
+          minValue: 40,
+          maxValue: 60,
+          code: '#6baa01'
+        }, {
+          minValue: 60,
+          maxValue: 80,
+          code: '#f8bd19'
+        }, {
+          minValue: 80,
+          maxValue: 100,
+          code: '#e44a00'
+        }]
     },
     // Datos
     dials: {
@@ -91,19 +101,57 @@ export class EvaluacionViewComponent implements OnInit {
     }
   };
 
-  public InfoValores = {
-    radarChartLabels:
-      [],
-    radarChartData: [{
-      data:
-        [],
-      label: 'Ingerido'
-    }, {
-      data:
-        [],
-      label: 'Sugerido'
-    }],
-    radarChartType: 'radar'
+  public InfoValores = [];
+
+  GaugeLinearConf = {
+    chart: {
+      theme: 'fusion',
+      lowerLimit: 0,
+      upperLimit: 100,
+      numberSuffix: '',
+      chartBottomMargin: 20,
+      valueFontSize: 11,
+      valueFontBold: 0,
+      majorTMNumber: 3
+    },
+    colorRange: {
+      color: [
+        {
+          minValue: 0,
+          maxValue: 20,
+          code: '#e44a00',
+        }, {
+          minValue: 20,
+          maxValue: 40,
+          code: '#f8bd19'
+        },
+        {
+          minValue: 40,
+          maxValue: 60,
+          code: '#6baa01'
+        }, {
+          minValue: 60,
+          maxValue: 80,
+          code: '#f8bd19'
+        }, {
+          minValue: 80,
+          maxValue: 100,
+          code: '#e44a00'
+        }]
+    },
+    pointers: {
+      pointer: [{
+        value: 0
+      }]
+    },
+    trendPoints: {
+      point: [{
+        startValue: 50,
+        displayValue: ' ',
+        dashed: 1,
+        showValues: 0
+      }]
+    }
   };
 
   constructor(private _EvaluacionService: EvaluacionService,
@@ -116,14 +164,16 @@ export class EvaluacionViewComponent implements OnInit {
     this.datosUsuario = await this._DatosUsuarioService.getDatos().toPromise();
     this.ValoresDia = await this._EvaluacionService.getEvaluacionDia().toPromise();
     this.ValoresSemana = await this._EvaluacionService.getEvaluacionSemana().toPromise();
-    this.cargaDatos = true;
+    this.Historial = await this._EvaluacionService.historial().toPromise();
     this.mostrarSemana = this.datosUsuario.DefaultEvaluacion;
+    this.cargaDatos = true;
 
-    console.log(this.ValoresSemana);
+    console.log(this.Historial);
+
 
     if (this.mostrarSemana) {
-      this.graficoCalorias(this.ValoresSemana);
-      this.graficoValores(this.ValoresSemana);
+      await this.graficoCalorias(this.ValoresSemana);
+      await this.graficoValores(this.ValoresSemana);
 
     } else {
       for (let i = 0; i < this.ValoresDia.length; i++) {
@@ -133,8 +183,8 @@ export class EvaluacionViewComponent implements OnInit {
           moment.locale('es');
           this.diaEvaluacion = moment().subtract(1, 'days').format('dddd D/MM');
           this.diaEvaluacion = this.diaEvaluacion[0].toUpperCase() + this.diaEvaluacion.substr(1).toLowerCase();
-          this.graficoCalorias(this.ValoresDia[i]);
-          this.graficoValores(this.ValoresDia[i]);
+          await this.graficoCalorias(this.ValoresDia[i]);
+          await this.graficoValores(this.ValoresDia[i]);
         }
       }
     }
@@ -142,49 +192,63 @@ export class EvaluacionViewComponent implements OnInit {
 
   graficoCalorias(Periodo) {
     // Definiciones
-    let i = 0, ubicacion = 0;
-    const porcMin = [0, 0.15, 0.42, 0.58, 0.85];
-    const porcMax = [0.15, 0.42, 0.58, 0.85, 1];
-    const colores = ['#e44a00', '#f8bd19', '#6baa01', '#f8bd19', '#e44a00'];
-    const subCaption = ['MUY BAJO', 'BAJO', 'BIEN', 'ALTO', 'DEMASIADO'];
-    this.ValoresSelected = Periodo;
     const calorias = Periodo.Valores.find(x => x.ValorNutricional.Nombre === 'Calorias');
-
+    this.Consejos = Periodo.Consejos;
+    if (this.Consejos.length === 0) {
+      this.Consejos.push('¡Has cumplido en todo. Sigue asi!');
+    }
     // Calorias requeridas SIN COLACION (CAMBIAR)
-    const CaloriasRequerida = Math.round((calorias.CantidadRequerida * 100) / 100) * 0.86;
+    const CaloriasRequerida = Math.round(calorias.CantidadRequerida * 0.86);
     this.CaloriasRequerida = CaloriasRequerida;
     this.CaloriasRecomendada = calorias.CantidadConsumida;
 
     this.InfoCalorias.chart.upperLimit = CaloriasRequerida * 2;
-    this.InfoCalorias.colorRange.color.forEach(function (elem) {
-      elem.minValue = ((CaloriasRequerida * 2) * porcMin[i]);
-      elem.maxValue = ((CaloriasRequerida * 2) * porcMax[i]);
-      if (elem.minValue < calorias.CantidadConsumida && elem.maxValue > calorias.CantidadConsumida) {
+    const ubicacion = this.RangosGauge(this.InfoCalorias, CaloriasRequerida, calorias.CantidadConsumida);
+
+    this.InfoCalorias.dials.dial.forEach(x => x.value = calorias.CantidadConsumida);
+    this.InfoCalorias.chart.subCaption = this.Clasificacion[ubicacion];
+    this.InfoCalorias.chart.subcaptionFontColor = this.Colores[ubicacion];
+  }
+
+  graficoValores(Periodo) {
+    this.InfoValores = [];
+
+    Periodo.Valores.forEach(valor => {
+      if (valor.ValorNutricional.Nombre !== 'Calorias') {
+        valor.Gauge = JSON.parse(JSON.stringify(this.GaugeLinearConf));
+
+        let canR = Math.round(valor.CantidadRequerida);
+        let canC = Math.round(valor.CantidadConsumida);
+        if (canR >= 10000) {
+          canR = canR / 1000;
+          canC = canC / 1000;
+          valor.Gauge.numberSuffix = 'K';
+        }
+
+        const ubicacion = this.RangosGauge(valor.Gauge, canR, canC);
+        valor.Resultado = this.Clasificacion[ubicacion];
+        valor.ColorResultado = this.Colores[ubicacion];
+
+        valor.Gauge.trendPoints.point.forEach(x => x.startValue = canR);
+        valor.Gauge.chart.upperLimit = canR * 2;
+        valor.Gauge.pointers.pointer.forEach(x => x.value = canC);
+        this.InfoValores.push(valor);
+      }
+    });
+  }
+
+  RangosGauge(configGauge, calR, calC) {
+    let i = 0;
+    let ubicacion = 4;
+    configGauge.colorRange.color.forEach(elem => {
+      elem.minValue = ((calR * 2) * this.porcMin[i]);
+      elem.maxValue = ((calR * 2) * this.porcMax[i]);
+      if (elem.minValue < calC && elem.maxValue > calC) {
         ubicacion = i;
       }
       i++;
     });
-    this.InfoCalorias.dials.dial.forEach(x => x.value = calorias.CantidadConsumida);
-    this.InfoCalorias.chart.subCaption = subCaption[ubicacion];
-    this.InfoCalorias.chart.subcaptionFontColor = colores[ubicacion];
-  }
-
-  graficoValores(Periodo) {
-    this.ValoresSelected = Periodo;
-
-    for (let i = 0; i < Periodo.Valores.length; i++) {
-      const elemento = Periodo.Valores[i];
-      if (elemento.ValorNutricional.Nombre !== 'Calorias') {
-        this.InfoValores.radarChartLabels.push(elemento.ValorNutricional.Nombre);
-        this.InfoValores.radarChartData.map(x => {
-          if (x.label === 'Ingerido') {
-            x.data.push(elemento.CantidadConsumida);
-          } else {
-            x.data.push(elemento.CantidadRequerida);
-          }
-        });
-      }
-    }
+    return ubicacion;
   }
 
   openSnackBar(message: string, action: string) {
@@ -207,6 +271,7 @@ export class EvaluacionViewComponent implements OnInit {
             dia = dia[0].toUpperCase() + dia.substr(1).toLowerCase();
             if (dia === res) {
               this.graficoCalorias(this.ValoresDia[i]);
+              this.graficoValores(this.ValoresDia[i]);
             }
           }
         } else {
@@ -217,16 +282,32 @@ export class EvaluacionViewComponent implements OnInit {
         this.mostrarSemana = !this.mostrarSemana;
       });
     } else {
-      this.diaEvaluacion = 'Semana';
+      this.diaEvaluacion = 'Semana Actual';
       this.graficoCalorias(this.ValoresSemana);
     }
   }
 
   historial() {
     const dialogRef = this.dialog.open(EvaluacionHistorialComponent, {
-      width: '80%'
+      width: '80%',
+      data: this.Historial
     });
     dialogRef.afterClosed().subscribe(res => {
+      if (res === false) {
+        if (this.enableHistorial) {
+          this.enableHistorial = false;
+          this.diaEvaluacion = 'Semana Actual';
+          this.graficoCalorias(this.ValoresSemana);
+          this.graficoValores(this.ValoresSemana);
+        }
+      } else {
+        if (res !== undefined) {
+          this.enableHistorial = true;
+          this.diaEvaluacion = 'Semana del ' + moment(this.Historial[res].FechaInicio).format('D/MM');
+          this.graficoCalorias(this.Historial[res]);
+          this.graficoValores(this.Historial[res]);
+        }
+      }
     });
 
   }
@@ -322,18 +403,34 @@ export class EvaluacionConfigComponent {
   templateUrl: './evaluacion-view-historial.component.html',
   styleUrls: ['./evaluacion-view.component.css'],
 })
-export class EvaluacionHistorialComponent {
+export class EvaluacionHistorialComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<EvaluacionHistorialComponent>) {
   }
 
+  selectHistorial = [];
+  semanaElegida;
+
   confirmar() {
-    this.dialogRef.close();
+    this.dialogRef.close(this.semanaElegida);
   }
 
   cancelar() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
+  }
+
+  ngOnInit() {
+    let aux: any[];
+    aux = this.data;
+    for (let i = 0; i < aux.length; i++) {
+      const texto = 'Semana del ' + moment(aux[i].FechaInicio).format('D/MM');
+      this.selectHistorial.push({
+        value: i,
+        text: texto
+      });
+    }
+    this.selectHistorial.reverse();
   }
 
 }

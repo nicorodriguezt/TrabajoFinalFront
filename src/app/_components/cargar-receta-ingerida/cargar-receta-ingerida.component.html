@@ -1,0 +1,47 @@
+<div *ngIf="!cargando" align="center">
+  <mat-card>
+    <mat-card-title style="font-weight: bold; text-decoration: underline">
+      Carga comida ingerida
+    </mat-card-title>
+    <mat-card-content>
+      <div style="color: red" *ngIf="error">
+        Datos Incompletos
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-select placeholder="¿Cuando la comiste?" [(ngModel)]="momento" >
+            <mat-option *ngFor="let momento of Momentos" [value]="momento._id">
+              {{momento.Nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <mat-form-field>
+        <input type="number" [(ngModel)]="porciones" #portion="ngModel" matInput placeholder="¿Cuantas porciones?" required/>
+      </mat-form-field>
+      <div>
+        <mat-form-field class="busqueda-style" id="Buscardor">
+          <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="recetaBuscar" value="" minlength="3"
+                 placeholder="Buscar..">
+          <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="primary" (click)="handleBuscar()">
+            <mat-icon>search</mat-icon>
+          </button>
+          <mat-hint>Minimo 3 caracteres</mat-hint>
+        </mat-form-field>
+      </div>
+      <div *ngFor="let receta of recetasEncontradas">
+        <mat-card>
+          <mat-card-content align="justify">
+            {{receta.Nombre}}
+            <button mat-button color="primary" (click)="info(receta)" class="alignright">Info</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="cargando" align="center">
+  <br><br>
+  <mat-spinner></mat-spinner>
+  <span><strong>Cargando..</strong></span>
+</div>

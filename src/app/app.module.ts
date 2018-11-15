@@ -55,6 +55,8 @@ import {ActividadFisicaComponent, ActividadOverviewComponent} from './_component
 import {InformacionRecetaComponent} from './_components/informacion-receta/informacion-receta.component';
 import {ActividadLaboralComponent, ActividadLaboralInfoComponent} from './_components/actividad-laboral/actividad-laboral.component';
 import {ListaComprasComponent} from './_components/lista-compras/lista-compras.component';
+import {CargarRecetaIngeridaComponent,
+  CargarRecetaIngeridaInfoComponent } from './_components/cargar-receta-ingerida/cargar-receta-ingerida.component';
 
 // Views
 import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
@@ -74,6 +76,7 @@ import {
   EvaluacionSwitchComponent
 } from './_views/evaluacion-view/evaluacion-view.component';
 import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-compras-view.component';
+
 
 
 @NgModule({
@@ -102,7 +105,9 @@ import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-com
     EvaluacionConfigComponent,
     EvaluacionHistorialComponent,
     EvaluacionSwitchComponent,
-    ListaComprasViewComponent
+    ListaComprasViewComponent,
+    CargarRecetaIngeridaComponent,
+    CargarRecetaIngeridaInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -146,7 +151,8 @@ import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-com
     VerMenuCargarRecetaComponent,
     EvaluacionConfigComponent,
     EvaluacionHistorialComponent,
-    EvaluacionSwitchComponent
+    EvaluacionSwitchComponent,
+    CargarRecetaIngeridaInfoComponent
   ]
 })
 export class AppModule {

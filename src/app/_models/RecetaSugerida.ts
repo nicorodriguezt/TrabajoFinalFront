@@ -5,6 +5,8 @@ export class RecetaSugerida {
   constructor(
     public MomentoDelDia: MomentoDelDia,
     public Calorias: number,
-    public Receta: Receta
+    public Receta: Receta,
+    public Menu: string,
+    public PorcionIngerida: number
   ) {}
 }

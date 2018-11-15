@@ -1,7 +1,7 @@
 <div>
   <div style="font-style: italic; font-size: 14px;text-align: center">
     <span>¿Que comiste y que cantidad?.</span>
-    <span> Esta información sera reflejada en el diagnostico</span>
+    <span> Esta información sera reflejada en la evaluación</span>
   </div>
   <table>
     <tbody>
@@ -14,7 +14,7 @@
       <td>{{receta.Receta.Nombre}}</td>
       <td align="center">
         <mat-form-field style="width: 16px">
-          <input type="number" matInput name="Altura" [(ngModel)]="receta.PorcionIngerida"
+          <input matInput type="number"  [(ngModel)]="receta.PorcionIngerida"
                  placeholder="" required/>
         </mat-form-field>
       </td>
@@ -27,8 +27,6 @@
   <div align="center">
     <button mat-flat-button color="primary" (click)="modificarReceta()">Aceptar</button>
     <button mat-stroked-button color="primary" (click)="cancelar()">Cancelar</button>
-    <button mat-icon-button color="primary" class="alignright"><mat-icon>add</mat-icon></button>
+    <button mat-icon-button color="primary" class="alignright" (click)="agregarRecetaIngerida()"><mat-icon>add</mat-icon></button>
   </div>
 </div>
-
-
