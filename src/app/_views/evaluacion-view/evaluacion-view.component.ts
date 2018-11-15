@@ -16,7 +16,9 @@ export class EvaluacionViewComponent implements OnInit {
   ValoresSemana;
   ValoresDia;
   ValoresSelected;
+  Historial;
   cargaDatos = false;
+  enableHistorial = false;
   datosUsuario;
 
   // Periodo
@@ -162,10 +164,11 @@ export class EvaluacionViewComponent implements OnInit {
     this.datosUsuario = await this._DatosUsuarioService.getDatos().toPromise();
     this.ValoresDia = await this._EvaluacionService.getEvaluacionDia().toPromise();
     this.ValoresSemana = await this._EvaluacionService.getEvaluacionSemana().toPromise();
+    this.Historial = await this._EvaluacionService.historial().toPromise();
     this.mostrarSemana = this.datosUsuario.DefaultEvaluacion;
     this.cargaDatos = true;
 
-    console.log(this.ValoresSemana);
+    console.log(this.Historial);
 
     if (this.mostrarSemana) {
       await this.graficoCalorias(this.ValoresSemana);
@@ -285,7 +288,7 @@ export class EvaluacionViewComponent implements OnInit {
 
   historial() {
     const dialogRef = this.dialog.open(EvaluacionHistorialComponent, {
-      width: '80%'
+      width: '80%',
     });
     dialogRef.afterClosed().subscribe(res => {
     });

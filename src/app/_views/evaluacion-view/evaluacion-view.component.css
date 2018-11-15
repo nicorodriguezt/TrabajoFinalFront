@@ -2,12 +2,20 @@
   max-width: 800px;
 }
 
+.container {
+  position: sticky;
+  padding-left: 0;
+  padding-right: 0;
+  flex: 0 0 100%;
+}
+
 
 footer.footer-menu {
-  position:fixed;
+  position: fixed;
   bottom:0px;
   background-color: #3f51b5;
   width:100%;
+  margin-top: -50px;
 }
 
 footer.footer-menu button {

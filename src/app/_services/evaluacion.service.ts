@@ -35,4 +35,9 @@ export class EvaluacionService {
     return this._http.post(this.url + 'configuracion/', params, HttpOptions)
       .pipe(map(res => res));
   }
+
+  public historial() {
+    return this._http.get(this.url + 'Historial/', HttpOptions)
+      .pipe(map(res => res));
+  }
 }
