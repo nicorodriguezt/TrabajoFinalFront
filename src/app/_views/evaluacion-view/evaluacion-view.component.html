@@ -27,11 +27,10 @@
             </span>
                   <br>
                   <b>Consumiste: </b> {{CaloriasRecomendada}}/{{CaloriasRequerida}} cal.
-                  <br>
-                  Te sugerimos los siguientes consejos:
                 </mat-card>
                 <div class="mat-card">
-                  <ul *ngFor="let consejo of ValoresSemana.Consejos">
+                  <strong>Te aconsejamos lo siguiente:</strong>
+                  <ul *ngFor="let consejo of Consejos">
                     <li>{{consejo}}</li>
                   </ul>
                 </div>
@@ -59,11 +58,11 @@
     </div>
     <div style="height: 50px"></div>
     <footer class="footer-menu">
-      <button mat-icon-button (click)="switchSemana()">
+      <button mat-icon-button [disabled]="enableHistorial" (click)="switchSemana()">
         <mat-icon>swap_horiz</mat-icon>
       </button>
-      <button mat-icon-button>
-        <mat-icon>edit</mat-icon>
+      <button mat-icon-button (click)="historial()">
+        <mat-icon>list</mat-icon>
       </button>
       <button mat-icon-button class="config" (click)="configuracion()">
         <mat-icon>settings</mat-icon>

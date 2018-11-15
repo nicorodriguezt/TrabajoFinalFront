@@ -15,15 +15,15 @@ export class EvaluacionViewComponent implements OnInit {
 
   ValoresSemana;
   ValoresDia;
-  ValoresSelected;
   Historial;
   cargaDatos = false;
   enableHistorial = false;
   datosUsuario;
+  Consejos;
 
   // Periodo
   mostrarSemana;
-  diaEvaluacion = 'Semana';
+  diaEvaluacion = 'Semana Actual';
 
   // Gauge Declaraciones
   CaloriasRecomendada;
@@ -170,6 +170,7 @@ export class EvaluacionViewComponent implements OnInit {
 
     console.log(this.Historial);
 
+
     if (this.mostrarSemana) {
       await this.graficoCalorias(this.ValoresSemana);
       await this.graficoValores(this.ValoresSemana);
@@ -187,15 +188,17 @@ export class EvaluacionViewComponent implements OnInit {
         }
       }
     }
-}
+  }
 
   graficoCalorias(Periodo) {
     // Definiciones
-    this.ValoresSelected = Periodo;
     const calorias = Periodo.Valores.find(x => x.ValorNutricional.Nombre === 'Calorias');
-
+    this.Consejos = Periodo.Consejos;
+    if (this.Consejos.length === 0) {
+      this.Consejos.push('¡Has cumplido en todo. Sigue asi!');
+    }
     // Calorias requeridas SIN COLACION (CAMBIAR)
-    const CaloriasRequerida = Math.round(calorias.CantidadRequerida ) * 0.86;
+    const CaloriasRequerida = Math.round(calorias.CantidadRequerida * 0.86);
     this.CaloriasRequerida = CaloriasRequerida;
     this.CaloriasRecomendada = calorias.CantidadConsumida;
 
@@ -208,7 +211,6 @@ export class EvaluacionViewComponent implements OnInit {
   }
 
   graficoValores(Periodo) {
-    this.ValoresSelected = Periodo;
     this.InfoValores = [];
 
     Periodo.Valores.forEach(valor => {
@@ -249,7 +251,6 @@ export class EvaluacionViewComponent implements OnInit {
     return ubicacion;
   }
 
-
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
@@ -281,7 +282,7 @@ export class EvaluacionViewComponent implements OnInit {
         this.mostrarSemana = !this.mostrarSemana;
       });
     } else {
-      this.diaEvaluacion = 'Semana';
+      this.diaEvaluacion = 'Semana Actual';
       this.graficoCalorias(this.ValoresSemana);
     }
   }
@@ -289,8 +290,24 @@ export class EvaluacionViewComponent implements OnInit {
   historial() {
     const dialogRef = this.dialog.open(EvaluacionHistorialComponent, {
       width: '80%',
+      data: this.Historial
     });
     dialogRef.afterClosed().subscribe(res => {
+      if (res === false) {
+        if (this.enableHistorial) {
+          this.enableHistorial = false;
+          this.diaEvaluacion = 'Semana Actual';
+          this.graficoCalorias(this.ValoresSemana);
+          this.graficoValores(this.ValoresSemana);
+        }
+      } else {
+        if (res !== undefined) {
+          this.enableHistorial = true;
+          this.diaEvaluacion = 'Semana del ' + moment(this.Historial[res].FechaInicio).format('D/MM');
+          this.graficoCalorias(this.Historial[res]);
+          this.graficoValores(this.Historial[res]);
+        }
+      }
     });
 
   }
@@ -386,18 +403,34 @@ export class EvaluacionConfigComponent {
   templateUrl: './evaluacion-view-historial.component.html',
   styleUrls: ['./evaluacion-view.component.css'],
 })
-export class EvaluacionHistorialComponent {
+export class EvaluacionHistorialComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<EvaluacionHistorialComponent>) {
   }
 
+  selectHistorial = [];
+  semanaElegida;
+
   confirmar() {
-    this.dialogRef.close();
+    this.dialogRef.close(this.semanaElegida);
   }
 
   cancelar() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
+  }
+
+  ngOnInit() {
+    let aux: any[];
+    aux = this.data;
+    for (let i = 0; i < aux.length; i++) {
+      const texto = 'Semana del ' + moment(aux[i].FechaInicio).format('D/MM');
+      this.selectHistorial.push({
+        value: i,
+        text: texto
+      });
+    }
+    this.selectHistorial.reverse();
   }
 
 }
