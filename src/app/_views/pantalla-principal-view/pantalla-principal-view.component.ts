@@ -48,15 +48,20 @@ export class PantallaPrincipalViewComponent implements OnInit {
       this.getproximaComida();
       this.enableCargando = false;
     });
-    this._RecetaService.buscar(this.test,0,5).subscribe(res => {
+    this._RecetaService.recetasMejorPuntuadas().subscribe(res => {
+      this.auxiliar = res;
+      this.auxiliar.forEach(x => {
+        x.Nombre = PonerMayuscula(x.Nombre);
+        this.recetasValoradas.push(x);
+      });
+    });
+    this._RecetaService.recetasNuevas().subscribe(res => {
       this.auxiliar = res;
       this.auxiliar.forEach(x => {
         x.Nombre = PonerMayuscula(x.Nombre);
         this.recetasNuevas.push(x);
-        this.recetasValoradas.push(x);
       });
     });
-    // Recetas
   }
 
   getproximaComida() {
