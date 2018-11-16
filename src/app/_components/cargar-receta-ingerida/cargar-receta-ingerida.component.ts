@@ -45,7 +45,6 @@ export class CargarRecetaIngeridaComponent implements OnInit {
     this.recetasEncontradas = [];
     this._RecetaService.buscarIngerida(this.recetaBuscar).subscribe(res => {
       this.auxiliar = res;
-      console.log(this.auxiliar);
       this.auxiliar.forEach(x => {
         x.Nombre = PonerMayuscula(x.Nombre);
         for (let i = 0; i < x.Ingredientes.length; i++) {

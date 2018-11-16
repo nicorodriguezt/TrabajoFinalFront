@@ -168,9 +168,6 @@ export class EvaluacionViewComponent implements OnInit {
     this.mostrarSemana = this.datosUsuario.DefaultEvaluacion;
     this.cargaDatos = true;
 
-    console.log(this.Historial);
-
-
     if (this.mostrarSemana) {
       await this.graficoCalorias(this.ValoresSemana);
       await this.graficoValores(this.ValoresSemana);

@@ -1,0 +1,78 @@
+<body>
+<main>
+  <div [hidden]="verReceta">
+    <div *ngIf="enableCargando; else terminado" align="center">
+      <br><br>
+      <mat-spinner></mat-spinner>
+      <span><strong>Cargando..</strong></span>
+    </div>
+    <ng-template #terminado>
+      <div align="center">
+        <mat-card class="proximo-card">
+          <mat-card-title>
+            PROXIMA COMIDA: {{ProximaComida.MomentoDelDia.Nombre}}
+          </mat-card-title>
+          <mat-card-content>
+            {{ProximaComida.Receta.Nombre}}
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button color="primary" routerLink="/verMenu">Ir al menú</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card class="recetas">
+          <mat-card-title>
+            RECETAS NUEVAS:
+          </mat-card-title>
+          <mat-card-content>
+            <ngu-carousel #carouselNuevas [inputs]="carouselTileConfig" [dataSource]="recetasNuevas">
+              <ngu-tile *nguCarouselDef="let item; let i=index">
+                <ngu-item>
+                  <mat-card (click)="verRecetaView(item)">
+                    <img mat-card-image="" src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg">
+                    <mat-card-content>{{item.Nombre}}</mat-card-content>
+                  </mat-card>
+                </ngu-item>
+              </ngu-tile>
+              <button NguCarouselPrev class='leftRs'>&lt;</button>
+              <button NguCarouselNext class='rightRs'>&gt;</button>
+
+              <ul class="myPoint" NguCarouselPoint>
+                <li *ngFor="let i of carouselNuevas.pointNumbers; let i = index" [class.active]="i==carouselNuevas.activePoint" (click)="carouselNuevas.moveTo(i)"></li>
+              </ul>
+            </ngu-carousel>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="recetas">
+          <mat-card-title>
+            RECETAS MÁS VALORADAS:
+          </mat-card-title>
+          <mat-card-content>
+            <ngu-carousel #carouselValoradas [inputs]="carouselTileConfig" [dataSource]="recetasValoradas">
+              <ngu-tile *nguCarouselDef="let item; let i=index">
+                <ngu-item>
+                  <mat-card (click)="verRecetaView(item)">
+                    <img mat-card-image="" src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg" >
+                    <mat-card-content>{{item.Nombre}}</mat-card-content>
+                  </mat-card>
+                </ngu-item>
+              </ngu-tile>
+              <button NguCarouselPrev class='leftRs'>&lt;</button>
+              <button NguCarouselNext class='rightRs'>&gt;</button>
+              <ul class="myPoint" NguCarouselPoint>
+                <li *ngFor="let i of carouselValoradas.pointNumbers; let i = index" [class.active]="i==carouselValoradas.activePoint" (click)="carouselValoradas.moveTo(i)"></li>
+              </ul>
+            </ngu-carousel>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </ng-template>
+  </div>
+  <app-informacion-receta
+    *ngIf="verReceta" [RecetaElegida]="RecetaElegida" (volverEvent)="verReceta = $event">
+  </app-informacion-receta>
+</main>
+</body>
+
+
+
+

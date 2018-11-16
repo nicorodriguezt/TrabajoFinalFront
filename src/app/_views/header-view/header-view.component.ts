@@ -35,11 +35,9 @@ export class HeaderViewComponent implements OnInit {
   public logout() {
     this._UsuarioService.logout().subscribe(
       response => {
-        console.log(response);
         this._router.navigate(['/login']);
       },
       error1 => {
-        console.log(error1);
       }
     );
   }

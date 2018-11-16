@@ -64,7 +64,6 @@ export class ActividadLaboralInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data);
   }
 
 }

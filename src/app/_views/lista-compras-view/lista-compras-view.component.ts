@@ -26,7 +26,6 @@ export class ListaComprasViewComponent implements OnInit {
     this.ListMenu.forEach(x => {
       this.setFecha(x);
     });
-    console.log(this.ListMenu);
     this.cargaDatos = false;
   }
 
@@ -48,7 +47,6 @@ export class ListaComprasViewComponent implements OnInit {
       const i = this.ListIds.findIndex( x => x === menu._id);
       this.ListIds.splice(i, 1);
     }
-    console.log(this.ListIds);
   }
 
   generarLista() {
