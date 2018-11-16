@@ -15,11 +15,11 @@ export class RegistroComponent implements OnInit {
   public errorMensaje;
   public session;
   controlPassword;
+  disableSegundaPassword = true;
 
   constructor(
     private _UsuarioService: UsuarioService,
     private _router: Router,
-    private _location: Location
   ) {
     this.Usuario = new Usuario(null, null, null, null, null);
   }
@@ -45,13 +45,17 @@ export class RegistroComponent implements OnInit {
         ,
         error1 => {
           error1 = JSON.stringify(error1.error.message);
-          let errorMensaje = <any>error1;
+          const errorMensaje = <any>error1;
           if (errorMensaje) {
             this.errorMensaje = error1;
           }
         }
       );
     }
+  }
+
+  enableAceptar() {
+    this.disableSegundaPassword = this.controlPassword === '' || this.controlPassword == null;
   }
 
   ngOnInit() {
