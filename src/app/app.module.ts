@@ -48,7 +48,6 @@ import {LoginGuard} from './_guards/login.guard';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './_components/login/login.component';
 import {RegistroComponent} from './_components/registro/registro.component';
-import {MainMenuComponent} from './_components/main-menu/main-menu.component';
 import {NuevoDatosUsuarioComponent} from './_components/nuevo-datos-usuario/nuevo-datos-usuario.component';
 import {BuscarRecetasComponent} from './_components/buscar-recetas/buscar-recetas.component';
 import {ActividadFisicaComponent, ActividadOverviewComponent} from './_components/actividad-fisica/actividad-fisica.component';
@@ -76,6 +75,7 @@ import {
   EvaluacionSwitchComponent
 } from './_views/evaluacion-view/evaluacion-view.component';
 import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-compras-view.component';
+import { PantallaPrincipalViewComponent } from './_views/pantalla-principal-view/pantalla-principal-view.component';
 
 
 
@@ -84,7 +84,6 @@ import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-com
     AppComponent,
     LoginComponent,
     RegistroComponent,
-    MainMenuComponent,
     NuevoDatosUsuarioComponent,
     BuscarRecetasComponent,
     LoginRegisterViewComponent,
@@ -107,7 +106,8 @@ import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-com
     EvaluacionSwitchComponent,
     ListaComprasViewComponent,
     CargarRecetaIngeridaComponent,
-    CargarRecetaIngeridaInfoComponent
+    CargarRecetaIngeridaInfoComponent,
+    PantallaPrincipalViewComponent
   ],
   imports: [
     BrowserModule,

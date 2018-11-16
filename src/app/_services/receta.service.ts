@@ -45,4 +45,14 @@ export class RecetaService {
     return this._http.get(this.url + 'findIngerido/', HttpOptions)
       .pipe(map(res => res));
   }
+
+  public recetasMejorPuntuadas () {
+    return this._http.get(this.url + 'mejoresRecetas/', HttpOptions)
+      .pipe(map(res => res));
+  }
+
+  public recetasNuevas () {
+    return this._http.get(this.url + 'ultimasRecetas/', HttpOptions)
+      .pipe(map(res => res));
+  }
 }

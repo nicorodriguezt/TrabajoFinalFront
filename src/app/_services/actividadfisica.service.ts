@@ -38,8 +38,6 @@ export class ActividadfisicaService {
     const json = JSON.stringify(actividad);
     const params = json;
 
-    console.log(params);
-
     return this._http.post(this.url + 'add', params, HttpOptions)
       .pipe(map(res => res));
   }

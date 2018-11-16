@@ -23,7 +23,6 @@ export class ListaComprasComponent implements OnInit {
       element.Ingrediente.Nombre = element.Ingrediente.Nombre[0].toUpperCase() + element.Ingrediente.Nombre.substr(1).toLowerCase();
     });
     this.cargaDatos = false;
-    console.log(this.ListaCompra);
   }
 
   volver() {
