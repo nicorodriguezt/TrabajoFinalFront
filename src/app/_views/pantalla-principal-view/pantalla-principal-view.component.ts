@@ -5,12 +5,13 @@ import * as moment from 'moment-timezone';
 import {PonerMayuscula} from '../../_services/funciones-commun.service';
 import {RecetaService} from '../../_services/receta.service';
 import {NguCarouselConfig} from '@ngu/carousel';
+import {DatosUsuarioService} from '../../_services/datos-usuario.service';
 
 @Component({
   selector: 'app-pantalla-principal-view',
   templateUrl: './pantalla-principal-view.component.html',
   styleUrls: ['./pantalla-principal-view.component.scss'],
-  providers: [MenuService, RecetaService]
+  providers: [MenuService, RecetaService, DatosUsuarioService]
 })
 export class PantallaPrincipalViewComponent implements OnInit {
 
@@ -19,7 +20,7 @@ export class PantallaPrincipalViewComponent implements OnInit {
   ProximaComida;
   recetasNuevas = [];
   recetasValoradas = [];
-  verReceta; RecetaElegida;
+  verReceta; RecetaElegida; datosExist;
 
   public carouselTileConfig: NguCarouselConfig = {
     grid: {xs: 2, sm: 2, md: 3, lg: 5, all: 0},
@@ -32,22 +33,27 @@ export class PantallaPrincipalViewComponent implements OnInit {
     animation: 'lazy'
   };
 
-  test = {
-    Nombre: 'mata'
-  }
-
   constructor(private _MenuService: MenuService,
-              private _RecetaService: RecetaService) { }
+              private _RecetaService: RecetaService,
+              private _DatosUsuarioService: DatosUsuarioService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.verReceta = false;
     this.enableCargando = true;
-    this._MenuService.infoMenuHoy().subscribe(res => {
-      this.auxiliar = res;
-      this.Menu = this.auxiliar;
-      this.getproximaComida();
+    const datos = await this._DatosUsuarioService.getDatos().toPromise();
+    if (datos !== null)
+    {
+      this.datosExist = true;
+      this._MenuService.infoMenuHoy().subscribe(res => {
+        this.auxiliar = res;
+        this.Menu = this.auxiliar;
+        this.getproximaComida();
+        this.enableCargando = false;
+      });
+    } else {
+      this.datosExist = false;
       this.enableCargando = false;
-    });
+    }
     this._RecetaService.recetasMejorPuntuadas().subscribe(res => {
       this.auxiliar = res;
       this.auxiliar.forEach(x => {

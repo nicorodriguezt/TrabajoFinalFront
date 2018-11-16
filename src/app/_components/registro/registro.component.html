@@ -36,13 +36,13 @@
 
             <mat-form-field>
               <input matInput type="password" #password2="ngModel" name="password2" [(ngModel)]="controlPassword"
-                     placeholder="Repita la contraseña" required/>
+                     placeholder="Repita la contraseña" required (change)="enableAceptar()"/>
             </mat-form-field>
 
             <div></div>
 
             <button mat-raised-button color="primary" type="submit" (click)="singup()" [disabled]="!username.valid || !Nombre.valid ||
-          !Apellido.valid || !Email.valid || !password.valid">Aceptar
+          !Apellido.valid || !Email.valid || !password.valid || disableSegundaPassword">Aceptar
             </button>
 
           </form>
