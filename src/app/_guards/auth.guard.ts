@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute, Router, CanActivateChild} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
   constructor(private _activatedRoute: ActivatedRoute,
-              private _router: Router) {}
+              private _router: Router) {
+  }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -14,8 +15,9 @@ export class AuthGuard implements CanActivate {
     if (localStorage.getItem('Logged') || state.url === '/registro') {
       return true;
     } else {
-      this._router.navigate(['login']);
+      this._router.navigateByUrl('/login');
       return false;
     }
   }
+
 }

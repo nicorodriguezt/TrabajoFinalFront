@@ -76,6 +76,7 @@ import {
 } from './_views/evaluacion-view/evaluacion-view.component';
 import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-compras-view.component';
 import { PantallaPrincipalViewComponent } from './_views/pantalla-principal-view/pantalla-principal-view.component';
+import { FavoritosViewComponent } from './_views/favoritos-view/favoritos-view.component';
 
 
 
@@ -107,7 +108,8 @@ import { PantallaPrincipalViewComponent } from './_views/pantalla-principal-view
     ListaComprasViewComponent,
     CargarRecetaIngeridaComponent,
     CargarRecetaIngeridaInfoComponent,
-    PantallaPrincipalViewComponent
+    PantallaPrincipalViewComponent,
+    FavoritosViewComponent
   ],
   imports: [
     BrowserModule,
