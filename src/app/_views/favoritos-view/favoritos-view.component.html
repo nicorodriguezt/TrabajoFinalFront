@@ -1,3 +1,14 @@
-<p>
-  favoritos-view works!
-</p>
+<body>
+<main>
+  <div *ngIf="!cargaDatos" align="center">
+    <br><br>
+    <mat-spinner></mat-spinner>
+    <span><strong>Cargando..</strong></span>
+  </div>
+  <div *ngIf="cargaDatos">
+    <div align="center">
+
+    </div>
+  </div>
+</main>
+</body>
