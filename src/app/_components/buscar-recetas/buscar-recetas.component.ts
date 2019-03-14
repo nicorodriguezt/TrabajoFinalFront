@@ -25,10 +25,10 @@ export class BuscarRecetasComponent {
   }
 
   public buscar() {
-    this.recetasSearching = true;
     this.MensajeBusqueda = '';
     this.results = [];
     if (this.RecetaBuscada.Nombre !== '') {
+      this.recetasSearching = true;
       this._RecetaService.buscar(this.RecetaBuscada, this.skip, this.limit).subscribe(response => {
         this.recetasSearching = false;
         const aux = (Object.values(response));

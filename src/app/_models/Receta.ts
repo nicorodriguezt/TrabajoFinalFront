@@ -7,6 +7,7 @@ export class Receta {
     public Nombre: string,
     public Descripcion: string,
     public Pasos: string,
+    public Favorito: boolean,
     public MomentoDelDia: [MomentoDelDia],
     public IngredientePrincipal: string,
     public Ingredientes: [IngredienteXReceta],

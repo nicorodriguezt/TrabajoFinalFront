@@ -1,0 +1,20 @@
+.card-style {
+  max-height: 150px;
+  text-align: left;
+}
+
+.alignleft {
+  float: left;
+}
+
+.alignright {
+  float: right;
+}
+
+mat-card {
+  padding: 10px;
+}
+mat-card.mat-card-content {
+  margin-bottom: 5px;
+
+}

@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
+// Guard
+import { AuthGuard} from './_guards/auth.guard';
+import {LoginGuard} from './_guards/login.guard';
+
 // Componentes
 import { LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
 import { BuscadorViewComponent} from './_views/buscador-view/buscador-view.component';
@@ -10,11 +14,7 @@ import { VerMenuViewComponent} from './_views/ver-menu-view/ver-menu-view.compon
 import { EvaluacionViewComponent } from './_views/evaluacion-view/evaluacion-view.component';
 import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-compras-view.component';
 import { PantallaPrincipalViewComponent} from './_views/pantalla-principal-view/pantalla-principal-view.component';
-
-// Guard
-import { AuthGuard} from './_guards/auth.guard';
-import {LoginGuard} from './_guards/login.guard';
-
+import {FavoritosViewComponent} from './_views/favoritos-view/favoritos-view.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginRegisterViewComponent, canActivate: [LoginGuard] },
@@ -24,7 +24,8 @@ const routes: Routes = [
   { path: 'cargarDatos', component: ModificarDatosViewComponent, canActivate: [AuthGuard] },
   { path: 'verMenu', component: VerMenuViewComponent, canActivate: [AuthGuard] },
   { path: 'evaluacion', component: EvaluacionViewComponent, canActivate: [AuthGuard] },
-  { path: 'listaCompras', component: ListaComprasViewComponent, canActivate: [AuthGuard] }
+  { path: 'listaCompras', component: ListaComprasViewComponent, canActivate: [AuthGuard] },
+  { path: 'favoritos', component: FavoritosViewComponent, canActivate: [AuthGuard]}
 ];
 
 

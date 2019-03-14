@@ -32,6 +32,11 @@
   font-size: 14px;
 }
 
+favorito-style {
+  float: right;
+  color: #ffff00;
+}
+
 .ingredientes-style {
   text-align: justify;
 }
