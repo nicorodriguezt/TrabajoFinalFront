@@ -47,9 +47,8 @@ export class InformacionRecetaComponent implements OnInit {
   togglefavorito() {
     this._FavoritoService.HacerFavortito(this.RecetaElegida).subscribe(res => {
       console.log(res);
-      this.RecetaElegida.Favorito = !this.RecetaElegida.Favorito;
       let mensaje = '';
-      if (this.RecetaElegida.Favorito === true) {
+      if (res === 'true') {
         mensaje = 'Agregado a Favoritas';
       } else {
         mensaje = 'Eliminado de Favoritas';

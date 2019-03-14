@@ -67,7 +67,6 @@ import {
   VerMenuConfirmRemComponent
 } from './_views/ver-menu-view/ver-menu-view.component';
 import {ModificarDatosViewComponent} from './_views/modificar-datos-view/modificar-datos-view.component';
-import {RecetasFavoritasViewComponent} from './_views/recetas-favoritas-view/recetas-favoritas-view.component';
 import {
   EvaluacionViewComponent,
   EvaluacionConfigComponent,
@@ -100,7 +99,6 @@ import { FavoritosViewComponent } from './_views/favoritos-view/favoritos-view.c
     VerMenuConfirmRemComponent,
     ListaComprasComponent,
     ModificarDatosViewComponent,
-    RecetasFavoritasViewComponent,
     EvaluacionViewComponent,
     EvaluacionConfigComponent,
     EvaluacionHistorialComponent,
