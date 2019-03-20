@@ -76,6 +76,10 @@ import {
 import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-compras-view.component';
 import { PantallaPrincipalViewComponent } from './_views/pantalla-principal-view/pantalla-principal-view.component';
 import { FavoritosViewComponent } from './_views/favoritos-view/favoritos-view.component';
+import {
+  CargarRecetaNuevaComponent,
+  CargarRecetaNuevaIngrerdienteComponent
+} from './_components/cargar-receta-nueva/cargar-receta-nueva.component';
 
 
 
@@ -107,7 +111,9 @@ import { FavoritosViewComponent } from './_views/favoritos-view/favoritos-view.c
     CargarRecetaIngeridaComponent,
     CargarRecetaIngeridaInfoComponent,
     PantallaPrincipalViewComponent,
-    FavoritosViewComponent
+    FavoritosViewComponent,
+    CargarRecetaNuevaComponent,
+    CargarRecetaNuevaIngrerdienteComponent
   ],
   imports: [
     BrowserModule,
@@ -152,7 +158,8 @@ import { FavoritosViewComponent } from './_views/favoritos-view/favoritos-view.c
     EvaluacionConfigComponent,
     EvaluacionHistorialComponent,
     EvaluacionSwitchComponent,
-    CargarRecetaIngeridaInfoComponent
+    CargarRecetaIngeridaInfoComponent,
+    CargarRecetaNuevaIngrerdienteComponent
   ]
 })
 export class AppModule {

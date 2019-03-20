@@ -42,7 +42,6 @@ export class ActividadFisicaComponent implements OnInit {
 
   openDialogNuevo(): void {
     const dialogRef = this.dialog.open(ActividadOverviewComponent, {
-      width: '250px',
       data: {
         ActividadFisica: this.ActividadFisica,
         ListActividades: this.ListActividades,
