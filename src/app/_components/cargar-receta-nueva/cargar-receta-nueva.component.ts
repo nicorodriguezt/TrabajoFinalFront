@@ -55,7 +55,14 @@ export class CargarRecetaNuevaComponent implements OnInit {
         }
       }
     });
+  }
 
+  crearReceta() {
+    this._nuevaComida.Estado = 'comida';
+    this._RecetaService.addReceta(this._nuevaComida).subscribe( x => {
+      console.log(x);
+      debugger;
+    });
   }
 
 }

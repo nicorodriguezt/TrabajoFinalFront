@@ -36,6 +36,10 @@
           <mat-icon>star</mat-icon>
           Recetas Favoritas
         </a>
+        <a mat-list-item routerLink="/recetasUsuario" routerLinkActive="active" (click)="snav.toggle()">
+          <mat-icon>lightbulb_outline</mat-icon>
+          Recetas Propias
+        </a>
         <a mat-list-item routerLink="/cargarDatos" routerLinkActive="active" (click)="snav.toggle()">
           <mat-icon>person</mat-icon>
           Tus Datos

@@ -1,5 +1,6 @@
 import {IngredienteXReceta} from './IngredienteXReceta';
 import {MomentoDelDia} from './MomentoDelDia';
+import {Usuario} from './Usuario';
 
 export class Receta {
   constructor(
@@ -15,7 +16,9 @@ export class Receta {
     public Multiplicable: boolean,
     public Puntaje: number,
     public Porciones: number,
-    public Calorias: number
+    public Calorias: number,
+    public UsuarioCreo: string,
+    public Estado: string
   ) {
   }
 }

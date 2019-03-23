@@ -13,7 +13,7 @@ export class FavoritosViewComponent implements OnInit {
   cargarDatos = false;
   listFavoritos = null;
   verReceta = false;
-  RecetaElegida = new Receta(null, null, null, null, null, null, null, null, null, false, null, null, null);
+  RecetaElegida = new Receta(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 
   constructor(private _FavoritosService: FavoritosService) { }

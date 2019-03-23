@@ -1,0 +1,81 @@
+<body>
+<div *ngIf="_Cargando; else terminado" align="center">
+  <br><br>
+  <mat-spinner></mat-spinner>
+  <span><strong>Cargando..</strong></span>
+</div>
+<ng-template #terminado>
+  <mat-vertical-stepper linear="true"  #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Presentación</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Nombre" formControlName="firstCtrl" required>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput placeholder="Breve descripción" formControlName="firstCtrl" required></textarea>
+        </mat-form-field>
+        <div align="center">
+          <label class="btn btn-dark" style="border-radius: 50%">
+            <mat-icon>camera_alt</mat-icon>
+            <input type="file" style="display: none;">
+          </label>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Información general</ng-template>
+        <mat-form-field>
+          <mat-select placeholder="Momento del día">
+            <mat-option *ngFor="let momento of _Momentos" [value]="momento._id">
+              {{momento.Nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Porcion/es" formControlName="secondCtrl" required type="number">
+        </mat-form-field>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>¿Como preparar?</ng-template>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Ingredientes
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!---<mat-list-item *ngFor="let ingrediente of _nuevaComida.Ingredientes" style="height: 30px; padding: 0px; font-size: 14px">
+                  > {{ingrediente.Ingrediente.NombreMostrar}} - {{ingrediente.Cantidad}} {{ingrediente.Unidad}}
+                </mat-list-item>
+                <div align="center">
+                  <button mat-icon-button color="primary" (click)="nuevoIngrediente()"><mat-icon>add</mat-icon></button>
+          </div>--->
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Pasos
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="_pasosForm">
+            <div formArrayName="pasos">
+              <div *ngFor="let group of pasosArray.controls; let i=index" [formGroupName]="i">
+                <mat-form-field>
+                  <textarea matInput formControlName="valor" placeholder="Paso {{i+1}}" required></textarea>
+                </mat-form-field>
+              </div>
+              <button (click)="addPaso()">Add</button>
+            </div>
+          </form>
+
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-step>
+  </mat-vertical-stepper>
+</ng-template>
+</body>

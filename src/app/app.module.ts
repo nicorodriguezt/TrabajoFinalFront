@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -26,7 +26,8 @@ import {
   MatSnackBarModule,
   MatTabsModule,
   MatCheckboxModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatStepperModule
 } from '@angular/material';
 import { NguCarouselModule} from '@ngu/carousel';
 
@@ -54,8 +55,15 @@ import {ActividadFisicaComponent, ActividadOverviewComponent} from './_component
 import {InformacionRecetaComponent} from './_components/informacion-receta/informacion-receta.component';
 import {ActividadLaboralComponent, ActividadLaboralInfoComponent} from './_components/actividad-laboral/actividad-laboral.component';
 import {ListaComprasComponent} from './_components/lista-compras/lista-compras.component';
-import {CargarRecetaIngeridaComponent,
-  CargarRecetaIngeridaInfoComponent } from './_components/cargar-receta-ingerida/cargar-receta-ingerida.component';
+import {
+  CargarRecetaIngeridaComponent,
+  CargarRecetaIngeridaInfoComponent
+} from './_components/cargar-receta-ingerida/cargar-receta-ingerida.component';
+import {
+  CargarRecetaNuevaComponent,
+  CargarRecetaNuevaIngrerdienteComponent
+} from './_components/cargar-receta-nueva/cargar-receta-nueva.component';
+import { CargarRecetaCompletaComponent } from './_components/cargar-receta-completa/cargar-receta-completa.component';
 
 // Views
 import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
@@ -76,10 +84,7 @@ import {
 import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-compras-view.component';
 import { PantallaPrincipalViewComponent } from './_views/pantalla-principal-view/pantalla-principal-view.component';
 import { FavoritosViewComponent } from './_views/favoritos-view/favoritos-view.component';
-import {
-  CargarRecetaNuevaComponent,
-  CargarRecetaNuevaIngrerdienteComponent
-} from './_components/cargar-receta-nueva/cargar-receta-nueva.component';
+import { RecetasUsuarioViewComponent } from './_views/recetas-usuario-view/recetas-usuario-view.component';
 
 
 
@@ -113,9 +118,12 @@ import {
     PantallaPrincipalViewComponent,
     FavoritosViewComponent,
     CargarRecetaNuevaComponent,
-    CargarRecetaNuevaIngrerdienteComponent
+    CargarRecetaNuevaIngrerdienteComponent,
+    CargarRecetaCompletaComponent,
+    RecetasUsuarioViewComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -143,7 +151,8 @@ import {
     NguCarouselModule,
     MatTableModule,
     ChartsModule,
-    FusionChartsModule
+    FusionChartsModule,
+    MatStepperModule
   ],
   providers: [
     AuthGuard,

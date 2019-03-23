@@ -19,7 +19,7 @@ export class CargarRecetaIngeridaComponent implements OnInit {
   momento;
   Momentos = [];
   recetasEncontradas = [];
-  _nuevaComida = new Receta(null, null, null, null, null, null, null, null, null, null, null, null, null, );
+  _nuevaComida = new Receta(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null );
   _enableAgregar = false;
   _hideVacio = false;
   auxiliar;
@@ -80,7 +80,7 @@ export class CargarRecetaIngeridaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(x => {
-      if (x !== undefined || false) {
+      if (x !== undefined && x !== false) {
         if (this.momento === undefined || this.momento === null || this.porciones === undefined || this.porciones === null) {
           this.error = true;
         } else {

@@ -55,4 +55,11 @@ export class RecetaService {
     return this._http.get(this.url + 'ultimasRecetas/', HttpOptions)
       .pipe(map(res => res));
   }
+
+  public addReceta(data) {
+    const json = JSON.stringify(data);
+    const params = json;
+
+    return this._http.post(this.url + 'add/', params,  HttpOptions).pipe(map(res => res));
+  }
 }
