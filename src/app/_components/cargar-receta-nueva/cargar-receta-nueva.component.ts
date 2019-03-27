@@ -60,11 +60,16 @@ export class CargarRecetaNuevaComponent implements OnInit {
   crearReceta() {
     this._nuevaComida.Estado = 'comida';
     this._RecetaService.addReceta(this._nuevaComida).subscribe( x => {
-      console.log(x);
-      debugger;
+      let auxiliar;
+      auxiliar = x;
+      this._nuevaComida._id = auxiliar._id;
+      this.finalizarEvent.emit(true);
     });
   }
 
+  cancelar() {
+    this.finalizarEvent.emit(false);
+  }
 }
 
 @Component({

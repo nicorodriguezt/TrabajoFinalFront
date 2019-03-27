@@ -29,16 +29,17 @@ import {
   MatProgressSpinnerModule,
   MatStepperModule
 } from '@angular/material';
-import { NguCarouselModule} from '@ngu/carousel';
+import {NguCarouselModule} from '@ngu/carousel';
 
 // Charts
-import { ChartsModule } from 'ng2-charts';
-import { FusionChartsModule} from 'angular-fusioncharts';
+import {ChartsModule} from 'ng2-charts';
+import {FusionChartsModule} from 'angular-fusioncharts';
 import * as Widgets from 'fusioncharts/fusioncharts.widgets';
 import * as FusionCharts from 'fusioncharts';
 import * as Charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import * as PowerCharts from 'fusioncharts/fusioncharts.powercharts';
+
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme, PowerCharts);
 
 // Guards
@@ -63,7 +64,10 @@ import {
   CargarRecetaNuevaComponent,
   CargarRecetaNuevaIngrerdienteComponent
 } from './_components/cargar-receta-nueva/cargar-receta-nueva.component';
-import { CargarRecetaCompletaComponent } from './_components/cargar-receta-completa/cargar-receta-completa.component';
+import {
+  CargarRecetaCompletaComponent,
+  CargarRecetaCompletaIngrerdienteComponent
+} from './_components/cargar-receta-completa/cargar-receta-completa.component';
 
 // Views
 import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
@@ -81,11 +85,11 @@ import {
   EvaluacionHistorialComponent,
   EvaluacionSwitchComponent
 } from './_views/evaluacion-view/evaluacion-view.component';
-import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-compras-view.component';
-import { PantallaPrincipalViewComponent } from './_views/pantalla-principal-view/pantalla-principal-view.component';
-import { FavoritosViewComponent } from './_views/favoritos-view/favoritos-view.component';
-import { RecetasUsuarioViewComponent } from './_views/recetas-usuario-view/recetas-usuario-view.component';
-
+import {ListaComprasViewComponent} from './_views/lista-compras-view/lista-compras-view.component';
+import {PantallaPrincipalViewComponent} from './_views/pantalla-principal-view/pantalla-principal-view.component';
+import {FavoritosViewComponent} from './_views/favoritos-view/favoritos-view.component';
+import {RecetasUsuarioViewComponent} from './_views/recetas-usuario-view/recetas-usuario-view.component';
+import { RecetasAdministradorComponent } from './_views/recetas-administrador/recetas-administrador.component';
 
 
 @NgModule({
@@ -120,7 +124,9 @@ import { RecetasUsuarioViewComponent } from './_views/recetas-usuario-view/recet
     CargarRecetaNuevaComponent,
     CargarRecetaNuevaIngrerdienteComponent,
     CargarRecetaCompletaComponent,
-    RecetasUsuarioViewComponent
+    RecetasUsuarioViewComponent,
+    CargarRecetaCompletaIngrerdienteComponent,
+    RecetasAdministradorComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -168,7 +174,8 @@ import { RecetasUsuarioViewComponent } from './_views/recetas-usuario-view/recet
     EvaluacionHistorialComponent,
     EvaluacionSwitchComponent,
     CargarRecetaIngeridaInfoComponent,
-    CargarRecetaNuevaIngrerdienteComponent
+    CargarRecetaNuevaIngrerdienteComponent,
+    CargarRecetaCompletaIngrerdienteComponent
   ]
 })
 export class AppModule {

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private _UsuarioService: UsuarioService, private _router: Router
   ) {
-    this.Usuario = new Usuario('','','','','');
+    this.Usuario = new Usuario('', '', '', '', '', null);
   }
 
   public login() {
@@ -29,7 +29,10 @@ export class LoginComponent implements OnInit {
           alert('Error en el servidor');
         } else {
           this._UsuarioService.sendSession(this.session.passport.user);
-          this._router.navigate(['/main']);
+          this._UsuarioService.info().subscribe((res: Usuario) => {
+            this._UsuarioService.sendRol(res.Rol);
+            this._router.navigate(['/main']);
+          });
         }
       }
       ,

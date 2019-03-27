@@ -1,4 +1,74 @@
 <body>
-
+<div [hidden]="_enableMostrar">
+  <div *ngIf="_cargando; else terminado" align="center">
+    <br><br>
+    <mat-spinner></mat-spinner>
+    <span><strong>Cargando..</strong></span>
+  </div>
+    <ng-template #terminado>
+      <mat-accordion>
+        <mat-expansion-panel expanded="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b>COMIDAS</b>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <mat-list>
+            <mat-list-item *ngFor="let receta of _ListRecetas?.Comidas" (click)="verMas(receta)">
+              <mat-icon mat-list-icon>restaurant</mat-icon>
+              <h4 mat-line>{{receta.NombreMostrar}}</h4>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b>PENDIENTES</b>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <div *ngIf="_ListRecetas?.Pendientes.length == 0; else ePendientes">
+            <br>
+            <span>No hay recetas pendientes de aprobacion.
+          </span>
+          </div>
+          <ng-template #ePendientes>
+            <mat-list>
+              <mat-list-item *ngFor="let receta of _ListRecetas?.Pendientes" >
+                <mat-icon mat-list-icon>restaurant</mat-icon>
+                <h4 mat-line>{{receta.NombreMostrar}}</h4>
+              </mat-list-item>
+            </mat-list>
+          </ng-template>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b>REVISADAS</b>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <div *ngIf="_ListRecetas?.Revisadas.length == 0; else eRevisados">
+            <br>
+            <span>No hay recetas revisadas.
+          </span>
+          </div>
+          <ng-template #eRevisados>
+            <mat-list>
+              <mat-list-item *ngFor="let receta of _ListRecetas.Revisadas" >
+                <mat-icon mat-list-icon>restaurant</mat-icon>
+                <h4 mat-line >{{receta.NombreMostrar}}</h4>
+                <p mat-line [style.color]="colorEstado(receta.Estado)">{{receta.Estado}}</p>
+              </mat-list-item>
+            </mat-list>
+          </ng-template>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-template>
+</div>
+  <app-cargar-receta-completa *ngIf="_enableMostrar" [Receta]="_RecetaCargar" (finalizarCarga)="_enableMostrar = $event"></app-cargar-receta-completa>
 </body>
 

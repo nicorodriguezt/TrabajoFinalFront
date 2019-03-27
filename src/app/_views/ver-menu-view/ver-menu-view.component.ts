@@ -161,8 +161,10 @@ export class VerMenuViewComponent implements OnInit {
   }
 
   terminarAgregar(event) {
-    this.enableAgregar = event;
-    this.ngOnInit();
+    this.enableAgregar = false;
+    if (event !== true) {
+      this.ngOnInit();
+    }
   }
 
 }

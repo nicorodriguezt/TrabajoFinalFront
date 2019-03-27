@@ -31,6 +31,7 @@ export class HeaderViewComponent implements OnInit {
       map(result => result.matches)
     );
   title = 'TrabajoFinalFront';
+  _Rol = localStorage.getItem('Rol');
 
   public logout() {
     this._UsuarioService.logout().subscribe(
@@ -42,7 +43,16 @@ export class HeaderViewComponent implements OnInit {
     );
   }
 
+  checkRol() {
+    if (this._Rol === 'administrador') {
+      return '/recetasAdmin';
+    } else {
+      return '/main';
+    }
+  }
+
   ngOnInit() {
+
   }
 
 }

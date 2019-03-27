@@ -2,7 +2,8 @@
 <div [hidden]="_enableAgregar">
   <div *ngIf="!cargando" align="center">
     <mat-card>
-      <mat-card-title style="font-weight: bold; text-decoration: underline">
+      <mat-card-title style="font-weight: bold; text-decoration: underline;">
+        <button mat-icon-button style="float: left;" (click)="cancelar()"><mat-icon>arrow_left</mat-icon></button>
         Carga comida ingerida
       </mat-card-title>
       <mat-card-content>
@@ -20,12 +21,12 @@
         </div>
         <mat-form-field>
           <input type="number" [(ngModel)]="porciones" #portion="ngModel" matInput placeholder="¿Cuantas porciones?"
-                 required/>
+                 required [disabled]="momento == undefined || momento == ''"/>
         </mat-form-field>
         <div>
-          <mat-form-field class="busqueda-style" id="Buscardor">
+          <mat-form-field class="busqueda-style" id="Buscardor" >
             <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="recetaBuscar" value="" minlength="3"
-                   placeholder="Buscar..">
+                   placeholder="Buscar.." [disabled]="momento == undefined || momento == '' || porciones == undefined || porciones == ''">
             <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="primary"
                     (click)="handleBuscar()">
               <mat-icon>search</mat-icon>
@@ -61,6 +62,6 @@
     <span><strong>Cargando..</strong></span>
   </div>
 </div>
-<app-cargar-receta-nueva *ngIf="_enableAgregar" [_nuevaComida]="_nuevaComida"></app-cargar-receta-nueva>
+<app-cargar-receta-nueva *ngIf="_enableAgregar" [_nuevaComida]="_nuevaComida" (finalizarEvent)="cargarRecetaNueva($event)"  ></app-cargar-receta-nueva>
 </body>
 
