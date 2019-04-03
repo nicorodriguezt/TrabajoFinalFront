@@ -4,6 +4,7 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {backend} from './globalconfig';
 import {Router} from '@angular/router';
+import {Http} from '@angular/http';
 
 const HttpOptions = {
   headers: new HttpHeaders({
@@ -33,7 +34,8 @@ export class UsuarioService {
   }
 
   getSession() {
-    return localStorage.getItem('Logged');
+    return this._http.get(this.url + 'session', HttpOptions)
+      .pipe(map(res => res));
   }
 
   sendRol(token: string) {
@@ -61,5 +63,9 @@ export class UsuarioService {
 
     return this._http.post(this.url + 'registrar', params, HttpOptions)
       .pipe(map(res => res));
+  }
+
+  loginGoogle() {
+    return this.url + 'google';
   }
 }

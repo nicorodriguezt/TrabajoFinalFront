@@ -27,7 +27,7 @@ import {
   MatTabsModule,
   MatCheckboxModule,
   MatProgressSpinnerModule,
-  MatStepperModule
+  MatStepperModule, MatProgressBarModule, MatButtonToggleModule
 } from '@angular/material';
 import {NguCarouselModule} from '@ngu/carousel';
 
@@ -90,6 +90,7 @@ import {PantallaPrincipalViewComponent} from './_views/pantalla-principal-view/p
 import {FavoritosViewComponent} from './_views/favoritos-view/favoritos-view.component';
 import {RecetasUsuarioViewComponent} from './_views/recetas-usuario-view/recetas-usuario-view.component';
 import { RecetasAdministradorComponent } from './_views/recetas-administrador/recetas-administrador.component';
+import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-view/agregar-ingrediente-view.component';
 
 
 @NgModule({
@@ -126,7 +127,8 @@ import { RecetasAdministradorComponent } from './_views/recetas-administrador/re
     CargarRecetaCompletaComponent,
     RecetasUsuarioViewComponent,
     CargarRecetaCompletaIngrerdienteComponent,
-    RecetasAdministradorComponent
+    RecetasAdministradorComponent,
+    AgregarIngredienteViewComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -158,7 +160,9 @@ import { RecetasAdministradorComponent } from './_views/recetas-administrador/re
     MatTableModule,
     ChartsModule,
     FusionChartsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatProgressBarModule,
+    MatButtonToggleModule
   ],
   providers: [
     AuthGuard,

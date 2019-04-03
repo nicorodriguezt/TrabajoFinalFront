@@ -72,4 +72,18 @@ export class RecetaService {
     return this._http.get(this.url + 'creadas/', HttpOptions)
       .pipe(map(res => res));
   }
+
+  public listarRecetasPendientesAdmin() {
+    return this._http.get(this.url + 'recetasPendientes/', HttpOptions)
+      .pipe(map(res => res));
+  }
+
+  public evaluacion(_id, estado) {
+    const datos = {
+      id: _id,
+      Estado: estado
+    };
+    const params = JSON.stringify(datos);
+    return;
+  }
 }

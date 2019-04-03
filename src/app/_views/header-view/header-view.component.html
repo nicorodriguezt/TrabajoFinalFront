@@ -51,8 +51,12 @@
         </mat-nav-list>
       <mat-nav-list *ngIf="_Rol == 'administrador'">
         <a mat-list-item routerLink="/recetasAdmin" routerLinkActive="active" (click)="snav.toggle()">
-          <mat-icon>home</mat-icon>
+          <mat-icon>assignment</mat-icon>
           Recetas Pendientes
+        </a>
+        <a mat-list-item routerLink="/ingredientes" routerLinkActive="active" (click)="snav.toggle()">
+          <mat-icon>local_dining</mat-icon>
+          Ingredientes
         </a>
         <mat-divider></mat-divider>
         <a mat-list-item (click)="logout()">

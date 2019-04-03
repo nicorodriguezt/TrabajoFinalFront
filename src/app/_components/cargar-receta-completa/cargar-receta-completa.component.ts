@@ -22,13 +22,13 @@ export class CargarRecetaCompletaComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-
   _pasosForm: FormGroup;
 
   _Momentos = [];
   _Cargando = true;
   panelOpenState = false;
   _ListIngredientes = [];
+  _Rol = localStorage.getItem('Rol');
 
   constructor(public dialog: MatDialog,
               private _formBuilder: FormBuilder,
@@ -46,7 +46,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
     });
 
     this._pasosForm = this._formBuilder.group({
-      pasos: this._formBuilder.array([this.addPasosGroup()])
+      pasos: this._formBuilder.array([])
     });
     this.ConfigFormsName();
 
@@ -74,16 +74,24 @@ export class CargarRecetaCompletaComponent implements OnInit {
     this.Receta.Ingredientes.forEach(x => {
       x.Ingrediente.Nombre = PonerMayuscula(x.Ingrediente.Nombre);
     });
+
+    if (this.Receta.Pasos.length !== 0) {
+      this.Receta.Pasos.forEach(x => {
+        this.addPaso(x);
+      });
+    } else {
+      this.addPasosGroup('');
+    }
   }
 
-  addPasosGroup() {
+  addPasosGroup(paso) {
     return this._formBuilder.group({
-      valor: ['', Validators.required]
+      valor: [paso, Validators.required]
     });
   }
 
-  addPaso() {
-    this.pasosArray.push(this.addPasosGroup());
+  addPaso(paso) {
+    this.pasosArray.push(this.addPasosGroup(paso));
   }
 
   get pasosArray() {
@@ -93,9 +101,11 @@ export class CargarRecetaCompletaComponent implements OnInit {
   get CtrlNombre() {
     return this.firstFormGroup.get('Nombre').value;
   }
+
   get CtrlDescripcion() {
     return this.firstFormGroup.get('Descripcion').value;
   }
+
   get CtrlPorciones() {
     return this.secondFormGroup.get('Porciones').value;
   }
@@ -148,7 +158,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
     }
   }
 
-  finalizar() {
+  finalizar(estado) {
     this.Receta.Nombre = this.CtrlNombre;
     this.Receta.Descripcion = this.CtrlDescripcion;
     this.Receta.Porciones = this.CtrlPorciones;
@@ -158,7 +168,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
       this.Receta.Pasos.push(v.valor);
       v++;
     }
-    console.log(this.Receta);
+    this.Receta.Estado = estado;
   }
 
   cancelar() {
@@ -184,8 +194,18 @@ export class CargarRecetaCompletaComponent implements OnInit {
 
   checkIngredientePrincipal(ingrediente) {
     return !!this.Receta.IngredientePrincipal === ingrediente;
+
   }
 
+  checkFormValid() {
+    return !this.firstFormGroup.valid
+      || !this.secondFormGroup.valid
+      || !this.pasosArray.valid
+      || this.pasosArray.length === 0
+      || this.Receta.MomentoDelDia.length === 0
+      || this.Receta.Ingredientes.length === 0
+      || this.Receta.IngredientePrincipal == null;
+  }
 }
 
 @Component({

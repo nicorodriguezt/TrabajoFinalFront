@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Usuario} from '../../_models/Usuario';
 import {UsuarioService} from '../../_services/usuario.service';
 import {Router} from '@angular/router';
+import {debug} from 'util';
 
 @Component({
   selector: 'app-login',
@@ -31,18 +32,25 @@ export class LoginComponent implements OnInit {
           this._UsuarioService.sendSession(this.session.passport.user);
           this._UsuarioService.info().subscribe((res: Usuario) => {
             this._UsuarioService.sendRol(res.Rol);
+            if (this._UsuarioService.getRol() === 'administrador') {
+              this._router.navigate(['recetasAdmin']);
+            }
             this._router.navigate(['/main']);
           });
         }
       }
       ,
       error1 => {
-        var errorMensaje = <any>error1;
+        const errorMensaje = <any>error1;
         if (errorMensaje) {
           this.errorMensaje = error1;
         }
       }
     );
+  }
+
+  loginGoogle() {
+    window.location.href = this._UsuarioService.loginGoogle();
   }
 
   ngOnInit() {

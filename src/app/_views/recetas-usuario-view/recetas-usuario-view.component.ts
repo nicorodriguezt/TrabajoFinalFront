@@ -1,6 +1,5 @@
-import {Component, OnInit, ɵRenderDebugInfo} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RecetaService} from '../../_services/receta.service';
-import {resolveMx} from 'dns';
 import {Receta} from '../../_models/Receta';
 import {PonerMayuscula} from '../../_services/funciones-commun.service';
 
@@ -66,10 +65,14 @@ export class RecetasUsuarioViewComponent implements OnInit {
     }
   }
 
-  verMas(receta) {
+  cargarReceta(receta) {
     this._RecetaCargar = receta;
     this._enableMostrar = true;
+  }
 
+  nuevaReceta() {
+    this._RecetaCargar = new Receta('', '', '', [], null, [], '', [], '', null, null, null, null, null, null);
+    this._enableMostrar = true;
   }
 
 }

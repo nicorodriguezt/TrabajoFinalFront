@@ -15,7 +15,7 @@
           </mat-expansion-panel-header>
           <mat-divider></mat-divider>
           <mat-list>
-            <mat-list-item *ngFor="let receta of _ListRecetas?.Comidas" (click)="verMas(receta)">
+            <mat-list-item *ngFor="let receta of _ListRecetas?.Comidas" (click)="cargarReceta(receta)">
               <mat-icon mat-list-icon>restaurant</mat-icon>
               <h4 mat-line>{{receta.NombreMostrar}}</h4>
             </mat-list-item>
@@ -67,6 +67,7 @@
           </ng-template>
         </mat-expansion-panel>
       </mat-accordion>
+      <button mat-fab color="primary" class="button-add-new" (click)="nuevaReceta()"><mat-icon>add</mat-icon></button>
     </ng-template>
 </div>
   <app-cargar-receta-completa *ngIf="_enableMostrar" [Receta]="_RecetaCargar" (finalizarCarga)="_enableMostrar = $event"></app-cargar-receta-completa>

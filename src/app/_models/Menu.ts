@@ -5,7 +5,7 @@ export class Menu {
     public _id: string,
     public FechaLetra: string,
     public Fecha: Date,
-    public Recetas: [RecetaSugerida]
+    public Recetas: RecetaSugerida[]
 
   ) {}
 }

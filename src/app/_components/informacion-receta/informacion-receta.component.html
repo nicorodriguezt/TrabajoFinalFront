@@ -3,11 +3,9 @@
     <br><br>
     <mat-spinner></mat-spinner>
   </div>
-
   <ng-template #terminado>
     <div align="center">
       <h1 class="title-style">{{RecetaElegida?.Nombre}}</h1>
-      <div>
         Favorito <button mat-icon-button class="favorito-style" (click)="togglefavorito()">
         <span *ngIf="RecetaElegida.Favorito; else nofavorito">
           <mat-icon>star</mat-icon>
@@ -16,7 +14,6 @@
           <mat-icon>star_border</mat-icon>
         </ng-template>
       </button>
-      </div>
       <img src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg" class="image-style">
 
       <p align="justify">{{RecetaElegida?.Descripcion}}</p>
@@ -51,7 +48,7 @@
       </p>
     </div>
     <div>
-      <button mat-flat-button color="primary" (click)="volver()">
+      <button mat-icon-button color="primary" (click)="volver()">
         <mat-icon>arrow_left</mat-icon>
         Volver
       </button>

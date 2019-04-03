@@ -1,0 +1,31 @@
+.button-add-new {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+}
+
+.NotFoundRecetas {
+  font-style: italic;
+}
+
+.description-style {
+  text-align: justify;
+}
+
+.title-style {
+  text-align: left;
+  font-weight: bold;
+  font-size: large;
+}
+
+.momento-style {
+  font-weight: bold;
+  font-size: small;
+  font-style: oblique;
+  text-align: left;
+}
+
+body {
+  padding-left: 10px;
+  padding-right: 10px;
+}

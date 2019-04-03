@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {backend} from './globalconfig';
 
@@ -21,6 +21,13 @@ export class IngredienteService {
 
   public getIngredientes() {
     return this._http.get(this.url + 'getAll', HttpOptions)
+      .pipe(map(res => res));
+  }
+
+  public add(data) {
+    const params = JSON.stringify(data);
+
+    return this._http.post(this.url + 'add', params, HttpOptions)
       .pipe(map(res => res));
   }
 }
