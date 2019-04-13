@@ -11,8 +11,14 @@ import {MatSnackBar} from '@angular/material';
 export class AgregarIngredienteViewComponent implements OnInit {
 
   public Unidades = ['Gramos'];
+  public EnumOrigenes = ['Aceites, cuerpos grasos y aderezos', 'Aguas, bebidas e infusiones', 'Azúcares, edulcorantes, dulces y golosinas',
+    'Caldos y sopas', 'Carnes, pescados y mariscos', 'Cereales para desayuno y barras de cereal',
+    'Cereales, pastas y legumbres', 'Comida lista para consumir / Comida rápida', 'Frutas', 'Frutas secas y semillas',
+    'Hortalizas, algas y hongos', 'Huevos', 'Leches', 'Pan, galletitas y pastelería', 'Postres y helados',
+    'Productos de copetín y encurtidos', 'Quesos', 'Salsas', 'Yogures'];
   public Datos = {
     Ingrediente: null,
+    Origen: null,
     Porcion: null,
     Unidad: null,
     UnidadMacro: 'Gramos',
@@ -43,6 +49,7 @@ export class AgregarIngredienteViewComponent implements OnInit {
   agregar() {
     this._IngredienteService.add(this.Datos).subscribe(x => {
       this.Datos.Ingrediente = null;
+      this.Datos.Origen = null;
       this.Datos.Porcion = null;
       this.Datos.Unidad = null;
       this.Datos.Calcio = null;
