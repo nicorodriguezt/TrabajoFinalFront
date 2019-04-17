@@ -1,13 +1,14 @@
-<form>
-  <mat-form-field class="busqueda-style" id="Buscardor">
-    <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="RecetaBuscada.Nombre" value="" minlength="3"
-           placeholder="Buscar..">
-    <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="primary" (click)="handleBuscar()">
-      <mat-icon>search</mat-icon>
-    </button>
-    <mat-hint>Minimo 3 caracteres</mat-hint>
-  </mat-form-field>
-</form>
+<li class="mat-form-field--inline" style="padding: 10px">
+    <mat-form-field >
+      <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="RecetaBuscada.Nombre" value="" minlength="3"
+             placeholder="Buscar..">
+      <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="primary" (click)="handleBuscar()">
+        <mat-icon>search</mat-icon>
+      </button>
+      <mat-hint>Minimo 3 caracteres</mat-hint>
+    </mat-form-field>
+    <button mat-stroked-button color="primary" (click)="filtrosDialog()" > Filtrar</button>
+</li>
 
 <section class="buscar-receta-style" id="Mostrar Recetas">
   <div *ngIf="recetasSearching; else terminado" align="center">

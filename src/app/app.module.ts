@@ -51,7 +51,10 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './_components/login/login.component';
 import {RegistroComponent} from './_components/registro/registro.component';
 import {NuevoDatosUsuarioComponent} from './_components/nuevo-datos-usuario/nuevo-datos-usuario.component';
-import {BuscarRecetasComponent} from './_components/buscar-recetas/buscar-recetas.component';
+import {
+  BuscarRecetasComponent,
+  BuscarRecetasFiltrosComponent
+} from './_components/buscar-recetas/buscar-recetas.component';
 import {ActividadFisicaComponent, ActividadOverviewComponent} from './_components/actividad-fisica/actividad-fisica.component';
 import {InformacionRecetaComponent} from './_components/informacion-receta/informacion-receta.component';
 import {ActividadLaboralComponent, ActividadLaboralInfoComponent} from './_components/actividad-laboral/actividad-laboral.component';
@@ -128,7 +131,9 @@ import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-vi
     RecetasUsuarioViewComponent,
     CargarRecetaCompletaIngrerdienteComponent,
     RecetasAdministradorComponent,
-    AgregarIngredienteViewComponent
+    AgregarIngredienteViewComponent,
+    BuscarRecetasFiltrosComponent,
+
   ],
   imports: [
     ReactiveFormsModule,
@@ -179,7 +184,8 @@ import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-vi
     EvaluacionSwitchComponent,
     CargarRecetaIngeridaInfoComponent,
     CargarRecetaNuevaIngrerdienteComponent,
-    CargarRecetaCompletaIngrerdienteComponent
+    CargarRecetaCompletaIngrerdienteComponent,
+    BuscarRecetasFiltrosComponent
   ]
 })
 export class AppModule {

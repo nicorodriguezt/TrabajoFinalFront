@@ -1,0 +1,40 @@
+<body>
+<mat-card-title>
+  Buscar por:
+</mat-card-title>
+<mat-divider></mat-divider>
+<br>
+<table align="center">
+  <tbody>
+  <tr>
+    <td>Texto en descripcion</td>
+    <td>
+      <mat-checkbox [(ngModel)]="data.descripcion" style="float: right;"></mat-checkbox>
+    </td>
+  </tr>
+  <tr>
+    <td>Texto en Ingrediente</td>
+    <td>
+      <mat-checkbox [(ngModel)]="data.ingrediente" style="float: right;"></mat-checkbox>
+    </td>
+  </tr>
+  <tr>
+    <td>Ultimas recetas</td>
+    <td>
+      <mat-checkbox [(ngModel)]="data.ultimas" style="float: right;"></mat-checkbox>
+    </td>
+  </tr>
+  <tr>
+    <td>Recetas mejor puntuadas</td>
+    <td>
+      <mat-checkbox [(ngModel)]="data.puntuadas" style="float: right;"></mat-checkbox>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<mat-divider></mat-divider>
+<br>
+<div align="center">
+  <button mat-stroked-button (click)="confirmar()">Terminar</button>
+</div>
+</body>
