@@ -65,7 +65,7 @@ export class RecetaService {
     const json = JSON.stringify(data);
     const params = json;
 
-    return this._http.post(this.url + 'add/', params,  HttpOptions).pipe(map(res => res));
+    return this._http.put(this.url, params,  HttpOptions).pipe(map(res => res));
   }
 
   public recetasCreadasUsuario() {

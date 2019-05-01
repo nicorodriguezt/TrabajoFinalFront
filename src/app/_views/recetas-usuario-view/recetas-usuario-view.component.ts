@@ -58,7 +58,7 @@ export class RecetasUsuarioViewComponent implements OnInit {
   }
 
   colorEstado(e) {
-    if (e === 'Aprobada') {
+    if (e === 'aprobada') {
       return 'green';
     } else {
       return 'red';
