@@ -28,6 +28,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
   _Cargando = true;
   panelOpenState = false;
   _ListIngredientes = [];
+  _IngredientesOriginales = null;
   _Rol = localStorage.getItem('Rol');
 
   constructor(public dialog: MatDialog,
@@ -82,6 +83,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
     } else {
       this.addPasosGroup('');
     }
+    this._IngredientesOriginales = JSON.parse(JSON.stringify(this.Receta.Ingredientes));
   }
 
   addPasosGroup(paso) {
@@ -159,16 +161,46 @@ export class CargarRecetaCompletaComponent implements OnInit {
   }
 
   finalizar(estado) {
-    this.Receta.Nombre = this.CtrlNombre;
-    this.Receta.Descripcion = this.CtrlDescripcion;
-    this.Receta.Porciones = this.CtrlPorciones;
-    this.Receta.Pasos = [null];
-    this.Receta.Pasos.pop();
-    for (let v of this.pasosArray.value) {
-      this.Receta.Pasos.push(v.valor);
-      v++;
+    const RecetaEnviar = JSON.parse(JSON.stringify(this.Receta));
+    delete RecetaEnviar.FechaCreacion;
+    delete RecetaEnviar.Calorias;
+    delete RecetaEnviar.UsuarioCreo;
+    delete RecetaEnviar.UsuariosFavorito;
+    delete RecetaEnviar.Valores;
+    delete RecetaEnviar.NombreMostrar;
+
+    if (JSON.stringify(this.Receta.Ingredientes) === JSON.stringify(this._IngredientesOriginales)) {
+      delete RecetaEnviar.Ingredientes;
     }
-    this.Receta.Estado = estado;
+    if (this.firstFormGroup.touched) {
+      RecetaEnviar.Nombre = this.CtrlNombre;
+      RecetaEnviar.Descripcion = this.CtrlDescripcion;
+    } else {
+      delete RecetaEnviar.Nombre;
+      delete RecetaEnviar.Descripcion;
+    }
+
+    if (this.secondFormGroup.touched) {
+      RecetaEnviar.Porciones = this.CtrlPorciones;
+    } else {
+      delete RecetaEnviar.Porciones;
+    }
+
+    if (this._pasosForm.touched) {
+      RecetaEnviar.Pasos = [null];
+      RecetaEnviar.Pasos.pop();
+      for (let v of this.pasosArray.value) {
+        RecetaEnviar.Pasos.push(v.valor);
+        v++;
+      }
+    } else {
+      delete RecetaEnviar.Pasos;
+    }
+    RecetaEnviar.Estado = estado;
+
+    this._RecetaService.actualizarReceta(RecetaEnviar).subscribe( x => {
+      this.finalizarCarga.emit(true);
+    });
   }
 
   cancelar() {

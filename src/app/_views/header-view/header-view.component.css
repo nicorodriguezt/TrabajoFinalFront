@@ -8,6 +8,16 @@
   right: 0;
 }
 
+a.desactivado {
+  cursor: not-allowed;
+  opacity: .65;
+  pointer-events: none;
+}
+
+a.desactivado:hover { text-decoration: none; }
+a.desactivado:focus { text-decoration: none; }
+a.desactivado:active { text-decoration: none; }
+
 .example-is-mobile .example-toolbar {
   position: fixed;
   z-index: 2;

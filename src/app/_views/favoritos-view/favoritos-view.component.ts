@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FavoritosService} from '../../_services/favoritos.service';
 import {Receta} from '../../_models/Receta';
+import {MomentoDelDia} from '../../_models/MomentoDelDia';
 
 @Component({
   selector: 'app-favoritos-view',
@@ -11,7 +12,7 @@ import {Receta} from '../../_models/Receta';
 export class FavoritosViewComponent implements OnInit {
 
   cargarDatos = false;
-  listFavoritos = null;
+  listFavoritos = [];
   verReceta = false;
   RecetaElegida = new Receta(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
@@ -19,7 +20,7 @@ export class FavoritosViewComponent implements OnInit {
   constructor(private _FavoritosService: FavoritosService) { }
 
   ngOnInit() {
-    this._FavoritosService.RecetasxUsuario().subscribe(res => {
+    this._FavoritosService.RecetasxUsuario().subscribe((res: Receta[]) => {
       this.listFavoritos = res;
       this.cargarDatos = true;
     });

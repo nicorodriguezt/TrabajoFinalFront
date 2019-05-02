@@ -39,7 +39,7 @@ export class RegistroComponent implements OnInit {
             alert('Error en el servidor');
           } else {
             this._UsuarioService.sendSession(this.session.passport.user);
-            this._UsuarioService.sendRol('Usuario');
+            this._UsuarioService.sendRol('usuario');
             this._router.navigate(['/main']);
           }
         }

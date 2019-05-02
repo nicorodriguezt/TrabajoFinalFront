@@ -4,21 +4,24 @@ import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {UsuarioService} from '../../_services/usuario.service';
+import {DatosUsuarioService} from '../../_services/datos-usuario.service';
 
 @Component({
   selector: 'app-header-view',
   templateUrl: './header-view.component.html',
   styleUrls: ['./header-view.component.css'],
-  providers: [UsuarioService, BreakpointObserver, MediaMatcher]
+  providers: [UsuarioService, BreakpointObserver, MediaMatcher, DatosUsuarioService]
 })
 export class HeaderViewComponent implements OnInit {
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+  DatosExist = false;
 
   constructor(public _router: Router,
               private breakpointObserver: BreakpointObserver,
               private _UsuarioService: UsuarioService,
+              private _DatosUsuarioService: DatosUsuarioService,
               changeDetectorRef: ChangeDetectorRef,
               media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -52,6 +55,11 @@ export class HeaderViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._DatosUsuarioService.getDatos().subscribe(datos => {
+      if (datos) {
+        this.DatosExist = true;
+      }
+    });
 
   }
 

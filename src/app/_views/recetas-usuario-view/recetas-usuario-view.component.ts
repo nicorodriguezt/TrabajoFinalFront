@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RecetaService} from '../../_services/receta.service';
 import {Receta} from '../../_models/Receta';
 import {PonerMayuscula} from '../../_services/funciones-commun.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-recetas-usuario-view',
@@ -22,10 +23,16 @@ export class RecetasUsuarioViewComponent implements OnInit {
   panelOpenState = true;
   _RecetaCargar: Receta;
 
-  constructor(private _RecetaService: RecetaService) {
+  constructor(private _RecetaService: RecetaService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
+    this._ListRecetas = {
+      Comidas: [],
+      Pendientes: [],
+      Revisadas: []
+    };
     this._RecetaService.recetasCreadasUsuario().subscribe((res: Receta[]) => {
       res.forEach(x => {
         switch (x.Estado) {
@@ -65,6 +72,12 @@ export class RecetasUsuarioViewComponent implements OnInit {
     }
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
   cargarReceta(receta) {
     this._RecetaCargar = receta;
     this._enableMostrar = true;
@@ -75,4 +88,11 @@ export class RecetasUsuarioViewComponent implements OnInit {
     this._enableMostrar = true;
   }
 
+  evento($event: boolean) {
+    if ($event === true) {
+      this.openSnackBar('Su receta fue enviada a evaluar', 'Descartar');
+      this.ngOnInit();
+    }
+    return false;
+  }
 }

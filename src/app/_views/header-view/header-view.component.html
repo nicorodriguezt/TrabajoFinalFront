@@ -19,15 +19,15 @@
             <mat-icon>search</mat-icon>
             Buscar recetas
           </a>
-          <a mat-list-item routerLink="/verMenu" routerLinkActive="active" (click)="snav.toggle()">
-            <mat-icon>list</mat-icon>
-            Tus Menus
+          <a mat-list-item routerLink="/verMenu" routerLinkActive="active" (click)="snav.toggle()" [ngClass]="{'desactivado': !DatosExist}">
+              <mat-icon>list</mat-icon>
+              Tus Menus
           </a>
-          <a mat-list-item routerLink="/evaluacion" routerLinkActive="active" (click)="snav.toggle()">
+          <a mat-list-item routerLink="/evaluacion" routerLinkActive="active" (click)="snav.toggle()" [ngClass]="{'desactivado': !DatosExist}">
             <mat-icon>bar_chart</mat-icon>
             Evaluacion
           </a>
-          <a mat-list-item routerLink="/listaCompras" routerLinkActive="active" (click)="snav.toggle()">
+          <a mat-list-item routerLink="/listaCompras" routerLinkActive="active" (click)="snav.toggle()" [ngClass]="{'desactivado': !DatosExist}">
             <mat-icon>local_grocery_store</mat-icon>
             Lista de Compras
           </a>
