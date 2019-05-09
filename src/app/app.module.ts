@@ -69,7 +69,6 @@ import {
 } from './_components/cargar-receta-nueva/cargar-receta-nueva.component';
 import {
   CargarRecetaCompletaComponent,
-  CargarRecetaCompletaIngrerdienteComponent
 } from './_components/cargar-receta-completa/cargar-receta-completa.component';
 import {
   DietasEspecialesComponent, IngredientePreferenciaComponent, PreferenciasComponent
@@ -132,7 +131,6 @@ import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-vi
     CargarRecetaNuevaIngrerdienteComponent,
     CargarRecetaCompletaComponent,
     RecetasUsuarioViewComponent,
-    CargarRecetaCompletaIngrerdienteComponent,
     RecetasAdministradorComponent,
     AgregarIngredienteViewComponent,
     BuscarRecetasFiltrosComponent,
@@ -189,7 +187,6 @@ import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-vi
     EvaluacionSwitchComponent,
     CargarRecetaIngeridaInfoComponent,
     CargarRecetaNuevaIngrerdienteComponent,
-    CargarRecetaCompletaIngrerdienteComponent,
     BuscarRecetasFiltrosComponent,
     DietasEspecialesComponent,
     IngredientePreferenciaComponent

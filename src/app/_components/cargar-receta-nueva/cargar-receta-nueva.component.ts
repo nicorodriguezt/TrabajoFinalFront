@@ -3,6 +3,7 @@ import {RecetaService} from '../../_services/receta.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {IngredienteService} from '../../_services/ingrediente.service';
 import {PonerMayuscula} from '../../_services/funciones-commun.service';
+import {Ingrediente} from '../../_models/Ingrediente';
 
 @Component({
   selector: 'app-cargar-receta-nueva',
@@ -20,16 +21,13 @@ export class CargarRecetaNuevaComponent implements OnInit {
   }
 
   _cargando = true;
-  _ListIngredientes;
+  _ListOrigenes;
 
   ngOnInit() {
     this._nuevaComida.Ingredientes = [];
-    this._IngredienteService.getIngredientes().subscribe(res => {
-      this._ListIngredientes = res;
+    this._IngredienteService.getOrigenes().subscribe(res => {
+      this._ListOrigenes = res;
       this._cargando = false;
-      this._ListIngredientes.forEach(x => {
-        x.NombreMostrar = PonerMayuscula(x.Nombre);
-      });
     });
 
   }
@@ -37,7 +35,7 @@ export class CargarRecetaNuevaComponent implements OnInit {
   nuevoIngrediente() {
     const dialogRef = this.dialog.open(CargarRecetaNuevaIngrerdienteComponent, {
       maxWidth: '70%',
-      data: this._ListIngredientes
+      data: this._ListOrigenes
     });
 
     dialogRef.afterClosed().subscribe(x => {
@@ -59,7 +57,7 @@ export class CargarRecetaNuevaComponent implements OnInit {
 
   crearReceta() {
     this._nuevaComida.Estado = 'comida';
-    this._RecetaService.addReceta(this._nuevaComida).subscribe( x => {
+    this._RecetaService.addReceta(this._nuevaComida).subscribe(x => {
       let auxiliar;
       auxiliar = x;
       this._nuevaComida._id = auxiliar._id;
@@ -75,20 +73,34 @@ export class CargarRecetaNuevaComponent implements OnInit {
 @Component({
   selector: 'app-cargar-receta-nueva-ingrediente',
   templateUrl: './cargar-receta-nueva-ingrediente.component.html',
-  styleUrls: ['./cargar-receta-nueva.component.css']
+  styleUrls: ['./cargar-receta-nueva.component.css'],
+  providers: [IngredienteService]
 })
 export class CargarRecetaNuevaIngrerdienteComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              public dialogRef: MatDialogRef<CargarRecetaNuevaIngrerdienteComponent>) {
+              public dialogRef: MatDialogRef<CargarRecetaNuevaIngrerdienteComponent>,
+              private _IngredienteService: IngredienteService) {
   }
 
+  origenElegido = null;
   ingredienteElegido = {
     Ingrediente: null,
     Cantidad: null,
     Unidad: null
   };
+  listIngredientes = [];
+  enableMostrar = true;
   Unidades = ['Gramos'];
+
+  public cargarIngredientes() {
+    this.listIngredientes = [];
+    this.enableMostrar = true;
+    this._IngredienteService.getIngredientesByOrigen(this.origenElegido).subscribe((res: Ingrediente[]) => {
+      this.listIngredientes = res;
+      this.enableMostrar = false;
+    });
+  }
 
   confirmar() {
     this.dialogRef.close(this.ingredienteElegido);

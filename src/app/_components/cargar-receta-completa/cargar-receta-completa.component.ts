@@ -7,7 +7,6 @@ import {PonerMayuscula} from '../../_services/funciones-commun.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {CargarRecetaNuevaIngrerdienteComponent} from '../cargar-receta-nueva/cargar-receta-nueva.component';
 import {IngredienteService} from '../../_services/ingrediente.service';
-import {Ingrediente} from '../../_models/Ingrediente';
 import {IngredienteXReceta} from '../../_models/IngredienteXReceta';
 
 @Component({
@@ -27,7 +26,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
   _Momentos = [];
   _Cargando = true;
   panelOpenState = false;
-  _ListIngredientes = [];
+  _ListOrigenes = [];
   _IngredientesOriginales = null;
   _Rol = localStorage.getItem('Rol');
 
@@ -117,12 +116,9 @@ export class CargarRecetaCompletaComponent implements OnInit {
   }
 
   nuevoIngrediente() {
-    if (this._ListIngredientes.length === 0) {
-      this._IngredienteService.getIngredientes().subscribe((res: Ingrediente[]) => {
-        this._ListIngredientes = res;
-        this._ListIngredientes.forEach(x => {
-          x.NombreMostrar = PonerMayuscula(x.Nombre);
-        });
+    if (this._ListOrigenes.length === 0) {
+      this._IngredienteService.getOrigenes().subscribe((res: string[]) => {
+        this._ListOrigenes = res;
         this.openDialog();
       });
     } else {
@@ -133,7 +129,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(CargarRecetaNuevaIngrerdienteComponent, {
       maxWidth: '70%',
-      data: this._ListIngredientes
+      data: this._ListOrigenes
     });
 
     dialogRef.afterClosed().subscribe(x => {
@@ -238,28 +234,4 @@ export class CargarRecetaCompletaComponent implements OnInit {
       || this.Receta.Ingredientes.length === 0
       || this.Receta.IngredientePrincipal == null;
   }
-}
-
-@Component({
-  selector: 'app-cargar-receta-completa-ingrediente',
-  templateUrl: './cargar-receta-completa-ingrediente.component.html',
-  styleUrls: ['./cargar-receta-completa.component.css']
-})
-export class CargarRecetaCompletaIngrerdienteComponent {
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              public dialogRef: MatDialogRef<CargarRecetaCompletaIngrerdienteComponent>) {
-  }
-
-  ingredienteElegido: IngredienteXReceta;
-  Unidades = ['Gramos'];
-
-  confirmar() {
-    this.dialogRef.close(this.ingredienteElegido);
-  }
-
-  cancelar() {
-    this.dialogRef.close(undefined);
-  }
-
 }
