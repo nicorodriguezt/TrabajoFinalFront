@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 import {backend} from './globalconfig';
 import {Router} from '@angular/router';
+import {Http} from '@angular/http';
 
 const HttpOptions = {
   headers: new HttpHeaders({
@@ -33,15 +34,26 @@ export class UsuarioService {
   }
 
   getSession() {
-    return localStorage.getItem('Logged');
+    return this._http.get(this.url + 'session', HttpOptions)
+      .pipe(map(res => res));
   }
 
-  isLoggednIn() {
-    return this.getSession() !== null;
+  sendRol(token: string) {
+    localStorage.setItem('Rol', token);
+  }
+
+  getRol() {
+    return localStorage.getItem('Rol');
+  }
+
+  info() {
+    return this._http.get(this.url + 'info', HttpOptions)
+      .pipe(map(res => res));
   }
 
   logout() {
     localStorage.removeItem('Logged');
+    localStorage.removeItem('Rol');
     return this._http.get(this.url + 'logout', HttpOptions).pipe(map(res => res));
   }
 
@@ -51,5 +63,9 @@ export class UsuarioService {
 
     return this._http.post(this.url + 'registrar', params, HttpOptions)
       .pipe(map(res => res));
+  }
+
+  loginGoogle() {
+    return this.url + 'google';
   }
 }

@@ -15,6 +15,9 @@ import { EvaluacionViewComponent } from './_views/evaluacion-view/evaluacion-vie
 import { ListaComprasViewComponent } from './_views/lista-compras-view/lista-compras-view.component';
 import { PantallaPrincipalViewComponent} from './_views/pantalla-principal-view/pantalla-principal-view.component';
 import {FavoritosViewComponent} from './_views/favoritos-view/favoritos-view.component';
+import {RecetasUsuarioViewComponent} from './_views/recetas-usuario-view/recetas-usuario-view.component';
+import {RecetasAdministradorComponent} from './_views/recetas-administrador/recetas-administrador.component';
+import {AgregarIngredienteViewComponent} from './_views/agregar-ingrediente-view/agregar-ingrediente-view.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginRegisterViewComponent, canActivate: [LoginGuard] },
@@ -25,8 +28,12 @@ const routes: Routes = [
   { path: 'verMenu', component: VerMenuViewComponent, canActivate: [AuthGuard] },
   { path: 'evaluacion', component: EvaluacionViewComponent, canActivate: [AuthGuard] },
   { path: 'listaCompras', component: ListaComprasViewComponent, canActivate: [AuthGuard] },
-  { path: 'favoritos', component: FavoritosViewComponent, canActivate: [AuthGuard]}
+  { path: 'favoritos', component: FavoritosViewComponent, canActivate: [AuthGuard]},
+  { path: 'recetasUsuario', component: RecetasUsuarioViewComponent, canActivate: [AuthGuard]},
+  { path: 'recetasAdmin', component: RecetasAdministradorComponent, canActivate: [AuthGuard]},
+  { path: 'ingredientes', component: AgregarIngredienteViewComponent, canActivate: [AuthGuard]}
 ];
+
 
 
 @NgModule({

@@ -21,7 +21,7 @@ export class RegistroComponent implements OnInit {
     private _UsuarioService: UsuarioService,
     private _router: Router,
   ) {
-    this.Usuario = new Usuario(null, null, null, null, null);
+    this.Usuario = new Usuario(null, null, null, null, null, null);
   }
 
   public singup() {
@@ -39,6 +39,7 @@ export class RegistroComponent implements OnInit {
             alert('Error en el servidor');
           } else {
             this._UsuarioService.sendSession(this.session.passport.user);
+            this._UsuarioService.sendRol('usuario');
             this._router.navigate(['/main']);
           }
         }

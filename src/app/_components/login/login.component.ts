@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Usuario} from '../../_models/Usuario';
 import {UsuarioService} from '../../_services/usuario.service';
 import {Router} from '@angular/router';
+import {debug} from 'util';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private _UsuarioService: UsuarioService, private _router: Router
   ) {
-    this.Usuario = new Usuario('','','','','');
+    this.Usuario = new Usuario('', '', '', '', '', null);
   }
 
   public login() {
@@ -29,17 +30,27 @@ export class LoginComponent implements OnInit {
           alert('Error en el servidor');
         } else {
           this._UsuarioService.sendSession(this.session.passport.user);
-          this._router.navigate(['/main']);
+          this._UsuarioService.info().subscribe((res: Usuario) => {
+            this._UsuarioService.sendRol(res.Rol);
+            if (this._UsuarioService.getRol() === 'administrador') {
+              this._router.navigate(['recetasAdmin']);
+            }
+            this._router.navigate(['/main']);
+          });
         }
       }
       ,
       error1 => {
-        var errorMensaje = <any>error1;
+        const errorMensaje = <any>error1;
         if (errorMensaje) {
           this.errorMensaje = error1;
         }
       }
     );
+  }
+
+  loginGoogle() {
+    window.location.href = this._UsuarioService.loginGoogle();
   }
 
   ngOnInit() {

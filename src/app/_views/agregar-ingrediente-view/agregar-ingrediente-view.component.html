@@ -1,0 +1,80 @@
+<body>
+<mat-card>
+  <mat-card-title align="center">
+    <b>Ingresar Nuevo Ingrediente</b>
+  </mat-card-title>
+  <mat-card-content>
+    <mat-form-field style="width: 100%;">
+      <input matInput placeholder="Nombre" type="text" [(ngModel)]="Datos.Ingrediente"  required/>
+    </mat-form-field>
+    <li class="mat-form-field--inline">
+      <mat-form-field>
+        <input matInput placeholder="Porcion" type="number" [(ngModel)]="Datos.Porcion" required/>
+      </mat-form-field>
+      <mat-form-field style="width: 150px">
+        <mat-select placeholder="Unidad" [(ngModel)]="Datos.Unidad" required>
+          <mat-option *ngFor="let unidad of Unidades" [value]="unidad">
+            {{unidad}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </li>
+    <mat-form-field style="width: 100%">
+      <mat-select placeholder="Origen" [(ngModel)]="Datos.Origen" required>
+        <mat-option *ngFor="let origen of EnumOrigenes" [value]="origen">
+          {{origen}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-subtitle>
+    <b style="color: black">VALORES NUTRICIONALES</b>
+    <p>Dejar vacío aquellos valores que no corresponden</p>
+  </mat-card-subtitle>
+  <mat-card-content class="valores">
+    <li class="mat-form-field--inline">
+      <mat-form-field class="valor-input">
+        <input matInput placeholder="Calorias" type="number" [(ngModel)]="Datos.Calorias" required/>
+        <span matSuffix>Kcal</span>
+      </mat-form-field>
+      <mat-form-field class="valor-input">
+        <input matInput placeholder="Hidratos" type="number" [(ngModel)]="Datos.Hidrato"/>
+        <span matSuffix>gr</span>
+      </mat-form-field>
+    </li>
+    <li class="mat-form-field--inline">
+      <mat-form-field class="valor-input">
+        <input matInput placeholder="Proteina" type="number" [(ngModel)]="Datos.Proteina"/>
+        <span matSuffix>gr</span>
+      </mat-form-field>
+      <mat-form-field class="valor-input">
+        <input matInput placeholder="Grasa Saturada" type="number" [(ngModel)]="Datos.GrasaSaturada"/>
+        <span matSuffix>gr</span>
+      </mat-form-field>
+    </li>
+    <li class="mat-form-field--inline">
+      <mat-form-field class="valor-input">
+        <input matInput placeholder="Grasa Otra" type="number" [(ngModel)]="Datos.GrasaOtra"/>
+        <span matSuffix>gr</span>
+      </mat-form-field>
+      <mat-form-field class="valor-input">
+        <input matInput placeholder="Calcio" type="number" [(ngModel)]="Datos.Calcio"/>
+        <span matSuffix>mg</span>
+      </mat-form-field>
+    </li>
+    <li class="mat-form-field--inline">
+      <mat-form-field class="valor-input">
+        <input matInput placeholder="Hierro" type="number" [(ngModel)]="Datos.Hierro"/>
+        <span matSuffix>mg</span>
+      </mat-form-field>
+      <mat-form-field class="valor-input">
+        <input matInput placeholder="Fibra" type="number" [(ngModel)]="Datos.Fibra"/>
+        <span matSuffix>mg</span>
+      </mat-form-field>
+    </li>
+  </mat-card-content>
+  <div align="center">
+    <button  mat-stroked-button (click)="agregar()" color="primary">Agregar</button>
+  </div>
+</mat-card>
+</body>

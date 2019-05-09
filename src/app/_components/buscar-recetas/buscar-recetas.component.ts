@@ -1,6 +1,8 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit, Inject} from '@angular/core';
 import {RecetaService} from '../../_services/receta.service';
 import {Receta} from '../../_models/Receta';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {VerMenuCargarRecetaComponent} from '../../_views/ver-menu-view/ver-menu-view.component';
 
 @Component({
   selector: 'app-buscar-recetas',
@@ -18,9 +20,16 @@ export class BuscarRecetasComponent {
   controlPaginas;
   recetasSearching = false;
   MensajeBusqueda = '';
+  filtros = {
+    descripcion: false,
+    ingrediente: false,
+    ultimas: false,
+    puntuacion: false
+  };
 
   constructor(
-    private _RecetaService: RecetaService
+    private _RecetaService: RecetaService,
+    public dialog: MatDialog
   ) {
   }
 
@@ -73,5 +82,35 @@ export class BuscarRecetasComponent {
     this.sendReceta.emit(recetaElegida);
   }
 
+  filtrosDialog() {
+    const dialogRef = this.dialog.open(BuscarRecetasFiltrosComponent, {
+      width: '95%',
+      data: this.filtros
+    });
+
+    dialogRef.afterClosed().subscribe(x => {
+      if (x !== undefined) {
+        this.filtros = x;
+      }
+    });
+  }
+
+
+}
+
+@Component({
+  selector: 'app-buscar-recetas-filtros',
+  templateUrl: './buscar-recetas-filtros.component.html',
+  styleUrls: ['./buscar-recetas.component.css']
+})
+export class BuscarRecetasFiltrosComponent {
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              public dialogRef: MatDialogRef<BuscarRecetasFiltrosComponent>) {
+  }
+
+  confirmar() {
+    this.dialogRef.close(this.data);
+  }
 
 }

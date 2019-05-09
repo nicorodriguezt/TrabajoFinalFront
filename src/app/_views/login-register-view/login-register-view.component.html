@@ -1,19 +1,17 @@
 <body>
-
-<div *ngIf="login" align="center">
-  <app-login></app-login>
-  <div class="cambio-button">
-    <button mat-stroked-button color="primary" (click)="change()" class="button-style">
-      REGISTRATE
-    </button>
+  <div *ngIf="login" align="center">
+    <app-login></app-login>
+    <div class="cambio-button">
+      <button mat-stroked-button color="primary" (click)="change()" class="button-style">
+        REGISTRATE
+      </button>
+    </div>
   </div>
-</div>
 
-<div *ngIf="!login" align="center">
-  <app-registro></app-registro>
-  <div class="cambio-button">
-    <button  mat-stroked-button color="primary" (click)="change()" class="button-style">INICIA SESIÓN</button>
+  <div *ngIf="!login" align="center">
+    <app-registro></app-registro>
+    <div class="cambio-button">
+      <button  mat-stroked-button color="primary" (click)="change()" class="button-style">INICIA SESIÓN</button>
+    </div>
   </div>
-</div>
-
 </body>

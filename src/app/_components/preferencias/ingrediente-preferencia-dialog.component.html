@@ -1,0 +1,25 @@
+<body>
+<div *ngIf="!enableMostrar; else terminado" align="center">
+  <br><br>
+  <mat-spinner></mat-spinner>
+</div>
+<ng-template #terminado>
+    <mat-form-field style="width: 100%;" >
+      <mat-select  placeholder="Tipo de ingrediente.." [(ngModel)]="OrigenElegido" (selectionChange)="cargarIngredientes()" required="true">
+        <mat-option *ngFor="let origen of ListOrigenes" [value]="origen">
+          {{origen}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field style="width: 100%;" [hidden]="ingredientesOrigen" >
+      <mat-select placeholder="Ingrediente.." [(ngModel)]="IngredienteElegido" required>
+        <mat-option *ngFor="let ingre of ListIngredientes" [value]="ingre" >
+          {{ingre.Nombre}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div align="center">
+      <button mat-flat-button (click)="agregar()" >Agregar</button>
+    </div>
+</ng-template>
+</body>

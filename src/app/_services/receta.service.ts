@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core';
+import {Injectable, ɵRenderDebugInfo} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 import {backend} from './globalconfig';
 import {Router} from '@angular/router';
+import {deleteNulls} from './funciones-commun.service';
 
 const HttpOptions = {
   headers: new HttpHeaders({
@@ -46,13 +47,50 @@ export class RecetaService {
       .pipe(map(res => res));
   }
 
-  public recetasMejorPuntuadas () {
+  public recetasMejorPuntuadas() {
     return this._http.get(this.url + 'mejoresRecetas/', HttpOptions)
       .pipe(map(res => res));
   }
 
-  public recetasNuevas () {
+  public recetasNuevas() {
     return this._http.get(this.url + 'ultimasRecetas/', HttpOptions)
       .pipe(map(res => res));
+  }
+
+  public addReceta(data) {
+    data = deleteNulls(data);
+    data.Ingredientes.forEach(x => {
+      x.Ingrediente = x.Ingrediente.Nombre;
+    });
+    const json = JSON.stringify(data);
+    const params = json;
+
+    return this._http.put(this.url, params, HttpOptions).pipe(map(res => res));
+  }
+
+  public actualizarReceta(data) {
+    const json = JSON.stringify(data);
+    const params = json;
+
+    return this._http.post(this.url, params, HttpOptions).pipe(map(res => res));
+  }
+
+  public recetasCreadasUsuario() {
+    return this._http.get(this.url + 'creadas/', HttpOptions)
+      .pipe(map(res => res));
+  }
+
+  public listarRecetasPendientesAdmin() {
+    return this._http.get(this.url + 'recetasPendientes/', HttpOptions)
+      .pipe(map(res => res));
+  }
+
+  public evaluacion(_id, estado) {
+    const datos = {
+      id: _id,
+      Estado: estado
+    };
+    const params = JSON.stringify(datos);
+    return;
   }
 }

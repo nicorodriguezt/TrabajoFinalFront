@@ -1,0 +1,39 @@
+<body>
+<form>
+  <div align="center">
+    <mat-form-field>
+      <mat-select #origen="ngModel" name="origen" [(ngModel)]="origenElegido" placeholder="Tipo" [required] (selectionChange)="cargarIngredientes();">
+        <mat-option *ngFor="let origen of data" [value]="origen">
+          {{origen}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div [hidden]="enableMostrar">
+      <mat-form-field>
+        <mat-select #Ingrediente="ngModel" name="Ingrediente" [(ngModel)]="ingredienteElegido.Ingrediente" placeholder="Ingrediente" required>
+          <mat-option *ngFor="let ingre of listIngredientes" [value]="ingre">
+            {{ingre.Nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input  #Cantidad="ngModel" type="number" matInput name="Cantidad" [(ngModel)]="ingredienteElegido.Cantidad"
+                placeholder="Cantidad" required/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select #Unidad="ngModel" name="Unidad" [(ngModel)]="ingredienteElegido.Unidad" placeholder="Unidad" required>
+          <mat-option *ngFor="let unidad of Unidades" [value]="unidad">
+            {{unidad}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div >
+      <button mat-flat-button color="primary" (click)="confirmar()" [disabled]="origenElegido == null ||ingredienteElegido.Unidad == null || ingredienteElegido.Cantidad == null|| ingredienteElegido.Ingrediente == null">Aceptar</button>
+      <button mat-flat-button color="secundary" (click)="cancelar()">Cancelar</button>
+    </div>
+  </div>
+</form>
+</body>

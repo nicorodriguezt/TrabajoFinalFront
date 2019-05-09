@@ -15,7 +15,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/ma
 })
 export class VerMenuViewComponent implements OnInit {
   @ViewChild('carousel') carousel: NguCarousel<any>;
-  RecetaElegida = new Receta(null, null, null, null, null, null, null, null, null, false, null, null, null);
+  RecetaElegida = new Receta(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
   Menu = new Menu(null, null, null, null);
   auxiliar;
   enableAgregar;
@@ -161,8 +161,10 @@ export class VerMenuViewComponent implements OnInit {
   }
 
   terminarAgregar(event) {
-    this.enableAgregar = event;
-    this.ngOnInit();
+    this.enableAgregar = false;
+    if (event !== true) {
+      this.ngOnInit();
+    }
   }
 
 }

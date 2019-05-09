@@ -3,21 +3,31 @@
     <strong>Error: </strong> {{errorMensaje}}
   </div>
 </div>
-<div>
-  <app-nuevo-datos-usuario [DatosUsuario]="DatosUsuario" (sendDataUsuario)="getDatosUsuario($event)" (sendExist)="existDatos = $event" align="center"></app-nuevo-datos-usuario>
+<div *ngIf="!enablePreferencias">
+  <div>
+    <app-nuevo-datos-usuario [DatosUsuario]="DatosUsuario" (sendDataUsuario)="DatosUsuario = $event" (sendExist)="existDatos = $event" align="center"></app-nuevo-datos-usuario>
+  </div>
+
+  <div>
+    <app-actividad-laboral [ActividadLaboral]="ActividadLaboral" (sendDataActividad)="getActividad($event)" align="center"></app-actividad-laboral>
+  </div>
+
+  <div>
+    <app-actividad-fisica [hidden]="existDatos"></app-actividad-fisica>
+    <br>
+  </div>
+
+  <div [hidden]="enablePreferencias">
+    <div class="preferencias">
+      <span>Configurar preferencias y dietas especiales </span>
+      <button mat-icon-button (click)="configPreferencias()"><mat-icon>arrow_right</mat-icon></button>
+    </div>
+  </div>
+  <div align="center">
+    <button mat-flat-button color="primary" type="submit" (click)="cargarDatos()" >Finalizar</button>
+    <button mat-flat-button color="secundary" (click)="volver()">Cancelar</button>
+  </div>
 </div>
 
-<div>
-  <app-actividad-laboral [ActividadLaboral]="ActividadLaboral" (sendDataActividad)="getActividad($event)" align="center"></app-actividad-laboral>
-</div>
+<app-preferencias [DatosUsuario]="DatosUsuario" (returnEvent)="preferenciasReturn($event)" *ngIf="enablePreferencias" ></app-preferencias>
 
-<div>
-  <app-actividad-fisica [hidden]="existDatos"></app-actividad-fisica>
-  <br>
-</div>
-
-<div align="center">
-  <button mat-flat-button color="primary" type="submit" (click)="cargarDatos()" >Aceptar</button>
-
-  <button mat-flat-button color="secundary" (click)="volver()">Cancelar</button>
-</div>

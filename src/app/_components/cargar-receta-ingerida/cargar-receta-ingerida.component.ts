@@ -4,12 +4,14 @@ import {PonerMayuscula} from '../../_services/funciones-commun.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {RecetaSugerida} from '../../_models/RecetaSugerida';
 import {MenuService} from '../../_services/menu.service';
+import {Receta} from '../../_models/Receta';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-cargar-receta-ingerida',
   templateUrl: './cargar-receta-ingerida.component.html',
   styleUrls: ['./cargar-receta-ingerida.component.css'],
-  providers: [RecetaService, ]
+  providers: [RecetaService]
 })
 export class CargarRecetaIngeridaComponent implements OnInit {
   @Input() Menu;
@@ -18,6 +20,9 @@ export class CargarRecetaIngeridaComponent implements OnInit {
   momento;
   Momentos = [];
   recetasEncontradas = [];
+  _nuevaComida = new Receta(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+  _enableAgregar = false;
+  _hideVacio = false;
   auxiliar;
   porciones;
   recetaBuscar;
@@ -26,7 +31,8 @@ export class CargarRecetaIngeridaComponent implements OnInit {
 
   constructor(private _RecetaService: RecetaService,
               private _MenuService: MenuService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -42,17 +48,31 @@ export class CargarRecetaIngeridaComponent implements OnInit {
   }
 
   handleBuscar() {
-    this.recetasEncontradas = [];
-    this._RecetaService.buscarIngerida(this.recetaBuscar).subscribe(res => {
-      this.auxiliar = res;
-      this.auxiliar.forEach(x => {
-        x.Nombre = PonerMayuscula(x.Nombre);
-        for (let i = 0; i < x.Ingredientes.length; i++) {
-          x.Ingredientes[i] = PonerMayuscula(x.Ingredientes[i]);
+    if (this.recetaBuscar !== '' && this.recetaBuscar !== undefined) {
+      this.recetasEncontradas = [];
+      this._RecetaService.buscarIngerida(this.recetaBuscar).subscribe(res => {
+        this.auxiliar = res;
+        this.auxiliar.forEach(x => {
+          x.Nombre = PonerMayuscula(x.Nombre);
+          for (let i = 0; i < x.Ingredientes.length; i++) {
+            x.Ingredientes[i] = PonerMayuscula(x.Ingredientes[i]);
+          }
+          this.recetasEncontradas.push(x);
+        });
+        if (this.recetasEncontradas.length === 0) {
+          this._hideVacio = true;
+        } else {
+          this._hideVacio = false;
         }
-        this.recetasEncontradas.push(x);
       });
-    });
+
+    }
+
+  }
+
+  nuevaComida() {
+    this._enableAgregar = true;
+
   }
 
   info(receta) {
@@ -62,20 +82,50 @@ export class CargarRecetaIngeridaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(x => {
-      if (x !== undefined || false) {
+      if (x !== undefined && x !== false) {
         if (this.momento === undefined || this.momento === null || this.porciones === undefined || this.porciones === null) {
           this.error = true;
         } else {
           const recetaSugerida = new RecetaSugerida(this.momento, null, x, this.Menu, this.porciones);
           this.cargando = true;
           this._MenuService.recetaSugeridaNueva(recetaSugerida).subscribe(response => {
+            this.openSnackBar('Cargado con exito', 'Descartar');
             this.finalizarEvent.emit(false);
           });
         }
       }
     });
   }
+
+  cargarRecetaNueva(event) {
+    if (event === true) {
+      if (this.momento === undefined || this.momento === null || this.porciones === undefined || this.porciones === null) {
+        this.error = true;
+      } else {
+        const recetaSugerida = new RecetaSugerida(this.momento, null, this._nuevaComida, this.Menu, this.porciones);
+        this.cargando = true;
+        this._MenuService.recetaSugeridaNueva(recetaSugerida).subscribe(response => {
+          this.openSnackBar('Cargado con exito', 'Descartar');
+          this.finalizarEvent.emit(false);
+        });
+      }
+    } else {
+      this._enableAgregar = event;
+    }
+  }
+
+  cancelar() {
+    this.finalizarEvent.emit(true);
+  }
+
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 }
+
 
 @Component({
   selector: 'app-cargar-receta-ingerida-info',
