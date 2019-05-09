@@ -13,10 +13,11 @@ import {MatSnackBar} from '@angular/material';
   providers: [DatosUsuarioService]
 })
 export class ModificarDatosViewComponent implements OnInit {
-  DatosUsuario = new DatosUsuario(null, null, null, null, null, null, null, null, null);
+  DatosUsuario = new DatosUsuario(null, null, null, null, null, null, null, null, null, null);
   ActividadLaboral = new ActividadLaboral(null, null, null, null);
   errorMensaje = null;
   existDatos = false;
+  enablePreferencias = false;
 
   constructor(private _location: Location,
               private _router: Router,
@@ -33,10 +34,6 @@ export class ModificarDatosViewComponent implements OnInit {
 
   public volver() {
     this._location.back();
-  }
-
-  public getDatosUsuario(data) {
-    this.DatosUsuario = data.Datos;
   }
 
   public getActividad(data) {
@@ -56,6 +53,17 @@ export class ModificarDatosViewComponent implements OnInit {
         error1 => {
           this.errorMensaje = 'Servidor no disponible';
         });
+    }
+  }
+
+  public configPreferencias() {
+    this.enablePreferencias = true;
+  }
+
+  public preferenciasReturn(evento) {
+    this.enablePreferencias = evento.disable;
+    if (evento.change) {
+      this.cargarDatos();
     }
   }
 

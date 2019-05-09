@@ -1,3 +1,6 @@
+import {Ingrediente} from './Ingrediente';
+import {DietaEspecial} from './DietaEspecial';
+
 export class DatosUsuario {
   constructor(
     public PesoAprox: number,
@@ -8,7 +11,8 @@ export class DatosUsuario {
     public PesoTeorico: number,
     public Usuario: string,
     public ActividadLaboral: string,
-    public Preferencias: string,
+    public Preferencias: Ingrediente[],
+    public DietasEspeciales: DietaEspecial[]
   ) {
   }
 }

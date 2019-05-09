@@ -2,7 +2,6 @@ import {Component, Input, Output, EventEmitter, OnInit, Inject} from '@angular/c
 import {ActividadLaboral} from '../../_models/ActividadLaboral';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {ActividadOverviewComponent} from '../actividad-fisica/actividad-fisica.component';
 
 @Component({
   selector: 'app-actividad-laboral',

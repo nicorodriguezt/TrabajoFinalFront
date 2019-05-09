@@ -1,0 +1,21 @@
+<body>
+<div *ngIf="!enableMostrar; else terminado" align="center">
+  <br><br>
+  <mat-spinner></mat-spinner>
+</div>
+<ng-template #terminado>
+  <mat-form-field style="width: 100%;">
+    <mat-select placeholder="Dietas.." [(ngModel)]="DietaElegida" required>
+      <mat-option *ngFor="let dieta of ListDietas" [value]="dieta">
+        {{dieta.Nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="DietaElegida.Nombre != null">
+    <p style="text-align: justify">{{DietaElegida.Descripcion}}</p>
+  </div>
+  <div align="center">
+    <button mat-flat-button (click)="agregar()">Agregar</button>
+  </div>
+</ng-template>
+</body>

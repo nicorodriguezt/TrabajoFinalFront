@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {Observable } from 'rxjs/Observable';
 import {backend} from './globalconfig';
 import {Router} from '@angular/router';
 
@@ -39,6 +38,26 @@ export class DatosUsuarioService {
 
   public getActividad() {
     return this._http.get(this.url + 'actividadlaboral/info', HttpOptions).pipe(map(res => res));
+  }
+
+  public addDieta(dieta) {
+    const params = {};
+    return this._http.post(this.url + 'dietaEpecial/add/' + dieta._id, params, HttpOptions).pipe(map(res => res));
+  }
+
+  public removeDieta(dieta) {
+    const params = {};
+    return this._http.post(this.url + 'dietaEspecial/remove/' + dieta._id, params, HttpOptions).pipe(map(res => res));
+  }
+
+  public addPreferencia(ingrediente) {
+    const params = {};
+    return this._http.post(this.url + 'preferencias/add/' + ingrediente._id, params, HttpOptions).pipe(map(res => res));
+  }
+
+  public removePreferencia(ingrediente) {
+    const params = {};
+    return this._http.post(this.url + 'preferencias/remove/' + ingrediente._id, params, HttpOptions).pipe(map(res => res));
   }
 
 }

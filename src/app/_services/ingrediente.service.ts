@@ -30,4 +30,12 @@ export class IngredienteService {
     return this._http.post(this.url + 'add', params, HttpOptions)
       .pipe(map(res => res));
   }
+
+  public getOrigenes() {
+    return this._http.get(this.url + 'getOrigenes', HttpOptions ).pipe(map(res => res));
+  }
+
+  public getIngredientesByOrigen(origen) {
+    return this._http.get(this.url + 'getByOrigen/' + origen, HttpOptions ).pipe(map(res => res));
+  }
 }

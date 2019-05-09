@@ -10,29 +10,24 @@ import { DatosUsuarioService} from '../../_services/datos-usuario.service';
 })
 export class NuevoDatosUsuarioComponent implements OnInit, OnChanges {
   @Input() DatosUsuario: DatosUsuario;
-  @Input() DatosValid: boolean;
   @Output() sendExist: EventEmitter<boolean> = new EventEmitter();
   @Output() sendDataUsuario: EventEmitter<any> = new EventEmitter();
-  DatosActuales;
 
   public sexos = [
     {value: 'M', titulo: 'Masculino'},
     {value: 'F', titulo: 'Femenino'}];
 
-  constructor( public _DatosUsuarioService: DatosUsuarioService) { }
+  constructor( private _DatosUsuarioService: DatosUsuarioService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.sendDataUsuario.emit({Datos: this.DatosUsuario, Valid: this.DatosValid});
+    this.sendDataUsuario.emit(this.DatosUsuario);
   }
 
   ngOnInit(): void {
-    this._DatosUsuarioService.getDatos().subscribe( res => {
+    this._DatosUsuarioService.getDatos().subscribe( (res: DatosUsuario) => {
       if (res != null) {
-        this.DatosActuales = res;
-        this.DatosUsuario.Sexo = this.DatosActuales.Sexo;
-        this.DatosUsuario.Altura = this.DatosActuales.Altura;
-        this.DatosUsuario.Edad = this.DatosActuales.Edad;
-        this.DatosUsuario.PesoAprox = this.DatosActuales.PesoAprox;
+        this.DatosUsuario = res;
+        this.sendDataUsuario.emit(this.DatosUsuario);
       } else {
         this.sendExist.emit(true);
       }

@@ -1,0 +1,65 @@
+<body>
+<div>
+  <mat-card>
+    <mat-card-title>
+      Dietas especiales
+    </mat-card-title>
+    <mat-card-content>
+      <div *ngIf="DatosUsuario.DietasEspeciales.length == 0; else dietasEspeciales">
+        <i>No tiene dietas especiales cargadas</i>
+      </div>
+      <ng-template #dietasEspeciales>
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let dieta of DatosUsuario.DietasEspeciales" >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{dieta.Nombre}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{dieta.Descripcion}}</p>
+            <div align="right">
+              <button mat-flat-button color="error" (click)="eliminarDieta(dieta)">Eliminar</button>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel (opened)="panelOpenState = true"
+                               (closed)="panelOpenState = false">
+          </mat-expansion-panel>
+        </mat-accordion>
+      </ng-template>
+      <div align="right">
+        <button mat-icon-button color="primary" (click)="addDieta()" ><mat-icon>add</mat-icon></button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div>
+  <mat-card>
+    <mat-card-title>
+      Preferencias
+    </mat-card-title>
+    <mat-card-subtitle style="margin-bottom: 0px">
+      No incluir los sig. ingredientes:
+    </mat-card-subtitle>
+    <mat-card-content>
+      <div *ngIf="DatosUsuario.Preferencias.length == 0; else preferencias">
+        <i>No tiene preferencias cargadas</i>
+      </div>
+      <ng-template #preferencias>
+        <mat-list>
+          <mat-list-item *ngFor="let preferencia of DatosUsuario.Preferencias">
+            {{preferencia.Nombre}}
+            <button mat-icon-button color="error" (click)="eliminarPreferencia(preferencia)" style="position: absolute; right: 0;"><mat-icon>remove</mat-icon></button>
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+      <div align="right">
+        <button mat-icon-button color="primary" (click)="addPreferencia()" ><mat-icon>add</mat-icon></button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div align="left" style="margin-top: 5px">
+  <i style="font-size: 12px; text-align: center">*Cambiar tus preferencias o dietas especiales cambiara tu menu actual</i><br>
+  <button mat-button color="primary" (click)="volver()"><mat-icon>arrow_left</mat-icon>Volver</button>
+</div>
+</body>

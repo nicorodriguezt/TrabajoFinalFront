@@ -71,6 +71,9 @@ import {
   CargarRecetaCompletaComponent,
   CargarRecetaCompletaIngrerdienteComponent
 } from './_components/cargar-receta-completa/cargar-receta-completa.component';
+import {
+  DietasEspecialesComponent, IngredientePreferenciaComponent, PreferenciasComponent
+} from './_components/preferencias/preferencias.component';
 
 // Views
 import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
@@ -133,7 +136,9 @@ import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-vi
     RecetasAdministradorComponent,
     AgregarIngredienteViewComponent,
     BuscarRecetasFiltrosComponent,
-
+    PreferenciasComponent,
+    DietasEspecialesComponent,
+    IngredientePreferenciaComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -185,7 +190,9 @@ import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-vi
     CargarRecetaIngeridaInfoComponent,
     CargarRecetaNuevaIngrerdienteComponent,
     CargarRecetaCompletaIngrerdienteComponent,
-    BuscarRecetasFiltrosComponent
+    BuscarRecetasFiltrosComponent,
+    DietasEspecialesComponent,
+    IngredientePreferenciaComponent
   ]
 })
 export class AppModule {
