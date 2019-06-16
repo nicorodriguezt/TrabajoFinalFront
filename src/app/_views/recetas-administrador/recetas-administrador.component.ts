@@ -26,7 +26,8 @@ export class RecetasAdministradorComponent implements OnInit {
   }
 
   nuevaReceta() {
-    this._RecetaElegida = new Receta('', '', '', [], null, [], '', [], '', null, null, null, null, null, null);
+    this._RecetaElegida = new Receta('', '', '', [], null, [], '',
+      [], '', null, null, null, null, null, null, null);
     this._enableCargar = true;
   }
 

@@ -20,7 +20,8 @@ export class CargarRecetaIngeridaComponent implements OnInit {
   momento;
   Momentos = [];
   recetasEncontradas = [];
-  _nuevaComida = new Receta(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+  _nuevaComida = new Receta(null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null, null);
   _enableAgregar = false;
   _hideVacio = false;
   auxiliar;

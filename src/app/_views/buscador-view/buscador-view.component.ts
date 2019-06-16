@@ -8,8 +8,10 @@ import {Receta} from '../../_models/Receta';
 })
 export class BuscadorViewComponent implements OnInit {
   public verReceta: boolean;
-  public RecetaBuscada = new Receta(null, "",'', null, null, null, '', null, '', false, null, null, null, null, null);
-  public RecetaElegida = new Receta(null, "",'', null, null, null, '', null, '', false, null, null, null, null, null);
+  public RecetaBuscada = new Receta(null, "",'', null, null, null, '',
+    null, '', false, null, null, null, null, null , null);
+  public RecetaElegida = new Receta(null, "",'', null, null, null, '',
+    null, '', false, null, null, null, null, null, null);
 
   constructor() { }
 

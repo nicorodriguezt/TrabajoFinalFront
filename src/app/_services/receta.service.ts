@@ -85,12 +85,26 @@ export class RecetaService {
       .pipe(map(res => res));
   }
 
-  public evaluacion(_id, estado) {
-    const datos = {
-      id: _id,
-      Estado: estado
-    };
-    const params = JSON.stringify(datos);
-    return;
+  // public evaluacion(_id, estado) {
+  //   const datos = {
+  //     id: _id,
+  //     Estado: estado
+  //   };
+  //   const params = JSON.stringify(datos);
+  //   return;
+  // }
+
+  public puntuar(data) {
+    const json = JSON.stringify(data);
+    const params = json;
+
+    return this._http.post(this.url + 'puntaje', params, HttpOptions).pipe(map(res => res));
+  }
+
+  public comentar(data) {
+    const json = JSON.stringify(data);
+    const params = json;
+
+    return this._http.post(this.url + 'comentario', params, HttpOptions).pipe(map(res => res));
   }
 }
