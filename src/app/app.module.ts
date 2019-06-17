@@ -31,6 +31,9 @@ import {
 } from '@angular/material';
 import {NguCarouselModule} from '@ngu/carousel';
 
+// StarRating
+import {StarRatingModule} from 'angular-star-rating';
+
 // Charts
 import {ChartsModule} from 'ng2-charts';
 import {FusionChartsModule} from 'angular-fusioncharts';
@@ -98,6 +101,7 @@ import { RecetasAdministradorComponent } from './_views/recetas-administrador/re
 import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-view/agregar-ingrediente-view.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -139,6 +143,7 @@ import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-vi
     IngredientePreferenciaComponent
   ],
   imports: [
+    StarRatingModule.forRoot(),
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,

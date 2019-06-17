@@ -15,6 +15,11 @@ export class InformacionRecetaComponent implements OnInit {
   @Output() volverEvent: EventEmitter<boolean> = new EventEmitter();
   DatosReceta;
   recetaCargandoInfo = true;
+  starFavorito = 0;
+  Comentario;
+  cantComentarios = 5;
+  puntajeUsuario = 0;
+  puntuarEnable = false;
 
   constructor(private _RecetaService: RecetaService,
               private _FavoritoService: FavoritosService,
@@ -30,6 +35,13 @@ export class InformacionRecetaComponent implements OnInit {
       this.RecetaElegida.Ingredientes.forEach(function (element) {
         element.Ingrediente.Nombre = element.Ingrediente.Nombre[0].toUpperCase() + element.Ingrediente.Nombre.substr(1).toLowerCase();
       });
+      if (this.RecetaElegida.Favorito === true) {
+        this.starFavorito = 1;
+      }
+      if (this.RecetaElegida.Puntaje !== 0) {
+        this.puntajeUsuario = this.RecetaElegida.Puntaje;
+        this.puntuarEnable = true;
+      }
       this.recetaCargandoInfo = false;
     });
   }
@@ -49,14 +61,41 @@ export class InformacionRecetaComponent implements OnInit {
       console.log(res);
       let mensaje = '';
       if (res === 'true') {
+        this.starFavorito = 1;
         mensaje = 'Agregado a Favoritas';
       } else {
+        this.starFavorito = 0;
         mensaje = 'Eliminado de Favoritas';
       }
 
       this.openSnackBar(mensaje, 'Descartar');
 
     });
+  }
+
+  onPuntuar(evento) {
+    const data = {
+      _id: this.RecetaElegida._id,
+      Puntaje : evento.rating
+    };
+    this._RecetaService.puntuar(data).subscribe(res => {
+      this.openSnackBar('Receta puntuada', 'Descartar');
+    });
+  }
+
+  onComentar() {
+    const data = {
+      _id: this.RecetaElegida._id,
+      Texto : this.Comentario
+    };
+    this._RecetaService.comentar(data).subscribe(res => {
+      this.Comentario = null;
+      this.openSnackBar('Comentario realizado', 'Descartar');
+    });
+  }
+
+  verMasComentarios() {
+    this.cantComentarios = 10;
   }
 
 }

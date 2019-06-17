@@ -40,3 +40,19 @@ favorito-style {
 .ingredientes-style {
   text-align: justify;
 }
+
+.favorite-style {
+  vertical-align: middle!important;
+}
+
+.rightColumn {
+  width: 33.33%;
+  float: left;
+
+}
+.leftColumn {
+  width: 50%;
+  float: left;
+
+
+}

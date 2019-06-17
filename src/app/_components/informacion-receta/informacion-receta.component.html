@@ -6,14 +6,25 @@
   <ng-template #terminado>
     <div align="center">
       <h1 class="title-style">{{RecetaElegida?.Nombre}}</h1>
-        Favorito <button mat-icon-button class="favorito-style" (click)="togglefavorito()">
+      <div class="row">
+        <div class="column leftColumn">
+          <star-rating labelText="Favorito" labelPosition="left" [starType]="'svg'" [numOfStars]="1" staticColor="ok"
+                       (starClickChange)="togglefavorito()" [rating]="starFavorito"></star-rating>
+        </div>
+        <div class="column rightColumn">
+          <star-rating labelText="Puntuacion" labelPosition="left" [starType]="'svg'" [numOfStars]="5" staticColor="ok"
+                       [readOnly]="puntuarEnable" [rating]="puntajeUsuario" (starClickChange)="onPuntuar($event)" ></star-rating>
+        </div>
+        <!--<button mat-icon-button class="favorito-style" (click)="togglefavorito()">
         <span *ngIf="RecetaElegida.Favorito; else nofavorito">
-          <mat-icon>star</mat-icon>
+          <mat-icon class="favorite-style">star</mat-icon>
         </span>
         <ng-template #nofavorito>
-          <mat-icon>star_border</mat-icon>
+          <mat-icon class="favorite-style">star_border</mat-icon>
         </ng-template>
-      </button>
+      </button>-->
+      </div>
+
       <img src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg" class="image-style">
 
       <p align="justify">{{RecetaElegida?.Descripcion}}</p>
@@ -52,6 +63,23 @@
         <mat-icon>arrow_left</mat-icon>
         Volver
       </button>
+    </div>
+  <mat-divider></mat-divider>
+    <div>
+      <h6 class="comentarios-style">Comentarios</h6>
+      <div>
+        <mat-form-field style="width: 100%">
+        <input matInput placeholder="Agregar comentario" maxlength="120" [(ngModel)]="Comentario">
+        <mat-icon matSuffix (click)="onComentar()" >add</mat-icon>
+          <mat-hint>Max. 120</mat-hint>
+      </mat-form-field>
+      </div>
+      <div *ngFor="let comentario of RecetaElegida.Comentarios; let i=index">
+        <div *ngIf="i<cantComentarios">
+          <b>{{comentario.Nombre}}</b>
+          <p>{{comentario.Texto}}</p>
+        </div>
+      </div>
     </div>
   </ng-template>
 </section>
