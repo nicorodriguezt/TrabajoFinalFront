@@ -18,6 +18,8 @@ export class InformacionRecetaComponent implements OnInit {
   starFavorito = 0;
   Comentario;
   cantComentarios = 5;
+  puntajeUsuario = 0;
+  puntuarEnable = false;
 
   constructor(private _RecetaService: RecetaService,
               private _FavoritoService: FavoritosService,
@@ -35,6 +37,10 @@ export class InformacionRecetaComponent implements OnInit {
       });
       if (this.RecetaElegida.Favorito === true) {
         this.starFavorito = 1;
+      }
+      if (this.RecetaElegida.Puntaje !== 0) {
+        this.puntajeUsuario = this.RecetaElegida.Puntaje;
+        this.puntuarEnable = true;
       }
       this.recetaCargandoInfo = false;
     });
@@ -70,7 +76,7 @@ export class InformacionRecetaComponent implements OnInit {
   onPuntuar(evento) {
     const data = {
       _id: this.RecetaElegida._id,
-      puntaje : evento.rating
+      Puntaje : evento.rating
     };
     this._RecetaService.puntuar(data).subscribe(res => {
       this.openSnackBar('Receta puntuada', 'Descartar');

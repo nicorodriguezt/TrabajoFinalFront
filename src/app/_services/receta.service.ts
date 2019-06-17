@@ -59,9 +59,6 @@ export class RecetaService {
 
   public addReceta(data) {
     data = deleteNulls(data);
-    data.Ingredientes.forEach(x => {
-      x.Ingrediente = x.Ingrediente.Nombre;
-    });
     const json = JSON.stringify(data);
     const params = json;
 
