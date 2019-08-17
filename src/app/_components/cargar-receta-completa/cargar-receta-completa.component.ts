@@ -1,13 +1,17 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RecetaService} from '../../_services/receta.service';
 import {Receta} from '../../_models/Receta';
 import {MomentoDelDia} from '../../_models/MomentoDelDia';
 import {PonerMayuscula} from '../../_services/funciones-commun.service';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {CargarRecetaNuevaIngrerdienteComponent} from '../cargar-receta-nueva/cargar-receta-nueva.component';
 import {IngredienteService} from '../../_services/ingrediente.service';
-import {IngredienteXReceta} from '../../_models/IngredienteXReceta';
+
+class ImageSnippet {
+  constructor(public src: string, public file: File) {
+  }
+}
 
 @Component({
   selector: 'app-cargar-receta-completa',
@@ -29,6 +33,10 @@ export class CargarRecetaCompletaComponent implements OnInit {
   _ListOrigenes = [];
   _IngredientesOriginales = null;
   _Rol = localStorage.getItem('Rol');
+  _imageFile: any = null;
+  _cargandoImagen = false;
+  private _imageName: string;
+  errorMensaje: string = null;
 
   constructor(public dialog: MatDialog,
               private _formBuilder: FormBuilder,
@@ -39,7 +47,8 @@ export class CargarRecetaCompletaComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       Nombre: ['', Validators.required],
-      Descripcion: ['', Validators.required]
+      Descripcion: ['', Validators.required],
+      Imagen: ['']
     });
     this.secondFormGroup = this._formBuilder.group({
       Porciones: ['', Validators.required]
@@ -65,7 +74,8 @@ export class CargarRecetaCompletaComponent implements OnInit {
     }
     this.firstFormGroup.setValue({
       Nombre: this.Receta.Nombre,
-      Descripcion: this.Receta.Descripcion
+      Descripcion: this.Receta.Descripcion,
+      Imagen: this.Receta.Imagen || null
     });
     this.secondFormGroup.setValue({
       Porciones: this.Receta.Porciones
@@ -105,6 +115,10 @@ export class CargarRecetaCompletaComponent implements OnInit {
 
   get CtrlDescripcion() {
     return this.firstFormGroup.get('Descripcion').value;
+  }
+
+  get CtrlImagen() {
+    return this.firstFormGroup.get('Imagen').value;
   }
 
   get CtrlPorciones() {
@@ -171,6 +185,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
     if (this.firstFormGroup.touched) {
       RecetaEnviar.Nombre = this.CtrlNombre;
       RecetaEnviar.Descripcion = this.CtrlDescripcion;
+      RecetaEnviar.Imagen = this.CtrlImagen;
     } else {
       delete RecetaEnviar.Nombre;
       delete RecetaEnviar.Descripcion;
@@ -193,13 +208,24 @@ export class CargarRecetaCompletaComponent implements OnInit {
       delete RecetaEnviar.Pasos;
     }
     RecetaEnviar.Estado = estado;
+    RecetaEnviar.Imagen = this._imageFile;
 
-    this._RecetaService.actualizarReceta(RecetaEnviar).subscribe( x => {
-      this.finalizarCarga.emit(true);
-    });
+    if (RecetaEnviar._id === '') {
+      this._RecetaService.addReceta(RecetaEnviar).subscribe(x => {
+        this.finalizarCarga.emit(true);
+      });
+    } else {
+      this._RecetaService.actualizarReceta(RecetaEnviar).subscribe(x => {
+        this.finalizarCarga.emit(true);
+      });
+    }
+
   }
 
   cancelar() {
+    if (this.errorMensaje == null) {
+      this._RecetaService.deleteImage(this._imageName).subscribe();
+    }
     this.finalizarCarga.emit(false);
   }
 
@@ -232,6 +258,17 @@ export class CargarRecetaCompletaComponent implements OnInit {
       || this.pasosArray.length === 0
       || this.Receta.MomentoDelDia.length === 0
       || this.Receta.Ingredientes.length === 0
-      || this.Receta.IngredientePrincipal == null;
+      || this.Receta.IngredientePrincipal == null
+      || this._imageFile == null;
+  }
+
+  processImage(imageInput: any) {
+    this._cargandoImagen = true;
+    this._RecetaService.addImagen(imageInput.files[0]).subscribe(x => {
+      this._imageFile = x;
+      this._imageName = this._imageFile.replace('https://storage.googleapis.com/recetas-imagenes-tesis/', '');
+    }, error1 => {
+      this.errorMensaje = 'Por favor, intente mas tarde';
+    });
   }
 }

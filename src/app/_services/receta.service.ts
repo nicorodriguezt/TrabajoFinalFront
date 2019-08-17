@@ -1,7 +1,6 @@
-import {Injectable, ɵRenderDebugInfo} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs/Observable';
 import {backend} from './globalconfig';
 import {Router} from '@angular/router';
 import {deleteNulls} from './funciones-commun.service';
@@ -9,6 +8,13 @@ import {deleteNulls} from './funciones-commun.service';
 const HttpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
+  }),
+  withCredentials: true,
+  params: {}
+};
+
+const HttpOptionsImage = {
+  headers: new HttpHeaders({
   }),
   withCredentials: true,
   params: {}
@@ -103,5 +109,15 @@ export class RecetaService {
     const params = json;
 
     return this._http.post(this.url + 'comentario', params, HttpOptions).pipe(map(res => res));
+  }
+
+  addImagen(image: File) {
+    const file = new FormData();
+    file.append('image', image, image.name);
+    return this._http.post(this.url + 'image', file, HttpOptionsImage).pipe(map(res => res));
+  }
+
+  deleteImage(fileName: String) {
+    return this._http.delete(this.url + 'image/' + fileName, HttpOptionsImage).pipe(map(res => res));
   }
 }

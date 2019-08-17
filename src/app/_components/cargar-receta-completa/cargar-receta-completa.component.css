@@ -21,6 +21,12 @@ imagen-style {
   height: 32px!important;
 }
 
+.image-styles {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+
 mat-list-item{
   padding: 0;
 }

@@ -5,10 +5,6 @@
   <span><strong>Cargando..</strong></span>
 </div>
 <ng-template #terminado>
-  <div style="padding-top: 3px">
-    <button mat-stroked-button color="primary" (click)="cancelar()" style="float: right; ">Volver</button>
-  </div>
-
   <mat-vertical-stepper linear="true" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
@@ -20,14 +16,33 @@
           <textarea matInput placeholder="Breve descripción" formControlName="Descripcion" required></textarea>
         </mat-form-field>
 
-        <!---
-        IMAGEN
-        <div align="center">
-          <label class="btn btn-dark" style="border-radius: 50%">
-            <mat-icon>camera_alt</mat-icon>
-            <input type="file" style="display: none;">
-          </label>
-        </div>--->
+        <div *ngIf="errorMensaje == null; else errorServer">
+          <div *ngIf="_imageFile == null; else imagenSubida">
+            <div *ngIf="_cargandoImagen == false; else subiendoImagen">
+              <div align="center">
+                <label class="btn btn-dark" style="border-radius: 50%">
+                  <mat-icon>camera_alt</mat-icon>
+                  <input #imageInput type="file" accept="image/*" style="display: none;"
+                         (change)="processImage(imageInput)"
+                         required>
+                </label>
+              </div>
+            </div>
+            <ng-template #subiendoImagen>
+              <div align="center">
+                <mat-spinner diameter="30"></mat-spinner>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <ng-template #errorServer>
+          <div class="alert alert-danger">
+            <p>Error: </p> {{errorMensaje}}
+          </div>
+        </ng-template>
+        <ng-template #imagenSubida>
+          <img [src]=_imageFile class="image-styles">
+        </ng-template>
 
       </form>
     </mat-step>
@@ -87,7 +102,8 @@
             <div formArrayName="pasos">
               <div *ngFor="let group of pasosArray.controls; let i=index" [formGroupName]="i">
                 <mat-form-field>
-                  <textarea matInput formControlName="valor" matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=6 placeholder="Paso {{i+1}}" required></textarea>
+                  <textarea matInput formControlName="valor" matTextareaAutosize matAutosizeMinRows=1
+                            matAutosizeMaxRows=6 placeholder="Paso {{i+1}}" required></textarea>
                 </mat-form-field>
               </div>
             </div>

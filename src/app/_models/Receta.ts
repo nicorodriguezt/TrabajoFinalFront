@@ -19,7 +19,8 @@ export class Receta {
     public Calorias: number,
     public UsuarioCreo: string,
     public Estado: string,
-    public Comentarios: [{Usuario, Nombre, Texto, Fecha}]
+    public Comentarios: [{ Usuario; Nombre; Texto; Fecha }],
+    public Imagen: File
   ) {
   }
 }

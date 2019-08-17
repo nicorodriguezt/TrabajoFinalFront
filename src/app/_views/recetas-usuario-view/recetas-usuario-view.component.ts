@@ -84,8 +84,7 @@ export class RecetasUsuarioViewComponent implements OnInit {
   }
 
   nuevaReceta() {
-    this._RecetaCargar = new Receta('', '', '', [], null, [], '',
-      [], '', null, null, null, null, null, null, null);
+    this._RecetaCargar = new Receta('', '', '', [], null, [], '', [], '', null, null, null, null, null, null, null, null);
     this._enableMostrar = true;
   }
 
