@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {UsuarioService} from '../../_services/usuario.service';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
@@ -16,7 +16,8 @@ export class HeaderViewComponent implements OnInit {
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
-  DatosExist = false;
+  public DatosExist = false;
+  private subscription: Subscription;
 
   constructor(public _router: Router,
               private breakpointObserver: BreakpointObserver,
@@ -55,12 +56,14 @@ export class HeaderViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.datosExist();
+  }
+
+  datosExist() {
     this._DatosUsuarioService.getDatos().subscribe(datos => {
       if (datos) {
         this.DatosExist = true;
       }
-    });
-
+    }, error1 => {});
   }
-
 }

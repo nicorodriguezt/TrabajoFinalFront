@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {backend} from './globalconfig';
 import {Router} from '@angular/router';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 const HttpOptions = {
   headers: new HttpHeaders({

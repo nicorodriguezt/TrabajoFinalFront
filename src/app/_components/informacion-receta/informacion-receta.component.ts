@@ -28,7 +28,6 @@ export class InformacionRecetaComponent implements OnInit {
 
   ngOnInit() {
     this._RecetaService.verInformacionReceta(this.RecetaElegida).subscribe(response => {
-      console.log(response);
       this.DatosReceta = response;
       this.RecetaElegida = this.DatosReceta;
       this.RecetaElegida.Nombre = this.RecetaElegida.Nombre[0].toUpperCase() + this.RecetaElegida.Nombre.substr(1).toLowerCase();
@@ -88,9 +87,10 @@ export class InformacionRecetaComponent implements OnInit {
       _id: this.RecetaElegida._id,
       Texto : this.Comentario
     };
-    this._RecetaService.comentar(data).subscribe(res => {
+    this._RecetaService.comentar(data).subscribe((res: { Usuario; Nombre; Texto; Fecha }) => {
       this.Comentario = null;
       this.openSnackBar('Comentario realizado', 'Descartar');
+      this.RecetaElegida.Comentarios.push(res);
     });
   }
 

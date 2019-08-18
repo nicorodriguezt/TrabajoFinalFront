@@ -18,7 +18,7 @@
       </div>
 
 <!--      <img src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg" class="image-style">-->
-      <img src="https://drive.google.com/uc?export=view&id=0B1xgSoGjP1uFenZSU0xLSjJDWE0" class="image-style">
+      <img [src]="RecetaElegida.Imagen" class="image-style">
 
 
       <p align="justify">{{RecetaElegida?.Descripcion}}</p>
@@ -59,8 +59,9 @@
       </button>
     </div>
   <mat-divider></mat-divider>
+    <mat-divider></mat-divider>
     <div>
-      <h6 class="comentarios-style">Comentarios</h6>
+      <h6 style="padding: 0px; text-decoration: underline">Ultimos comentarios</h6>
       <div>
         <mat-form-field style="width: 100%">
         <input matInput placeholder="Agregar comentario" maxlength="120" [(ngModel)]="Comentario">
@@ -68,7 +69,7 @@
           <mat-hint>Max. 120</mat-hint>
       </mat-form-field>
       </div>
-      <div *ngFor="let comentario of RecetaElegida.Comentarios; let i=index">
+      <div *ngFor="let comentario of RecetaElegida.Comentarios.reverse(); let i=index">
         <div *ngIf="i<cantComentarios">
           <b>{{comentario.Nombre}}</b>
           <p>{{comentario.Texto}}</p>

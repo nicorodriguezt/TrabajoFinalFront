@@ -86,7 +86,10 @@ import {
   VerMenuCargarRecetaComponent,
   VerMenuConfirmRemComponent
 } from './_views/ver-menu-view/ver-menu-view.component';
-import {ModificarDatosViewComponent} from './_views/modificar-datos-view/modificar-datos-view.component';
+import {
+  ModificarDatosViewComponent,
+  ModificarDatosViewWarningComponent
+} from './_views/modificar-datos-view/modificar-datos-view.component';
 import {
   EvaluacionViewComponent,
   EvaluacionConfigComponent,
@@ -97,9 +100,8 @@ import {ListaComprasViewComponent} from './_views/lista-compras-view/lista-compr
 import {PantallaPrincipalViewComponent} from './_views/pantalla-principal-view/pantalla-principal-view.component';
 import {FavoritosViewComponent} from './_views/favoritos-view/favoritos-view.component';
 import {RecetasUsuarioViewComponent} from './_views/recetas-usuario-view/recetas-usuario-view.component';
-import { RecetasAdministradorComponent } from './_views/recetas-administrador/recetas-administrador.component';
-import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-view/agregar-ingrediente-view.component';
-
+import {RecetasAdministradorComponent} from './_views/recetas-administrador/recetas-administrador.component';
+import {AgregarIngredienteViewComponent} from './_views/agregar-ingrediente-view/agregar-ingrediente-view.component';
 
 
 @NgModule({
@@ -122,6 +124,7 @@ import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-vi
     VerMenuConfirmRemComponent,
     ListaComprasComponent,
     ModificarDatosViewComponent,
+    ModificarDatosViewWarningComponent,
     EvaluacionViewComponent,
     EvaluacionConfigComponent,
     EvaluacionHistorialComponent,
@@ -185,6 +188,7 @@ import { AgregarIngredienteViewComponent } from './_views/agregar-ingrediente-vi
   entryComponents: [
     ActividadOverviewComponent,
     ActividadLaboralInfoComponent,
+    ModificarDatosViewWarningComponent,
     VerMenuConfirmRemComponent,
     VerMenuCargarRecetaComponent,
     EvaluacionConfigComponent,

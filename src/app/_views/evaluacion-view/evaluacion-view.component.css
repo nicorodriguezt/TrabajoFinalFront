@@ -9,6 +9,11 @@
   flex: 0 0 100%;
 }
 
+.image-styles {
+  max-height: 25%;
+  max-width: 25%;
+}
+
 
 footer.footer-menu {
   position: fixed;

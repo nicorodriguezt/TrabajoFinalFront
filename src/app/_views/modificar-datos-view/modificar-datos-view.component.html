@@ -4,30 +4,40 @@
   </div>
 </div>
 <div *ngIf="!enablePreferencias">
-  <div>
-    <app-nuevo-datos-usuario [DatosUsuario]="DatosUsuario" (sendDataUsuario)="DatosUsuario = $event" (sendExist)="existDatos = $event" align="center"></app-nuevo-datos-usuario>
-  </div>
-
-  <div>
-    <app-actividad-laboral [ActividadLaboral]="ActividadLaboral" (sendDataActividad)="getActividad($event)" align="center"></app-actividad-laboral>
-  </div>
-
-  <div>
-    <app-actividad-fisica [hidden]="existDatos"></app-actividad-fisica>
-    <br>
-  </div>
-
-  <div [hidden]="enablePreferencias">
-    <div class="preferencias">
-      <span>Configurar preferencias y dietas especiales </span>
-      <button mat-icon-button (click)="configPreferencias()"><mat-icon>arrow_right</mat-icon></button>
+  <mat-card style="padding: 8px 0px">
+    <div>
+      <app-nuevo-datos-usuario [DatosUsuario]="DatosUsuario" (sendDataUsuario)="DatosUsuario = $event"
+                               (sendExist)="noExist($event) " align="center"></app-nuevo-datos-usuario>
     </div>
+    <div>
+      <app-actividad-laboral [ActividadLaboral]="ActividadLaboral" (sendDataActividad)="getActividad($event)"
+                             align="center"></app-actividad-laboral>
+    </div>
+  </mat-card>
+  <div [hidden]="existDatos">
+    <mat-card style="padding: 8px 4px">
+      <div>
+        <app-actividad-fisica ></app-actividad-fisica>
+      </div>
+    </mat-card>
+    <mat-card style="padding: 10px 10px">
+      <div>
+        <div class="preferencias">
+          <span style="size: 8px">Configurar preferencias y dietas especiales </span>
+          <button mat-icon-button (click)="configPreferencias()">
+            <mat-icon>arrow_right</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card>
   </div>
-  <div align="center">
-    <button mat-flat-button color="primary" type="submit" (click)="cargarDatos()" >Finalizar</button>
-    <button mat-flat-button color="secundary" (click)="volver()">Cancelar</button>
+
+  <div style= "padding: 5px">
+    <button mat-flat-button color="primary" type="submit" (click)="cargarDatos()">Finalizar</button>
+    <button mat-stroked-button color="secundary" (click)="volver()" style="float: right">Cancelar</button>
   </div>
 </div>
 
-<app-preferencias [DatosUsuario]="DatosUsuario" (returnEvent)="preferenciasReturn($event)" *ngIf="enablePreferencias" ></app-preferencias>
+<app-preferencias [DatosUsuario]="DatosUsuario" (returnEvent)="preferenciasReturn($event)"
+                  *ngIf="enablePreferencias"></app-preferencias>
 

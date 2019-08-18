@@ -13,10 +13,8 @@
       <div align="left">
         <div *ngIf="list.ActividadFisica.Distancia != null">
           Distancia: {{list.ActividadFisica.Distancia}}
-          <mat-divider></mat-divider>
         </div>
         Cantidad: {{list.Cantidad}}Hrs
-        <mat-divider></mat-divider>
       </div>
       <div align="right">
         <button mat-flat-button color="error" (click)="eliminarActividad(list.ActividadFisica)">Eliminar</button>
