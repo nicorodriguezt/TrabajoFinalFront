@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ComponentRef, Inject, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
 import {ActividadLaboral} from '../../_models/ActividadLaboral';
 import {DatosUsuario} from '../../_models/DatosUsuario';
-import {MatSnackBar} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-modificar-datos-view',
@@ -18,11 +18,13 @@ export class ModificarDatosViewComponent implements OnInit {
   errorMensaje = null;
   existDatos = false;
   enablePreferencias = false;
+  ref: ComponentRef<any>;
 
   constructor(private _location: Location,
               private _router: Router,
               private _DatosUsuarioService: DatosUsuarioService,
-              public snackBar: MatSnackBar
+              public snackBar: MatSnackBar,
+              public dialog: MatDialog
   ) {
   }
 
@@ -41,14 +43,17 @@ export class ModificarDatosViewComponent implements OnInit {
   }
 
   public cargarDatos() {
-    if (!this.DatosUsuario.PesoAprox || !this.DatosUsuario.Altura || !this.DatosUsuario.Edad || this.DatosUsuario.Sexo == '' || this.ActividadLaboral.Categoria == '') {
+    if (!this.DatosUsuario.PesoAprox || !this.DatosUsuario.Altura || !this.DatosUsuario.Edad ||
+      this.DatosUsuario.Sexo === null || this.ActividadLaboral.Categoria === null) {
       this.errorMensaje = 'Datos incompletos';
     } else {
       this.DatosUsuario.ActividadLaboral = this.ActividadLaboral._id;
       this._DatosUsuarioService.cargaDatosUsuario(this.DatosUsuario).subscribe(response => {
           this.errorMensaje = null;
           this.openSnackBar('Datos guardados con exito', 'Descartar');
-          this.existDatos = false;
+          if (this.existDatos) {
+            this._router.navigate(['/main']);
+          }
         },
         error1 => {
           this.errorMensaje = 'Servidor no disponible';
@@ -70,4 +75,30 @@ export class ModificarDatosViewComponent implements OnInit {
   ngOnInit() {
   }
 
+  noExist($event: boolean) {
+    this.existDatos = $event;
+    this.openInfo();
+  }
+
+  openInfo(): void {
+    this.dialog.open(ModificarDatosViewWarningComponent, {
+      width: '80%',
+    });
+  }
+
 }
+@Component({
+  selector: 'app-modificar-datos-view-warning',
+  templateUrl: './modificar-datos-view-warning.component.html',
+  styleUrls: ['./modificar-datos-view.component.css']
+})
+export class ModificarDatosViewWarningComponent {
+
+  constructor(public dialogRef: MatDialogRef<ModificarDatosViewWarningComponent>) {
+  }
+
+  aceptar() {
+    this.dialogRef.close();
+  }
+}
+

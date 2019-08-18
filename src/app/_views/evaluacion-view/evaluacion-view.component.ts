@@ -20,6 +20,7 @@ export class EvaluacionViewComponent implements OnInit {
   enableHistorial = false;
   datosUsuario;
   Consejos;
+  sinMenus = false;
 
   // Periodo
   mostrarSemana;
@@ -163,28 +164,31 @@ export class EvaluacionViewComponent implements OnInit {
   async ngOnInit() {
     this.datosUsuario = await this._DatosUsuarioService.getDatos().toPromise();
     this.ValoresDia = await this._EvaluacionService.getEvaluacionDia().toPromise();
-    this.ValoresSemana = await this._EvaluacionService.getEvaluacionSemana().toPromise();
-    this.Historial = await this._EvaluacionService.historial().toPromise();
-    this.mostrarSemana = this.datosUsuario.DefaultEvaluacion;
-    this.cargaDatos = true;
-
-    if (this.mostrarSemana) {
-      await this.graficoCalorias(this.ValoresSemana);
-      await this.graficoValores(this.ValoresSemana);
-
+    if (this.ValoresDia.sinMenus === true) {
+      this.sinMenus = true;
     } else {
-      for (let i = 0; i < this.ValoresDia.length; i++) {
-        const diaA = moment(this.ValoresDia[i].FechaInicio).format('MM DD YYYY');
-        const diaB = moment().subtract(1, 'days').format('MM DD YYYY');
-        if (diaA === diaB) {
-          moment.locale('es');
-          this.diaEvaluacion = moment().subtract(1, 'days').format('dddd D/MM');
-          this.diaEvaluacion = this.diaEvaluacion[0].toUpperCase() + this.diaEvaluacion.substr(1).toLowerCase();
-          await this.graficoCalorias(this.ValoresDia[i]);
-          await this.graficoValores(this.ValoresDia[i]);
+      this.ValoresSemana = await this._EvaluacionService.getEvaluacionSemana().toPromise();
+      this.Historial = await this._EvaluacionService.historial().toPromise();
+      this.mostrarSemana = this.datosUsuario.DefaultEvaluacion;
+      if (this.mostrarSemana) {
+        await this.graficoCalorias(this.ValoresSemana);
+        await this.graficoValores(this.ValoresSemana);
+
+      } else {
+        for (let i = 0; i < this.ValoresDia.length; i++) {
+          const diaA = moment(this.ValoresDia[i].FechaInicio).format('MM DD YYYY');
+          const diaB = moment().subtract(1, 'days').format('MM DD YYYY');
+          if (diaA === diaB) {
+            moment.locale('es');
+            this.diaEvaluacion = moment().subtract(1, 'days').format('dddd D/MM');
+            this.diaEvaluacion = this.diaEvaluacion[0].toUpperCase() + this.diaEvaluacion.substr(1).toLowerCase();
+            await this.graficoCalorias(this.ValoresDia[i]);
+            await this.graficoValores(this.ValoresDia[i]);
+          }
         }
       }
     }
+    this.cargaDatos = true;
   }
 
   graficoCalorias(Periodo) {

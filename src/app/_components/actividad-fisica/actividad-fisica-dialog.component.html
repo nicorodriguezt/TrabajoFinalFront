@@ -37,11 +37,11 @@
   </div>
 
 </form>
-<div mat-dialog-actions>
+<div>
   <button mat-flat-button color="primary" (click)="cargarActividad()"
           [disabled]="data.ActividadFisica.TipoActividad == '' ||
            (data.ActividadFisica.Modalidad == '' && hideModalidad ) ||
            (data.ActividadFisica.Distancia == '' && hideDistancia) || !cantidad.valid">Añadir</button>
 
-  <button mat-stroked-button color="secundary" (click)="cancelar()">Cancelar</button>
+  <button mat-stroked-button color="secundary" (click)="cancelar()" style="float: right;">Cancelar</button>
 </div>

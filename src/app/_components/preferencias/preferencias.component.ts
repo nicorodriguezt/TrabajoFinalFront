@@ -24,8 +24,6 @@ export class PreferenciasComponent implements OnInit {
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-
-    console.log(this.DatosUsuario);
   }
 
   public addDieta() {

@@ -5,70 +5,81 @@
     <mat-spinner></mat-spinner>
     <span><strong>Cargando..</strong></span>
   </div>
-  <div *ngIf="cargaDatos">
-    <div align="center">
-      <div class="container">
-        <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
-          <mat-tab label="Calorias">
-            <div style="display: block; flex: auto" align="center">
-              <fusioncharts
-                width="100%"
-                type="AngularGauge"
-                [dataSource]="InfoCalorias">
-              </fusioncharts>
+  <div *ngIf="sinMenus==false; else error">
+    <div *ngIf="cargaDatos">
+      <div align="center">
+        <div class="container">
+          <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+            <mat-tab label="Calorias">
+              <div style="display: block; flex: auto" align="center">
+                <fusioncharts
+                  width="100%"
+                  type="AngularGauge"
+                  [dataSource]="InfoCalorias">
+                </fusioncharts>
 
-              <div align="justify">
-                <mat-card>
-                  <mat-card-subtitle>
-                    Recuerda cargas las comidas ingeridas en "Tus Menús"
-                  </mat-card-subtitle>
-                  <span>
+                <div align="justify">
+                  <mat-card>
+                    <mat-card-subtitle>
+                      Recuerda cargas las comidas ingeridas en "Tus Menús"
+                    </mat-card-subtitle>
+                    <span>
               <b>Pediodo de evalacion: </b>{{diaEvaluacion}}
             </span>
-                  <br>
-                  <b>Consumiste: </b> {{CaloriasRecomendada}}/{{CaloriasRequerida}} cal.
-                </mat-card>
-                <div class="mat-card">
-                  <strong>Te aconsejamos lo siguiente:</strong>
-                  <ul *ngFor="let consejo of Consejos">
-                    <li>{{consejo}}</li>
-                  </ul>
+                    <br>
+                    <b>Consumiste: </b> {{CaloriasRecomendada}}/{{CaloriasRequerida}} cal.
+                  </mat-card>
+                  <div class="mat-card">
+                    <strong>Te aconsejamos lo siguiente:</strong>
+                    <ul *ngFor="let consejo of Consejos">
+                      <li>{{consejo}}</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-          </mat-tab>
-          <mat-tab label="Valores Nutricionales">
-            <div align="justify">
-              <div *ngFor="let valor of InfoValores">
-                <mat-card>
-                  {{valor.ValorNutricional.Nombre}}:
-                  <span [style.color]="valor.ColorResultado">{{valor.Resultado}}</span>
-                  <fusioncharts
-                    width="100%"
-                    height="120"
-                    type="hlineargauge"
-                    [dataSource]="valor.Gauge">
-                  </fusioncharts>
-                </mat-card>
+            </mat-tab>
+            <mat-tab label="Valores Nutricionales">
+              <div align="justify">
+                <div *ngFor="let valor of InfoValores">
+                  <mat-card>
+                    {{valor.ValorNutricional.Nombre}}:
+                    <span [style.color]="valor.ColorResultado">{{valor.Resultado}}</span>
+                    <fusioncharts
+                      width="100%"
+                      height="120"
+                      type="hlineargauge"
+                      [dataSource]="valor.Gauge">
+                    </fusioncharts>
+                  </mat-card>
+                </div>
               </div>
-            </div>
-          </mat-tab>
-        </mat-tab-group>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
       </div>
+      <div style="height: 50px"></div>
+      <footer class="footer-menu">
+        <button mat-icon-button [disabled]="enableHistorial" (click)="switchSemana()">
+          <mat-icon>swap_horiz</mat-icon>
+        </button>
+        <button mat-icon-button (click)="historial()">
+          <mat-icon>list</mat-icon>
+        </button>
+        <button mat-icon-button class="config" (click)="configuracion()">
+          <mat-icon>settings</mat-icon>
+        </button>
+      </footer>
     </div>
-    <div style="height: 50px"></div>
-    <footer class="footer-menu">
-      <button mat-icon-button [disabled]="enableHistorial" (click)="switchSemana()">
-        <mat-icon>swap_horiz</mat-icon>
-      </button>
-      <button mat-icon-button (click)="historial()">
-        <mat-icon>list</mat-icon>
-      </button>
-      <button mat-icon-button class="config" (click)="configuracion()">
-        <mat-icon>settings</mat-icon>
-      </button>
-    </footer>
   </div>
+  <ng-template #error>
+    <div align="center">
+      <mat-card>
+        <h1>¡OOPS!</h1>
+        <img src="../../../assets/images/settings-work-tool.png" class="image-styles">
+        <mat-card-title>Parece que tu evaluación aun no se puede realizar</mat-card-title>
+        <mat-card-title><b>Vuelve mañana y ya estara lista</b></mat-card-title>
+      </mat-card></div>
+  </ng-template>
 </main>
 </body>
 
