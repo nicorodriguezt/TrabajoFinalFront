@@ -14,8 +14,7 @@ const HttpOptions = {
 };
 
 const HttpOptionsImage = {
-  headers: new HttpHeaders({
-  }),
+  headers: new HttpHeaders({}),
   withCredentials: true,
   params: {}
 };
@@ -28,8 +27,15 @@ export class RecetaService {
     this.url = backend + 'receta/';
   }
 
-  public buscar(datos, skip, limit) {
-    const params = new HttpParams().set('Nombre', datos.Nombre).set('Saltar', skip).set('Limite', limit);
+  public buscar(datos, skip, limit, filtros) {
+    const params = new HttpParams()
+      .set('Nombre', datos.Nombre)
+      .set('Saltar', skip)
+      .set('Limite', limit)
+      .set('Descripcion', filtros[0])
+      .set('Ingrediente', filtros[1])
+      .set('Ultimas', filtros[2])
+      .set('Puntuadas', filtros[3]);
     HttpOptions.params = params;
     return this._http.get(this.url + 'find', HttpOptions)
       .pipe(map(res => res));

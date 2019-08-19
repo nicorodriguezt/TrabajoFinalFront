@@ -3,6 +3,7 @@ import {RecetaService} from '../../_services/receta.service';
 import {Receta} from '../../_models/Receta';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {VerMenuCargarRecetaComponent} from '../../_views/ver-menu-view/ver-menu-view.component';
+import {PonerMayuscula} from '../../_services/funciones-commun.service';
 
 @Component({
   selector: 'app-buscar-recetas',
@@ -24,7 +25,7 @@ export class BuscarRecetasComponent {
     descripcion: false,
     ingrediente: false,
     ultimas: false,
-    puntuacion: false
+    puntuadas: false
   };
 
   constructor(
@@ -38,18 +39,18 @@ export class BuscarRecetasComponent {
     this.results = [];
     if (this.RecetaBuscada.Nombre !== '') {
       this.recetasSearching = true;
-      this._RecetaService.buscar(this.RecetaBuscada, this.skip, this.limit).subscribe(response => {
+      this._RecetaService.buscar(this.RecetaBuscada, this.skip, this.limit, Object.values(this.filtros)).subscribe((response: [Receta]) => {
         this.recetasSearching = false;
-        const aux = (Object.values(response));
-        if (aux.length !== 0) {
-          this.controlPaginas = aux.length;
-          this.pagina++;
-          for (let i = 0; i < aux.length; i++) {
-            if (i < 5) {
-              aux[i].Nombre = aux[i].Nombre[0].toUpperCase() + aux[i].Nombre.substr(1).toLowerCase();
-              this.results.push(aux[i]);
-            }
+        if (response.length > 0) {
+          this.results = response;
+          if (response.length > 5) {
+            this.results.pop();
           }
+          this.controlPaginas = response.length;
+          this.pagina++;
+          this.results.forEach(function (element: Receta) {
+            element.Nombre = PonerMayuscula(element.Nombre);
+          });
         } else {
           this.MensajeBusqueda = 'No se encontraron recetas';
         }
