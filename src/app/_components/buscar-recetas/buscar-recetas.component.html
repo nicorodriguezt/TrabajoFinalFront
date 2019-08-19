@@ -20,7 +20,7 @@
     <div *ngIf="MensajeBusqueda == ''; else noexist">
       <div align="center">
         <mat-card *ngFor="let receta of results">
-          <img mat-card-image src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg" class="image-ratio">
+          <img mat-card-image [src]="receta.Imagen" class="image-ratio">
           <mat-card-header>
             <mat-card-title class="title-style">{{receta?.Nombre}}</mat-card-title>
           </mat-card-header>
