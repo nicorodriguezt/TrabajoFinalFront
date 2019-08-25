@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MenuService} from '../../_services/menu.service';
 import {Menu} from '../../_models/Menu';
 import * as moment from 'moment-timezone';
@@ -15,12 +15,16 @@ import {DatosUsuarioService} from '../../_services/datos-usuario.service';
 })
 export class PantallaPrincipalViewComponent implements OnInit {
 
-  enableCargando; auxiliar;
+  enableCargando;
+  auxiliar;
   Menu = new Menu('', '', null, null);
   ProximaComida;
   recetasNuevas = [];
   recetasValoradas = [];
-  verReceta; RecetaElegida; datosExist;
+  verReceta;
+  RecetaElegida;
+  datosExist;
+  menuNull = false;
 
   public carouselTileConfig: NguCarouselConfig = {
     grid: {xs: 2, sm: 2, md: 3, lg: 5, all: 0},
@@ -35,19 +39,23 @@ export class PantallaPrincipalViewComponent implements OnInit {
 
   constructor(private _MenuService: MenuService,
               private _RecetaService: RecetaService,
-              private _DatosUsuarioService: DatosUsuarioService) { }
+              private _DatosUsuarioService: DatosUsuarioService) {
+  }
 
   async ngOnInit() {
     this.verReceta = false;
     this.enableCargando = true;
     const datos = await this._DatosUsuarioService.getDatos().toPromise();
-    if (datos !== null)
-    {
+    if (datos !== null) {
       this.datosExist = true;
       this._MenuService.infoMenuHoy().subscribe(res => {
         this.auxiliar = res;
         this.Menu = this.auxiliar;
-        this.getproximaComida();
+        if (this.Menu !== null) {
+          this.getproximaComida();
+        } else {
+          this.menuNull = true;
+        }
         this.enableCargando = false;
       });
     } else {

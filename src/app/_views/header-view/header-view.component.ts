@@ -64,6 +64,6 @@ export class HeaderViewComponent implements OnInit {
       if (datos) {
         this.DatosExist = true;
       }
-    }, error1 => {});
+    }, error1 => {console.clear(); });
   }
 }
