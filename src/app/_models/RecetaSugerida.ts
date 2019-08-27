@@ -7,6 +7,7 @@ export class RecetaSugerida {
     public Calorias: number,
     public Receta: Receta,
     public Menu: string,
-    public PorcionIngerida: number
+    public PorcionIngerida: number,
+    public PorcionSugerida: number
   ) {}
 }

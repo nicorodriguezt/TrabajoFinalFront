@@ -71,6 +71,8 @@ export class CargarRecetaIngeridaComponent implements OnInit {
   }
 
   nuevaComida() {
+    this._nuevaComida.MomentoDelDia = this.momento;
+    this._nuevaComida.Porciones = this.porciones;
     this._enableAgregar = true;
 
   }
@@ -86,7 +88,7 @@ export class CargarRecetaIngeridaComponent implements OnInit {
         if (this.momento === undefined || this.momento === null || this.porciones === undefined || this.porciones === null) {
           this.error = true;
         } else {
-          const recetaSugerida = new RecetaSugerida(this.momento, null, x, this.Menu, this.porciones);
+          const recetaSugerida = new RecetaSugerida(this.momento, null, x, this.Menu, this.porciones, this.porciones);
           this.cargando = true;
           this._MenuService.recetaSugeridaNueva(recetaSugerida).subscribe(response => {
             this.openSnackBar('Cargado con exito', 'Descartar');
@@ -102,7 +104,7 @@ export class CargarRecetaIngeridaComponent implements OnInit {
       if (this.momento === undefined || this.momento === null || this.porciones === undefined || this.porciones === null) {
         this.error = true;
       } else {
-        const recetaSugerida = new RecetaSugerida(this.momento, null, this._nuevaComida, this.Menu, this.porciones);
+        const recetaSugerida = new RecetaSugerida(this.momento, null, this._nuevaComida, this.Menu, this.porciones, this.porciones);
         this.cargando = true;
         this._MenuService.recetaSugeridaNueva(recetaSugerida).subscribe(response => {
           this.openSnackBar('Cargado con exito', 'Descartar');

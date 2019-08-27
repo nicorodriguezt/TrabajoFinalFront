@@ -13,7 +13,7 @@
         <div>
           <mat-form-field>
             <mat-select placeholder="¿Cuando la comiste?" [(ngModel)]="momento">
-              <mat-option *ngFor="let momento of Momentos" [value]="momento._id">
+              <mat-option *ngFor="let momento of Momentos" [value]="momento.Nombre">
                 {{momento.Nombre}}
               </mat-option>
             </mat-select>

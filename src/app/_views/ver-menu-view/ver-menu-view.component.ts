@@ -1,11 +1,10 @@
-import {Component, EventEmitter, Inject, OnInit, Output, ViewChild} from '@angular/core';
-import {NguCarouselConfig, NguCarousel} from '@ngu/carousel';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {NguCarousel, NguCarouselConfig} from '@ngu/carousel';
 import * as moment from 'moment-timezone';
 import {MenuService} from '../../_services/menu.service';
 import {Menu} from '../../_models/Menu';
 import {Receta} from '../../_models/Receta';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
-
 
 @Component({
   selector: 'app-ver-menu-view',
@@ -61,6 +60,9 @@ export class VerMenuViewComponent implements OnInit {
       this.Menu = this.auxiliar;
       this.Menu.Recetas.forEach(function (element) {
         element.Receta.Nombre = element.Receta.Nombre[0].toUpperCase() + element.Receta.Nombre.substr(1).toLowerCase();
+        if (element.PorcionSugerida === 0) {
+          element.PorcionSugerida = element.PorcionIngerida;
+        }
       });
       this.setFecha(this.Menu);
     }

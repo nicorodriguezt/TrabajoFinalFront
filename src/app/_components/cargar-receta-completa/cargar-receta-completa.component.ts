@@ -69,7 +69,6 @@ export class CargarRecetaCompletaComponent implements OnInit {
   ConfigFormsName() {
     if (this.Receta.Estado === 'comida') {
       this.Receta.Descripcion = '';
-      this.Receta.Porciones = null;
       this.Receta.IngredientePrincipal = null;
     }
     this.firstFormGroup.setValue({
