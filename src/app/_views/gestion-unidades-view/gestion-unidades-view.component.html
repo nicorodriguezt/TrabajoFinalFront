@@ -1,0 +1,26 @@
+<main>
+  <div *ngIf="!_nueva">
+    <div *ngIf="_cargardo; else terminado" align="center">
+      <br><br>
+      <mat-spinner></mat-spinner>
+      <span><strong>Cargando..</strong></span>
+    </div>
+    <ng-template #terminado>
+      <div *ngIf="_unidades.length>0; else agregar">
+        <mat-card *ngFor="let unidad of this._unidades" (click)="editCategoria(unidad)">
+          <mat-card-header>{{unidad.Categoria}}</mat-card-header>
+          <mat-card-content>{{unidad.UnidadBasica}}</mat-card-content>
+        </mat-card>
+      </div>
+      <ng-template #agregar align="center">
+        <mat-card>
+          <h4 style="font-style: italic">No hay categorias cargadas</h4>
+        </mat-card>
+      </ng-template>
+      <button mat-fab color="primary" class="button-add-new" (click)="nuevaCategoria()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </ng-template>
+  </div>
+  <app-abm-categorias (finalizar)="finalizar($event)" *ngIf="_nueva" [_Unidad]="_Unidad"></app-abm-categorias>
+</main>

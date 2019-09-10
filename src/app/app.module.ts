@@ -76,6 +76,7 @@ import {
 import {
   DietasEspecialesComponent, IngredientePreferenciaComponent, PreferenciasComponent
 } from './_components/preferencias/preferencias.component';
+import { AbmCategoriasComponent } from './_components/abm-categorias/abm-categorias.component';
 
 // Views
 import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
@@ -102,6 +103,7 @@ import {FavoritosViewComponent} from './_views/favoritos-view/favoritos-view.com
 import {RecetasUsuarioViewComponent} from './_views/recetas-usuario-view/recetas-usuario-view.component';
 import {RecetasAdministradorComponent} from './_views/recetas-administrador/recetas-administrador.component';
 import {AgregarIngredienteViewComponent} from './_views/agregar-ingrediente-view/agregar-ingrediente-view.component';
+import { GestionUnidadesViewComponent } from './_views/gestion-unidades-view/gestion-unidades-view.component';
 
 
 @NgModule({
@@ -143,7 +145,9 @@ import {AgregarIngredienteViewComponent} from './_views/agregar-ingrediente-view
     BuscarRecetasFiltrosComponent,
     PreferenciasComponent,
     DietasEspecialesComponent,
-    IngredientePreferenciaComponent
+    IngredientePreferenciaComponent,
+    GestionUnidadesViewComponent,
+    AbmCategoriasComponent
   ],
   imports: [
     StarRatingModule.forRoot(),
