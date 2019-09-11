@@ -76,7 +76,7 @@ import {
 import {
   DietasEspecialesComponent, IngredientePreferenciaComponent, PreferenciasComponent
 } from './_components/preferencias/preferencias.component';
-import { AbmCategoriasComponent } from './_components/abm-categorias/abm-categorias.component';
+import { AbmCategoriasComponent, AbmCategoriasOtrasUnidadesComponent, AbmCategoriasIngredientesComponent } from './_components/abm-categorias/abm-categorias.component';
 
 // Views
 import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
@@ -147,7 +147,9 @@ import { GestionUnidadesViewComponent } from './_views/gestion-unidades-view/ges
     DietasEspecialesComponent,
     IngredientePreferenciaComponent,
     GestionUnidadesViewComponent,
-    AbmCategoriasComponent
+    AbmCategoriasComponent,
+    AbmCategoriasOtrasUnidadesComponent,
+    AbmCategoriasIngredientesComponent
   ],
   imports: [
     StarRatingModule.forRoot(),
@@ -202,7 +204,8 @@ import { GestionUnidadesViewComponent } from './_views/gestion-unidades-view/ges
     CargarRecetaNuevaIngrerdienteComponent,
     BuscarRecetasFiltrosComponent,
     DietasEspecialesComponent,
-    IngredientePreferenciaComponent
+    IngredientePreferenciaComponent,
+    AbmCategoriasOtrasUnidadesComponent
   ]
 })
 export class AppModule {

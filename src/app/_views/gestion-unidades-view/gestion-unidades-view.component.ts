@@ -27,7 +27,7 @@ export class GestionUnidadesViewComponent implements OnInit {
   }
 
   nuevaCategoria() {
-    this._Unidad = new Unidad(null, [], null, null);
+    this._Unidad = new Unidad(null, [], null, []);
     this._nueva = true;
   }
 

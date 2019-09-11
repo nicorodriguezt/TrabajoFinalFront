@@ -133,7 +133,7 @@ export class IngredientePreferenciaComponent implements OnInit {
   OrigenElegido;
   enableMostrar = false;
   ingredientesOrigen = true;
-  IngredienteElegido = new Ingrediente(null, null, null, null);
+  IngredienteElegido = new Ingrediente(null, null, null, null, null);
 
   constructor(
     private _IngredienteService: IngredienteService,

@@ -74,7 +74,7 @@
             <p style="font-style: italic; font-size: 12px; margin: 0">Seleccione el ingrediente principal de la
               receta</p>
             <mat-list-item *ngFor="let ingrediente of Receta.Ingredientes; let i=index"
-                           style="height: 30px; font-size: 14px;">
+                           style="height:auto; font-size: 14px;">
               > {{ingrediente.Ingrediente.Nombre}} - {{ingrediente.Cantidad}} {{ingrediente.Unidad}}
               <mat-radio-button (change)="cambiarIngredientePrincipal(ingrediente.Ingrediente)"
                                 [checked]="checkIngredientePrincipal(ingrediente.Ingrediente)"></mat-radio-button>
@@ -128,7 +128,7 @@
     <button mat-flat-button color="primary" (click)="finalizar('pendiente')"
             [disabled]="checkFormValid()">Finalizar
     </button>
-    <button mat-stroked-button color="primary" (click)="cancelar()" style="float: right">Cancelar</button>
+    <button mat-stroked-button color="primary" (click)="cancelar(false)" style="float: right">Cancelar</button>
   </div>
   <div *ngIf="_Rol == 'administrador'" class="evaluacion-theme" style="padding: 0 24px 0 24px">
     <button mat-stroked-button color="primary" (click)="finalizar('aprobada')"
@@ -137,7 +137,9 @@
     <button mat-stroked-button color="accent" (click)="finalizar('rechazada')" style="float: right"
             [disabled]="checkFormValid()">Rechazar
     </button>
-
+    <div>
+      <button mat-icon-button color="warn" (click)="cancelar(true)"><mat-icon>arrow_left</mat-icon>Volver</button>
+    </div>
   </div>
 </ng-template>
 </body>

@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
 }
 
 .mat-form-field--inline .mat-form-field {
@@ -12,5 +11,21 @@
 }
 
 .mat-form-field--inline .mat-form-field:nth-child(1) {
-  margin-right: 10%;
+  margin-right: 10px;
+}
+
+::ng-deep .mat-list-item-content {
+  height: auto;
+}
+
+::ng-deep .mat-expansion-panel-header {
+  height: 48px!important;
+}
+
+mat-list {
+  padding: 0;
+}
+
+.checkbox-left {
+  margin-left: auto;
 }
