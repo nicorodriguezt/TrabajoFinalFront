@@ -31,11 +31,9 @@ export class GestionUnidadesViewComponent implements OnInit {
     this._nueva = true;
   }
 
-  finalizar($event: Unidad) {
+  finalizar($event) {
     if ($event) {
-      if (!this._unidades.find(x => x.Categoria === $event.Categoria)) {
-        this._unidades.push($event);
-      }
+      this.ngOnInit();
     }
     this._nueva = false;
   }

@@ -34,9 +34,9 @@
         </div>
       </mat-list>
     </mat-card-content>
-    <div align="center">
-      <button mat-flat-button (click)="crearReceta()" [disabled]="_nuevaComida.Ingredientes == null || _nuevaComida.Ingredientes.length == 0">Finalizar</button>
-      <button mat-stroked-button (click)="cancelar()" >Cancelar</button>
+    <div style="padding: 0 24px 0 24px">
+      <button mat-flat-button color="primary" (click)="crearReceta()" [disabled]="_nuevaComida.Ingredientes == null || _nuevaComida.Ingredientes.length == 0">Finalizar</button>
+      <button mat-stroked-button color="secondary" (click)="cancelar()" style="float: right">Cancelar</button>
     </div>
   </mat-card>
 </ng-template>

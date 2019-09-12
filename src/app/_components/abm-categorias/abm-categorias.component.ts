@@ -187,6 +187,7 @@ export class AbmCategoriasIngredientesComponent implements OnInit {
       for(let i = 0; i < this._listIngredientes.length; i++) {
         if(this._listIngredientes[i].UnidadPorcion != this.actualUnidad) {
           this._listIngredientes.splice(i, 1);
+          i--;
         } else {
           this._listIngredientes[i].Nombre = PonerMayuscula(this._listIngredientes[i].Nombre);
         }

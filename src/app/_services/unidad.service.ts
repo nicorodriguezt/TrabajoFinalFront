@@ -4,6 +4,7 @@ import {map} from 'rxjs/operators';
 import {backend} from './globalconfig';
 import {Router} from '@angular/router';
 import {Unidad} from '../_models/Unidad';
+import {Ingrediente} from "../_models/Ingrediente";
 
 const HttpOptions = {
   headers: new HttpHeaders({
@@ -29,5 +30,9 @@ export class UnidadService {
     const params = json;
 
     return this._http.post(this.url, params, HttpOptions).pipe(map(res => res));
+  }
+
+  getUnidad(ingrediente: Ingrediente) {
+    return this._http.get(this.url + ingrediente._id, HttpOptions).pipe(map(res => res));
   }
 }

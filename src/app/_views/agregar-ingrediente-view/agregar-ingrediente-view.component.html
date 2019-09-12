@@ -13,7 +13,7 @@
       </mat-form-field>
       <mat-form-field style="width: 150px">
         <mat-select placeholder="Unidad" [(ngModel)]="Datos.Unidad" required>
-          <mat-option *ngFor="let unidad of Unidades" [value]="unidad">
+          <mat-option *ngFor="let unidad of Unidades.unidades" [value]="unidad">
             {{unidad}}
           </mat-option>
         </mat-select>

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IngredienteService} from '../../_services/ingrediente.service';
 import {MatSnackBar} from '@angular/material';
+import {UnidadBasica} from "../../_models/UnidadBasica";
 
 @Component({
   selector: 'app-agregar-ingrediente-view',
@@ -10,7 +11,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class AgregarIngredienteViewComponent implements OnInit {
 
-  public Unidades = ['Gramos'];
+  public Unidades = new UnidadBasica();
   public EnumOrigenes = ['Aceites, cuerpos grasos y aderezos', 'Aguas, bebidas e infusiones', 'Azúcares, edulcorantes, dulces y golosinas',
     'Caldos y sopas', 'Carnes, pescados y mariscos', 'Cereales para desayuno y barras de cereal',
     'Cereales, pastas y legumbres', 'Comida lista para consumir / Comida rápida', 'Frutas', 'Frutas secas y semillas',
