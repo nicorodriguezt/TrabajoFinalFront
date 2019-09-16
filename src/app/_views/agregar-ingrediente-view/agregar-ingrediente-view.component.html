@@ -5,14 +5,15 @@
   </mat-card-title>
   <mat-card-content>
     <mat-form-field style="width: 100%;">
-      <input matInput placeholder="Nombre" type="text" [(ngModel)]="Datos.Ingrediente"  required/>
+      <input matInput placeholder="Nombre" type="text" [(ngModel)]="Datos.Ingrediente" required/>
     </mat-form-field>
     <li class="mat-form-field--inline">
       <mat-form-field>
         <input matInput placeholder="Porcion" type="number" [(ngModel)]="Datos.Porcion" required/>
       </mat-form-field>
       <mat-form-field style="width: 150px">
-        <mat-select placeholder="Unidad" [(ngModel)]="Datos.Unidad" required>
+        <mat-select #UnidadBasicaInput name="UnidadBasicaInput" placeholder="Unidad" [(ngModel)]="Datos.Unidad"
+                    required>
           <mat-option *ngFor="let unidad of Unidades.unidades" [value]="unidad">
             {{unidad}}
           </mat-option>
@@ -73,8 +74,26 @@
       </mat-form-field>
     </li>
   </mat-card-content>
+  <div *ngIf="!_hasCategoria; else categoria;" align="left">
+    <mat-card-subtitle>
+      <b style="color: black">AÑADIR A CATEGORÍA
+        <button mat-icon-button (click)="addCategoria()" color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
+      </b>
+    </mat-card-subtitle>
+  </div>
+  <ng-template #categoria>
+    <div align="left">
+      <b>Categoria: {{Datos.Categoria.Categoria}}
+        <button mat-icon-button (click)="removeCategoria()" color="warn">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </b>
+    </div>
+  </ng-template>
   <div align="center">
-    <button  mat-stroked-button (click)="agregar()" color="primary">Agregar</button>
+    <button mat-stroked-button (click)="agregar()" color="primary">Agregar</button>
   </div>
 </mat-card>
 </body>
