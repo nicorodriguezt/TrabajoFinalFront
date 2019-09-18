@@ -221,11 +221,13 @@ export class CargarRecetaCompletaComponent implements OnInit {
 
   }
 
-  cancelar() {
-    if (this.errorMensaje == null) {
-      this._RecetaService.deleteImage(this._imageName).subscribe();
+  cancelar(volver: boolean) {
+    if(!volver) {
+      if (this.errorMensaje == null) {
+        this._RecetaService.deleteImage(this._imageName).subscribe();
+      }
+      this.finalizarCarga.emit(false);
     }
-    this.finalizarCarga.emit(false);
   }
 
   cambiarMomentoDia(momento) {

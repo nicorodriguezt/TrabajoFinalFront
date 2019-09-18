@@ -4,6 +4,8 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {IngredienteService} from '../../_services/ingrediente.service';
 import {PonerMayuscula} from '../../_services/funciones-commun.service';
 import {Ingrediente} from '../../_models/Ingrediente';
+import {UnidadService} from "../../_services/unidad.service";
+import {Unidad} from "../../_models/Unidad";
 
 @Component({
   selector: 'app-cargar-receta-nueva',
@@ -29,7 +31,6 @@ export class CargarRecetaNuevaComponent implements OnInit {
       this._ListOrigenes = res;
       this._cargando = false;
     });
-
   }
 
   nuevoIngrediente() {
@@ -57,6 +58,9 @@ export class CargarRecetaNuevaComponent implements OnInit {
 
   crearReceta() {
     this._nuevaComida.Estado = 'comida';
+    this._nuevaComida.Ingredientes.forEach(x=> {
+      x.Nombre = x.Nombre.toLowerCase();
+    });
     this._RecetaService.addReceta(this._nuevaComida).subscribe(x => {
       let auxiliar;
       auxiliar = x;
@@ -74,13 +78,14 @@ export class CargarRecetaNuevaComponent implements OnInit {
   selector: 'app-cargar-receta-nueva-ingrediente',
   templateUrl: './cargar-receta-nueva-ingrediente.component.html',
   styleUrls: ['./cargar-receta-nueva.component.css'],
-  providers: [IngredienteService]
+  providers: [IngredienteService, UnidadService]
 })
 export class CargarRecetaNuevaIngrerdienteComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<CargarRecetaNuevaIngrerdienteComponent>,
-              private _IngredienteService: IngredienteService) {
+              private _IngredienteService: IngredienteService,
+              private _UnidadService: UnidadService) {
   }
 
   origenElegido = null;
@@ -91,13 +96,17 @@ export class CargarRecetaNuevaIngrerdienteComponent {
   };
   listIngredientes = [];
   enableMostrar = true;
-  Unidades = ['Gramos'];
+  enableMostrarUnidades = true;
+  Unidades = [];
 
   public cargarIngredientes() {
     this.listIngredientes = [];
     this.enableMostrar = true;
     this._IngredienteService.getIngredientesByOrigen(this.origenElegido).subscribe((res: Ingrediente[]) => {
       this.listIngredientes = res;
+      this.listIngredientes.forEach(x=> {
+        x.Nombre = PonerMayuscula(x.Nombre)
+      });
       this.enableMostrar = false;
     });
   }
@@ -109,5 +118,20 @@ export class CargarRecetaNuevaIngrerdienteComponent {
   cancelar() {
     this.dialogRef.close(undefined);
   }
+
+  cargarUnidades(ingrediente: Ingrediente) {
+    this.enableMostrarUnidades = true;
+    this.Unidades = [];
+    this.Unidades.push(ingrediente.UnidadPorcion);
+    this._UnidadService.getUnidad(ingrediente).subscribe((res: Unidad) => {
+      if(res) {
+        res.OtrasUnidades.forEach(x => {
+          this.Unidades.push(x.Unidad);
+        });
+      }
+      this.enableMostrarUnidades = false;
+    });
+  }
+
 
 }

@@ -6,6 +6,7 @@ import {DietasEspecialesService} from '../../_services/dietasEspeciales.service'
 import {DietaEspecial} from '../../_models/DietaEspecial';
 import {IngredienteService} from '../../_services/ingrediente.service';
 import {Ingrediente} from '../../_models/Ingrediente';
+import {PonerMayuscula} from "../../_services/funciones-commun.service";
 
 @Component({
   selector: 'app-preferencias',
@@ -24,6 +25,9 @@ export class PreferenciasComponent implements OnInit {
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.DatosUsuario.Preferencias.forEach(x=> {
+      x.Nombre = PonerMayuscula(x.Nombre);
+    });
   }
 
   public addDieta() {
@@ -89,6 +93,9 @@ export class PreferenciasComponent implements OnInit {
   }
 
   public volver() {
+    this.DatosUsuario.Preferencias.forEach(x=> {
+      x.Nombre = x.Nombre.toLowerCase();
+    });
     this.returnEvent.emit({change: this.change, disable: false});
   }
 }
@@ -133,7 +140,7 @@ export class IngredientePreferenciaComponent implements OnInit {
   OrigenElegido;
   enableMostrar = false;
   ingredientesOrigen = true;
-  IngredienteElegido = new Ingrediente(null, null, null, null);
+  IngredienteElegido = new Ingrediente(null, null, null, null, null);
 
   constructor(
     private _IngredienteService: IngredienteService,
@@ -157,6 +164,9 @@ export class IngredientePreferenciaComponent implements OnInit {
     this.ingredientesOrigen = true;
     this._IngredienteService.getIngredientesByOrigen(this.OrigenElegido).subscribe((res: Ingrediente[]) => {
       this.ListIngredientes = res;
+      this.ListIngredientes.forEach(x=> {
+        x.Nombre = PonerMayuscula(x.Nombre);
+      });
       this.ingredientesOrigen = false;
     });
   }

@@ -11,7 +11,7 @@
 
     <div [hidden]="enableMostrar">
       <mat-form-field>
-        <mat-select #Ingrediente="ngModel" name="Ingrediente" [(ngModel)]="ingredienteElegido.Ingrediente" placeholder="Ingrediente" required>
+        <mat-select #Ingrediente="ngModel" name="Ingrediente" [(ngModel)]="ingredienteElegido.Ingrediente" (ngModelChange)="cargarUnidades(ingredienteElegido.Ingrediente)" placeholder="Ingrediente" required>
           <mat-option *ngFor="let ingre of listIngredientes" [value]="ingre">
             {{ingre.Nombre}}
           </mat-option>
@@ -21,6 +21,7 @@
         <input  #Cantidad="ngModel" type="number" matInput name="Cantidad" [(ngModel)]="ingredienteElegido.Cantidad"
                 placeholder="Cantidad" required/>
       </mat-form-field>
+      <div [hidden]="enableMostrarUnidades">
       <mat-form-field>
         <mat-select #Unidad="ngModel" name="Unidad" [(ngModel)]="ingredienteElegido.Unidad" placeholder="Unidad" required>
           <mat-option *ngFor="let unidad of Unidades" [value]="unidad">
@@ -28,6 +29,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      </div>
     </div>
 
     <div >

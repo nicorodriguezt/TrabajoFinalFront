@@ -1,0 +1,96 @@
+<body>
+<div *ngIf="_cargardo; else terminado" align="center">
+  <br><br>
+  <mat-spinner></mat-spinner>
+  <span><strong>Cargando..</strong></span>
+</div>
+<ng-template #terminado>
+  <div *ngIf="!_cargarIngredientes && !_cargando">
+    <mat-card>
+      <mat-card-header>Configuracion</mat-card-header>
+      <br>
+      <mat-card-content>
+        <form #loginForm="ngForm">
+          <li class="mat-form-field--inline">
+            <mat-form-field style="width: 100%;">
+              <input matInput #unidadInput="ngModel" name="unidadInput" placeholder="Nombre" type="text"
+                     [(ngModel)]="_Unidad.Categoria" required/>
+            </mat-form-field>
+            <mat-form-field style="width: 100%;">
+              <mat-select #UnidadBasicaInput="ngModel" name="UnidadBasicaInput" [(ngModel)]="_Unidad.UnidadBasica"
+                          placeholder="Unidad basica" required>
+                <mat-option *ngFor="let basica of _UnidadBasicas.unidades" [value]="basica">
+                  {{basica}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </li>
+        </form>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Lista Ingredientes
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item *ngFor="let ingrediente of _Unidad.Ingredientes; let i=index"
+                             style="height: auto; font-size: 14px;">
+                > {{ingrediente.Nombre}}
+                <mat-checkbox class="checkbox-left" (change)="listIngredientes(ingrediente)"></mat-checkbox>
+                <br>
+              </mat-list-item>
+              <div>
+                <button mat-icon-button color="primary" (click)="addIngredientesButton(null)">
+                  <mat-icon>add</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="removeIngredientes()" style="float: right">
+                  <mat-icon>remove</mat-icon>
+                </button>
+              </div>
+            </mat-list>
+          </mat-expansion-panel>
+          <mat-expansion-panel (opened)="panelOpenState = true"
+                               (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Otras Unidades
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <p style="font-style: italic; font-size: 12px; margin: 0">
+                Unidades y factor de convertibilidad
+              </p>
+              <mat-list-item *ngFor="let otraUnidad of _Unidad.OtrasUnidades; let i=index"
+                             style="height: auto; font-size: 14px;">
+                > {{otraUnidad.Unidad}} - {{otraUnidad.Factor}} {{_Unidad.UnidadBasica}}
+                <mat-checkbox class="checkbox-left" (change)="listOtrasUnidades(otraUnidad)"></mat-checkbox>
+                <br>
+              </mat-list-item>
+              <div>
+                <button mat-icon-button color="primary" (click)="addNuevoFactor()">
+                  <mat-icon>add</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="removeFactor()" style="float: right">
+                  <mat-icon>remove</mat-icon>
+                </button>
+              </div>
+            </mat-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+      <mat-card-actions>
+        <div style="padding: 0 24px 0 24px">
+          <button mat-flat-button color="primary" (click)="addNuevaCategoria()">Agregar</button>
+          <button mat-stroked-button color="secondary" (click)="volver()" style="float: right">Cancelar</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-template>
+<app-abm-categorias-ingredientes *ngIf="_cargarIngredientes" [actualOrigen]="_actualOrigen"
+                                 [listOrigenes]="_listOrigenes"
+                                 [listIngredientesActual]="_Unidad.Ingredientes"
+                                 [actualUnidad]="_Unidad.UnidadBasica"
+                                 (finalizar)="addIngredientes($event)"></app-abm-categorias-ingredientes>
+</body>

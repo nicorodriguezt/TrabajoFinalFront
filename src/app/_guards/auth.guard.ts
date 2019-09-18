@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
         return false;
       } else {
         const Rol = localStorage.getItem('Rol');
-        if (state.url === '/recetasAdmin' || state.url === '/ingredientes') {
+        if (state.url === '/recetasAdmin' || state.url === '/ingredientes' || state.url === '/unidades') {
           if (Rol === 'administrador') {
             return true;
           } else {

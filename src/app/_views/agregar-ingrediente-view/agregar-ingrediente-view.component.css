@@ -24,3 +24,11 @@
 .valor-input {
   text-align: justify;
 }
+
+.title-dialog {
+  margin: 0!important;
+}
+
+mat-list{
+  padding: 0;
+}

@@ -32,7 +32,7 @@ export class IngredienteService {
   }
 
   public getOrigenes() {
-    return this._http.get(this.url + 'getOrigenes', HttpOptions ).pipe(map(res => res));
+    return this._http.get(this.url + 'getOrigenes/', HttpOptions ).pipe(map(res => res));
   }
 
   public getIngredientesByOrigen(origen) {

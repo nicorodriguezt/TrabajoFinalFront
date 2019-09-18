@@ -1,0 +1,46 @@
+<body>
+<div align="center">
+  <mat-card>
+    <mat-card-title>
+      Agregar Ingredientes
+    </mat-card-title>
+    <mat-card-content>
+      <mat-form-field style="width: 100%;">
+        <mat-select [(ngModel)]="actualOrigen" placeholder="Tipo" required (closed)="cargarIngredientes();">
+          <mat-option *ngFor="let origen of listOrigenes" [value]="origen">
+            {{origen}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div *ngIf="_enableMostrar; else cargando;" align="left">
+        <div *ngIf="_listIngredientes.length > 0; else noIngredientes;">
+          <mat-list>
+            <mat-list-item *ngFor="let ingrediente of _listIngredientes; let i=index"
+                           style="height: auto; font-size: 14px;">
+              <mat-checkbox (change)="listIngredientes(ingrediente)" [checked]="existInList(ingrediente)"></mat-checkbox>
+              <span>&emsp;{{ingrediente.Nombre}}</span>
+              <br><br>
+            </mat-list-item>
+          </mat-list>
+        </div>
+        <ng-template #noIngredientes>
+          <div align="center">
+            <i>No hay ingredientes que correspondan con la unidad elegida</i>
+          </div>
+        </ng-template>
+      </div>
+      <ng-template #cargando>
+        <div align="center" *ngIf="actualOrigen != null">
+          <mat-spinner diameter="30"></mat-spinner>
+        </div>
+      </ng-template>
+    </mat-card-content>
+    <mat-card-actions>
+      <div >
+        <button mat-flat-button color="primary" (click)="confirmar()">Aceptar</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
+</body>
