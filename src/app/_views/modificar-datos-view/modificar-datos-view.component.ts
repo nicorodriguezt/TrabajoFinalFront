@@ -19,6 +19,7 @@ export class ModificarDatosViewComponent implements OnInit {
   existDatos = false;
   enablePreferencias = false;
   ref: ComponentRef<any>;
+  cargando = true;
 
   constructor(private _location: Location,
               private _router: Router,
@@ -73,11 +74,15 @@ export class ModificarDatosViewComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  noExist($event: boolean) {
-    this.existDatos = $event;
-    this.openInfo();
+    this._DatosUsuarioService.getDatos().subscribe((res: DatosUsuario) => {
+      if(res) {
+        this.DatosUsuario = res;
+      } else {
+        this.existDatos = false;
+        this.openInfo();
+      }
+      this.cargando = false;
+    })
   }
 
   openInfo(): void {
