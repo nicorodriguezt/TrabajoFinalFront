@@ -21,7 +21,7 @@ export class RegistroComponent implements OnInit {
     private _UsuarioService: UsuarioService,
     private _router: Router,
   ) {
-    this.Usuario = new Usuario(null, null, null, null, null, null);
+    this.Usuario = new Usuario(null, null, null, null, null, null, null);
   }
 
   public singup() {

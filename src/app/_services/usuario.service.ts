@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs/Observable';
 import {backend} from './globalconfig';
 import {Router} from '@angular/router';
-import {Http} from '@angular/http';
 
 const HttpOptions = {
   headers: new HttpHeaders({
@@ -67,5 +65,13 @@ export class UsuarioService {
 
   loginGoogle() {
     return this.url + 'google';
+  }
+
+  sendDisclaimer(token: boolean) {
+    localStorage.setItem('Disclaimer', String(token));
+  }
+
+  updateDisclaimer() {
+    return this._http.put(this.url + 'update', {Disclaimer: false}, HttpOptions).pipe(map(res => res));
   }
 }

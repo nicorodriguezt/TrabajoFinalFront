@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MenuService} from '../../_services/menu.service';
 import {Menu} from '../../_models/Menu';
 import * as moment from 'moment-timezone';
@@ -6,12 +6,14 @@ import {PonerMayuscula} from '../../_services/funciones-commun.service';
 import {RecetaService} from '../../_services/receta.service';
 import {NguCarouselConfig} from '@ngu/carousel';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {UsuarioService} from "../../_services/usuario.service";
 
 @Component({
   selector: 'app-pantalla-principal-view',
   templateUrl: './pantalla-principal-view.component.html',
   styleUrls: ['./pantalla-principal-view.component.scss'],
-  providers: [MenuService, RecetaService, DatosUsuarioService]
+  providers: [MenuService, RecetaService, DatosUsuarioService, UsuarioService]
 })
 export class PantallaPrincipalViewComponent implements OnInit {
 
@@ -37,7 +39,9 @@ export class PantallaPrincipalViewComponent implements OnInit {
     animation: 'lazy'
   };
 
-  constructor(private _MenuService: MenuService,
+  constructor(private dialog: MatDialog,
+              private _UsuarioService: UsuarioService,
+              private _MenuService: MenuService,
               private _RecetaService: RecetaService,
               private _DatosUsuarioService: DatosUsuarioService) {
   }
@@ -59,6 +63,9 @@ export class PantallaPrincipalViewComponent implements OnInit {
         this.enableCargando = false;
       });
     } else {
+      if(localStorage.getItem('Disclaimer') == 'true') {
+        this.openInfo();
+      }
       this.datosExist = false;
       this.enableCargando = false;
     }
@@ -74,6 +81,19 @@ export class PantallaPrincipalViewComponent implements OnInit {
       this.auxiliar.forEach(x => {
         x.Nombre = PonerMayuscula(x.Nombre);
         this.recetasNuevas.push(x);
+      });
+    });
+  }
+
+  openInfo(): void {
+    const dialogRef = this.dialog.open(PantallaPrincipalViewDisclaimerComponent, {
+      width: '80%'
+    });
+
+    dialogRef.afterClosed().subscribe(x => {
+      this._UsuarioService.updateDisclaimer().subscribe(y => {
+        debugger;
+        localStorage.setItem('Disclaimer', 'false');
       });
     });
   }
@@ -100,4 +120,22 @@ export class PantallaPrincipalViewComponent implements OnInit {
     this.RecetaElegida = item;
     this.verReceta = true;
   }
+}
+
+
+@Component({
+  selector: 'app-pantalla-principal-view-disclaimer',
+  templateUrl: './pantalla-principal-view-disclaimer.component.html',
+  styleUrls: ['./pantalla-principal-view.component.scss']
+})
+export class PantallaPrincipalViewDisclaimerComponent {
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              public dialogRef: MatDialogRef<PantallaPrincipalViewDisclaimerComponent>) {
+  }
+
+  confirmar() {
+    this.dialogRef.close();
+  }
+
 }

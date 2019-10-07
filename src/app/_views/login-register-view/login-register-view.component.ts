@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 })
 export class LoginRegisterViewComponent implements OnInit {
   public login = true;
-  private aux;
+  private session;
 
   constructor(private _UsuarioService: UsuarioService, private _router: Router) {
   }
@@ -22,12 +22,13 @@ export class LoginRegisterViewComponent implements OnInit {
 
   ngOnInit() {
     this._UsuarioService.getSession().subscribe(response => {
-      this.aux = response;
-      if (this.aux.passport) {
-        if (this.aux.passport.user) {
-          this._UsuarioService.sendSession(this.aux.passport.user);
+      this.session = response;
+      if (this.session.passport) {
+        if (this.session.passport.user) {
+          this._UsuarioService.sendSession(this.session.passport.user);
           this._UsuarioService.info().subscribe((res: Usuario) => {
             this._UsuarioService.sendRol(res.Rol);
+            this._UsuarioService.sendDisclaimer(res.Disclaimer);
             if (this._UsuarioService.getRol() === 'administrador') {
               this._router.navigate(['recetasAdmin']);
             }

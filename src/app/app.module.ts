@@ -98,7 +98,7 @@ import {
   EvaluacionSwitchComponent
 } from './_views/evaluacion-view/evaluacion-view.component';
 import {ListaComprasViewComponent} from './_views/lista-compras-view/lista-compras-view.component';
-import {PantallaPrincipalViewComponent} from './_views/pantalla-principal-view/pantalla-principal-view.component';
+import {PantallaPrincipalViewComponent, PantallaPrincipalViewDisclaimerComponent} from './_views/pantalla-principal-view/pantalla-principal-view.component';
 import {FavoritosViewComponent} from './_views/favoritos-view/favoritos-view.component';
 import {RecetasUsuarioViewComponent} from './_views/recetas-usuario-view/recetas-usuario-view.component';
 import {RecetasAdministradorComponent} from './_views/recetas-administrador/recetas-administrador.component';
@@ -150,7 +150,8 @@ import { GestionUnidadesViewComponent } from './_views/gestion-unidades-view/ges
     AbmCategoriasComponent,
     AbmCategoriasOtrasUnidadesComponent,
     AbmCategoriasIngredientesComponent,
-    AgregarIngredienteCategoriaComponent
+    AgregarIngredienteCategoriaComponent,
+    PantallaPrincipalViewDisclaimerComponent
   ],
   imports: [
     StarRatingModule.forRoot(),
@@ -207,7 +208,8 @@ import { GestionUnidadesViewComponent } from './_views/gestion-unidades-view/ges
     DietasEspecialesComponent,
     IngredientePreferenciaComponent,
     AbmCategoriasOtrasUnidadesComponent,
-    AgregarIngredienteCategoriaComponent
+    AgregarIngredienteCategoriaComponent,
+    PantallaPrincipalViewDisclaimerComponent
   ]
 })
 export class AppModule {
