@@ -1,15 +1,16 @@
-<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="example-toolbar">
-    <button mat-icon-button (click)="snav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span [routerLink]="checkRol()">App Recetas</span>
-  </mat-toolbar>
+<block-ui>
+  <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+    <mat-toolbar color="primary" class="example-toolbar">
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span [routerLink]="checkRol()">App Recetas</span>
+    </mat-toolbar>
 
-  <mat-sidenav-container class="example-sidenav-container"
-                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+    <mat-sidenav-container class="example-sidenav-container"
+                           [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+      <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                   [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
         <mat-nav-list *ngIf="_Rol == 'usuario'">
           <a mat-list-item routerLink="/main" routerLinkActive="active" (click)="snav.toggle()">
             <mat-icon>home</mat-icon>
@@ -19,15 +20,18 @@
             <mat-icon>search</mat-icon>
             Buscar recetas
           </a>
-          <a mat-list-item routerLink="/verMenu" routerLinkActive="active" (click)="snav.toggle()" [ngClass]="{'desactivado': !DatosExist}">
-              <mat-icon>list</mat-icon>
-              Tus Menus
+          <a mat-list-item routerLink="/verMenu" routerLinkActive="active" (click)="snav.toggle()"
+             [ngClass]="{'desactivado': !DatosExist}">
+            <mat-icon>list</mat-icon>
+            Tus Menus
           </a>
-          <a mat-list-item routerLink="/evaluacion" routerLinkActive="active" (click)="snav.toggle()" [ngClass]="{'desactivado': !DatosExist}">
+          <a mat-list-item routerLink="/evaluacion" routerLinkActive="active" (click)="snav.toggle()"
+             [ngClass]="{'desactivado': !DatosExist}">
             <mat-icon>bar_chart</mat-icon>
             Evaluacion
           </a>
-          <a mat-list-item routerLink="/listaCompras" routerLinkActive="active" (click)="snav.toggle()" [ngClass]="{'desactivado': !DatosExist}">
+          <a mat-list-item routerLink="/listaCompras" routerLinkActive="active" (click)="snav.toggle()"
+             [ngClass]="{'desactivado': !DatosExist}">
             <mat-icon>local_grocery_store</mat-icon>
             Lista de Compras
           </a>
@@ -49,29 +53,30 @@
             Salir
           </a>
         </mat-nav-list>
-      <mat-nav-list *ngIf="_Rol == 'administrador'">
-        <a mat-list-item routerLink="/recetasAdmin" routerLinkActive="active" (click)="snav.toggle()">
-          <mat-icon>assignment</mat-icon>
-          Recetas Pendientes
-        </a>
-        <a mat-list-item routerLink="/ingredientes" routerLinkActive="active" (click)="snav.toggle()">
-          <mat-icon>local_dining</mat-icon>
-          Ingredientes
-        </a>
-        <a mat-list-item routerLink="/unidades" routerLinkActive="active" (click)="snav.toggle()">
-          <mat-icon>tune</mat-icon>
-          Gestion unidades
-        </a>
-        <mat-divider></mat-divider>
-        <a mat-list-item (click)="logout()">
-          <mat-icon>arrow_back</mat-icon>
-          Salir
-        </a>
-      </mat-nav-list>
+        <mat-nav-list *ngIf="_Rol == 'administrador'">
+          <a mat-list-item routerLink="/recetasAdmin" routerLinkActive="active" (click)="snav.toggle()">
+            <mat-icon>assignment</mat-icon>
+            Recetas Pendientes
+          </a>
+          <a mat-list-item routerLink="/ingredientes" routerLinkActive="active" (click)="snav.toggle()">
+            <mat-icon>local_dining</mat-icon>
+            Ingredientes
+          </a>
+          <a mat-list-item routerLink="/unidades" routerLinkActive="active" (click)="snav.toggle()">
+            <mat-icon>tune</mat-icon>
+            Gestion unidades
+          </a>
+          <mat-divider></mat-divider>
+          <a mat-list-item (click)="logout()">
+            <mat-icon>arrow_back</mat-icon>
+            Salir
+          </a>
+        </mat-nav-list>
 
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <router-outlet (activate)="datosExist()"></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <router-outlet (activate)="datosExist()"></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</block-ui>

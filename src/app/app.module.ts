@@ -5,6 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LayoutModule} from '@angular/cdk/layout';
+import {BlockUIModule} from "ng-block-ui";
 
 // Angular Material
 import {
@@ -186,7 +187,8 @@ import { GestionUnidadesViewComponent } from './_views/gestion-unidades-view/ges
     FusionChartsModule,
     MatStepperModule,
     MatProgressBarModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    BlockUIModule.forRoot()
   ],
   providers: [
     AuthGuard,

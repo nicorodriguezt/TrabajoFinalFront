@@ -5,6 +5,7 @@ import {Observable, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {UsuarioService} from '../../_services/usuario.service';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
+import { BlockUI, NgBlockUI } from "ng-block-ui";
 
 @Component({
   selector: 'app-header-view',
@@ -13,7 +14,7 @@ import {DatosUsuarioService} from '../../_services/datos-usuario.service';
   providers: [UsuarioService, BreakpointObserver, MediaMatcher, DatosUsuarioService]
 })
 export class HeaderViewComponent implements OnInit {
-
+  @BlockUI() blockUI: NgBlockUI;
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
   public DatosExist = false;
@@ -38,11 +39,14 @@ export class HeaderViewComponent implements OnInit {
   _Rol = localStorage.getItem('Rol');
 
   public logout() {
+    this.blockUI.start();
     this._UsuarioService.logout().subscribe(
       response => {
+        this.blockUI.stop();
         this._router.navigate(['/login']);
       },
       error1 => {
+        this.blockUI.stop();
       }
     );
   }
