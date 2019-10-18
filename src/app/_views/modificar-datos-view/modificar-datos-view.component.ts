@@ -51,6 +51,7 @@ export class ModificarDatosViewComponent implements OnInit {
       this.DatosUsuario.ActividadLaboral = this.ActividadLaboral._id;
       this._DatosUsuarioService.cargaDatosUsuario(this.DatosUsuario).subscribe(response => {
           this.errorMensaje = null;
+          localStorage.setItem('DatosExist', 'true');
           this.openSnackBar('Datos guardados con exito', 'Descartar');
           if (this.existDatos) {
             this._router.navigate(['/main']);
@@ -74,15 +75,17 @@ export class ModificarDatosViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._DatosUsuarioService.getDatos().subscribe((res: DatosUsuario) => {
-      if(res) {
-        this.DatosUsuario = res;
-      } else {
-        this.existDatos = false;
-        this.openInfo();
-      }
+    if (localStorage.getItem('DatosExist') !== 'true') {
+      this.existDatos = false;
+      this.openInfo();
       this.cargando = false;
-    })
+    } else {
+      this._DatosUsuarioService.getDatos().subscribe((res: DatosUsuario) => {
+        if (res) {
+          this.DatosUsuario = res;
+        }
+      });
+    }
   }
 
   openInfo(): void {
@@ -92,6 +95,7 @@ export class ModificarDatosViewComponent implements OnInit {
   }
 
 }
+
 @Component({
   selector: 'app-modificar-datos-view-warning',
   templateUrl: './modificar-datos-view-warning.component.html',

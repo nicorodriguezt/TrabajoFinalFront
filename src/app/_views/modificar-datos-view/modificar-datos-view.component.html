@@ -39,9 +39,11 @@
       </mat-card>
     </div>
 
-    <div style= "padding: 5px">
-      <button mat-flat-button color="primary" type="submit" (click)="cargarDatos()">Finalizar</button>
-      <button mat-stroked-button color="secundary" (click)="volver()" style="float: right">Cancelar</button>
+    <div style= "padding: 0px">
+      <mat-card>
+        <button mat-flat-button color="primary" type="submit" (click)="cargarDatos()">Finalizar</button>
+        <button mat-stroked-button color="secundary" (click)="volver()" style="float: right">Cancelar</button>
+      </mat-card>
     </div>
   </div>
   <app-preferencias [DatosUsuario]="DatosUsuario" (returnEvent)="preferenciasReturn($event)"

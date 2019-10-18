@@ -49,8 +49,13 @@ export class PantallaPrincipalViewComponent implements OnInit {
   async ngOnInit() {
     this.verReceta = false;
     this.enableCargando = true;
-    const datos = await this._DatosUsuarioService.getDatos().toPromise();
-    if (datos !== null) {
+    if (localStorage.getItem('DatosExist') !== 'true') {
+      if (localStorage.getItem('Disclaimer') == 'true') {
+        this.openInfo();
+      }
+      this.datosExist = false;
+      this.enableCargando = false;
+    } else {
       this.datosExist = true;
       this._MenuService.infoMenuHoy().subscribe(res => {
         this.auxiliar = res;
@@ -62,12 +67,6 @@ export class PantallaPrincipalViewComponent implements OnInit {
         }
         this.enableCargando = false;
       });
-    } else {
-      if(localStorage.getItem('Disclaimer') == 'true') {
-        this.openInfo();
-      }
-      this.datosExist = false;
-      this.enableCargando = false;
     }
     this._RecetaService.recetasMejorPuntuadas().subscribe(res => {
       this.auxiliar = res;

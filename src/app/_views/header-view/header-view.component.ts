@@ -60,10 +60,15 @@ export class HeaderViewComponent implements OnInit {
   }
 
   datosExist() {
-    this._DatosUsuarioService.getDatos().subscribe(datos => {
-      if (datos) {
-        this.DatosExist = true;
-      }
-    }, error1 => {console.clear(); });
+    if(localStorage.getItem('DatosExist') !== 'true' && localStorage.getItem('DatosExist') !== 'false') {
+      this._DatosUsuarioService.getDatos().subscribe(datos => {
+        if (datos) {
+          this.DatosExist = true;
+          localStorage.setItem('DatosExist', 'true')
+        } else {
+          localStorage.setItem('DatosExist', 'false')
+        }
+      }, error1 => {console.clear(); });
+    }
   }
 }
