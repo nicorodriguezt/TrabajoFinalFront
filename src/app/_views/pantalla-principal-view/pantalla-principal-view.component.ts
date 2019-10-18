@@ -92,7 +92,6 @@ export class PantallaPrincipalViewComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(x => {
       this._UsuarioService.updateDisclaimer().subscribe(y => {
-        debugger;
         localStorage.setItem('Disclaimer', 'false');
       });
     });

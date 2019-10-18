@@ -50,8 +50,7 @@ export class UsuarioService {
   }
 
   logout() {
-    localStorage.removeItem('Logged');
-    localStorage.removeItem('Rol');
+    localStorage.clear();
     return this._http.get(this.url + 'logout', HttpOptions).pipe(map(res => res));
   }
 

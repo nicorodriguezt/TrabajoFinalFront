@@ -267,7 +267,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
     this._cargandoImagen = true;
     this._RecetaService.addImagen(imageInput.files[0]).subscribe(x => {
       this._imageFile = x;
-      this._imageName = this._imageFile.replace('https://storage.googleapis.com/recetas-imagenes-tesis/', '');
+      this._imageName = this._imageFile.replace('https://storage.googleapis.com/imagenes-trabajo-final/', '');
     }, error1 => {
       this.errorMensaje = 'Por favor, intente mas tarde';
     });
