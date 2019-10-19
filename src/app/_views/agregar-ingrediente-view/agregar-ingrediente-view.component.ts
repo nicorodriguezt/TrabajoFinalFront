@@ -20,7 +20,7 @@ export class AgregarIngredienteViewComponent implements OnInit {
   public Unidades = new UnidadBasica();
   public EnumOrigenes = ['Aceites, cuerpos grasos y aderezos', 'Aguas, bebidas e infusiones', 'Azúcares, edulcorantes, dulces y golosinas',
     'Caldos y sopas', 'Carnes, pescados y mariscos', 'Cereales para desayuno y barras de cereal',
-    'Cereales, pastas y legumbres', 'Comida lista para consumir / Comida rápida', 'Frutas', 'Frutas secas y semillas',
+    'Cereales, pastas y legumbres', 'Comida lista para consumir / Comida rápida', 'Condimento','Frutas', 'Frutas secas y semillas',
     'Hortalizas, algas y hongos', 'Huevos', 'Leches', 'Pan, galletitas y pastelería', 'Postres y helados',
     'Productos de copetín y encurtidos', 'Quesos', 'Salsas', 'Yogures'];
   public Datos = {
