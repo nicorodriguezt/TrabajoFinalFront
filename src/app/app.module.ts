@@ -105,7 +105,8 @@ import {RecetasUsuarioViewComponent} from './_views/recetas-usuario-view/recetas
 import {RecetasAdministradorComponent} from './_views/recetas-administrador/recetas-administrador.component';
 import { AgregarIngredienteViewComponent, AgregarIngredienteCategoriaComponent } from './_views/agregar-ingrediente-view/agregar-ingrediente-view.component';
 import { GestionUnidadesViewComponent } from './_views/gestion-unidades-view/gestion-unidades-view.component';
-
+import { LoadingComponent } from './_components/loading/loading.component';
+import { RecetaCompartidaViewComponent } from './_views/receta-compartida-view/receta-compartida-view.component';
 
 @NgModule({
   declarations: [
@@ -152,7 +153,9 @@ import { GestionUnidadesViewComponent } from './_views/gestion-unidades-view/ges
     AbmCategoriasOtrasUnidadesComponent,
     AbmCategoriasIngredientesComponent,
     AgregarIngredienteCategoriaComponent,
-    PantallaPrincipalViewDisclaimerComponent
+    PantallaPrincipalViewDisclaimerComponent,
+    LoadingComponent,
+    RecetaCompartidaViewComponent
   ],
   imports: [
     StarRatingModule.forRoot(),

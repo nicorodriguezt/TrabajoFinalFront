@@ -50,7 +50,7 @@ export class PantallaPrincipalViewComponent implements OnInit {
     this.verReceta = false;
     this.enableCargando = true;
     if (localStorage.getItem('DatosExist') !== 'true') {
-      if (localStorage.getItem('Disclaimer') == 'true') {
+      if (localStorage.getItem('Disclaimer') === 'true') {
         this.openInfo();
       }
       this.datosExist = false;

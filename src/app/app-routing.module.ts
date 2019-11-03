@@ -19,10 +19,11 @@ import {RecetasUsuarioViewComponent} from './_views/recetas-usuario-view/recetas
 import {RecetasAdministradorComponent} from './_views/recetas-administrador/recetas-administrador.component';
 import {AgregarIngredienteViewComponent} from './_views/agregar-ingrediente-view/agregar-ingrediente-view.component';
 import {GestionUnidadesViewComponent} from './_views/gestion-unidades-view/gestion-unidades-view.component';
+import {LoadingComponent} from './_components/loading/loading.component';
+import {RecetaCompartidaViewComponent} from './_views/receta-compartida-view/receta-compartida-view.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginRegisterViewComponent, canActivate: [LoginGuard] },
-  { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path: 'main', component: PantallaPrincipalViewComponent, canActivate: [AuthGuard] },
   { path: 'buscador', component: BuscadorViewComponent, canActivate: [AuthGuard] },
   { path: 'cargarDatos', component: ModificarDatosViewComponent, canActivate: [AuthGuard] },
@@ -33,7 +34,9 @@ const routes: Routes = [
   { path: 'recetasUsuario', component: RecetasUsuarioViewComponent, canActivate: [AuthGuard]},
   { path: 'recetasAdmin', component: RecetasAdministradorComponent, canActivate: [AuthGuard]},
   { path: 'ingredientes', component: AgregarIngredienteViewComponent, canActivate: [AuthGuard]},
-  { path: 'unidades', component: GestionUnidadesViewComponent, canActivate: [AuthGuard]}
+  { path: 'unidades', component: GestionUnidadesViewComponent, canActivate: [AuthGuard]},
+  { path: 'login/cargando', component: LoadingComponent},
+  { path: 'ver/:receta', component: RecetaCompartidaViewComponent}
 ];
 
 @NgModule({

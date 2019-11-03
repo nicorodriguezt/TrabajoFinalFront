@@ -5,7 +5,7 @@ import {Observable, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {UsuarioService} from '../../_services/usuario.service';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
-import { BlockUI, NgBlockUI } from "ng-block-ui";
+import {BlockUI, NgBlockUI} from 'ng-block-ui';
 
 @Component({
   selector: 'app-header-view',
@@ -18,7 +18,6 @@ export class HeaderViewComponent implements OnInit {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
   public DatosExist = false;
-  private subscription: Subscription;
 
   constructor(public _router: Router,
               private breakpointObserver: BreakpointObserver,
@@ -52,10 +51,12 @@ export class HeaderViewComponent implements OnInit {
   }
 
   checkRol() {
-    if (this._Rol === 'administrador') {
-      return '/recetasAdmin';
-    } else {
-      return '/main';
+    if (!this._router.url.includes('/ver/')) {
+      if (this._Rol === 'administrador') {
+        return '/recetasAdmin';
+      } else {
+        return '/main';
+      }
     }
   }
 
@@ -64,15 +65,17 @@ export class HeaderViewComponent implements OnInit {
   }
 
   datosExist() {
-    if(localStorage.getItem('DatosExist') !== 'true' && localStorage.getItem('DatosExist') !== 'false') {
+    if (localStorage.getItem('DatosExist') !== 'true' && localStorage.getItem('DatosExist') !== 'false') {
       this._DatosUsuarioService.getDatos().subscribe(datos => {
         if (datos) {
           this.DatosExist = true;
-          localStorage.setItem('DatosExist', 'true')
+          localStorage.setItem('DatosExist', 'true');
         } else {
-          localStorage.setItem('DatosExist', 'false')
+          localStorage.setItem('DatosExist', 'false');
         }
-      }, error1 => {console.clear(); });
+      }, error1 => {
+        console.clear();
+      });
     }
   }
 }

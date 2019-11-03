@@ -1,11 +1,8 @@
 <body>
-
-<div *ngIf="(_router.url != '/login') ">
+<div *ngIf="(_router.url != '/login')">
   <app-header-view></app-header-view>
 </div>
-
 <div *ngIf="(_router.url == '/login')" class="vertical">
   <app-login-register-view></app-login-register-view>
 </div>
-
 </body>

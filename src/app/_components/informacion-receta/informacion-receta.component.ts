@@ -12,6 +12,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class InformacionRecetaComponent implements OnInit {
   @Input() RecetaElegida: Receta;
+  @Input() Compartida: boolean;
   @Output() volverEvent: EventEmitter<boolean> = new EventEmitter();
   DatosReceta;
   recetaCargandoInfo = true;

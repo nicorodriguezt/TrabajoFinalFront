@@ -6,7 +6,7 @@
   <ng-template #terminado>
     <div align="center">
       <h1 class="title-style">{{RecetaElegida?.Nombre}}</h1>
-      <div class="row">
+      <div *ngIf="Compartida" class="row">
         <div class="column leftColumn">
           <star-rating labelText="Favorito" labelPosition="left" [starType]="'svg'" [numOfStars]="1" staticColor="ok"
                        (starClickChange)="togglefavorito()" [rating]="starFavorito"></star-rating>
@@ -16,11 +16,7 @@
                        [readOnly]="puntuarEnable" [rating]="puntajeUsuario" (starClickChange)="onPuntuar($event)" ></star-rating>
         </div>
       </div>
-
-<!--      <img src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg" class="image-style">-->
       <img [src]="RecetaElegida.Imagen" class="image-style">
-
-
       <p align="justify">{{RecetaElegida?.Descripcion}}</p>
     </div>
     <div class="info-style">
@@ -52,7 +48,7 @@
         {{i+1}}) {{pasos}}
       </p>
     </div>
-    <div>
+    <div *ngIf="Compartida">
       <button mat-icon-button color="primary" (click)="volver()">
         <mat-icon>arrow_left</mat-icon>
         Volver
@@ -60,9 +56,9 @@
     </div>
   <mat-divider></mat-divider>
     <mat-divider></mat-divider>
-    <div>
+    <div >
       <h6 style="padding: 0px; text-decoration: underline">Ultimos comentarios</h6>
-      <div>
+      <div *ngIf="Compartida">
         <mat-form-field style="width: 100%">
         <input matInput placeholder="Agregar comentario" maxlength="120" [(ngModel)]="Comentario">
         <mat-icon matSuffix (click)="onComentar()" >add</mat-icon>
