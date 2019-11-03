@@ -65,12 +65,17 @@
           <mat-hint>Max. 120</mat-hint>
       </mat-form-field>
       </div>
-      <div *ngFor="let comentario of RecetaElegida.Comentarios.reverse(); let i=index">
-        <div *ngIf="i<cantComentarios">
-          <b>{{comentario.Nombre}}</b>
-          <p>{{comentario.Texto}}</p>
-        </div>
+      <div *ngIf="RecetaElegida.Comentarios.length == 0; else comentarios" align="center">
+        <i style="color: dimgrey">No hay comentarios para mostrar</i>
       </div>
+      <ng-template #comentarios>
+        <div *ngFor="let comentario of RecetaElegida.Comentarios.reverse(); let i=index">
+          <div *ngIf="i<cantComentarios">
+            <b>{{comentario.Nombre}}</b>
+            <p>{{comentario.Texto}}</p>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </ng-template>
 </section>
