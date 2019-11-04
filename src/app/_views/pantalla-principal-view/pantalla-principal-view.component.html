@@ -41,19 +41,24 @@
             RECETAS NUEVAS:
           </mat-card-title>
           <mat-card-content>
-            <ngu-carousel #carouselNuevas [inputs]="carouselTileConfig" [dataSource]="recetasNuevas">
-              <ngu-tile *nguCarouselDef="let item; let i=index">
-                <ngu-item>
-                  <mat-card (click)="verRecetaView(item)">
-                    <img mat-card-image=""
-                         src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg">
-                    <mat-card-content>{{item.Nombre}}</mat-card-content>
-                  </mat-card>
-                </ngu-item>
-              </ngu-tile>
-              <button NguCarouselPrev class='leftRs'>&lt;</button>
-              <button NguCarouselNext class='rightRs'>&gt;</button>
-            </ngu-carousel>
+            <div align="center" *ngIf="recetasNuevas.length == 0; else nuevasCargado">
+              <mat-spinner diameter="40"></mat-spinner>
+            </div>
+            <ng-template #nuevasCargado>
+              <ngu-carousel #carouselNuevas [inputs]="carouselTileConfig" [dataSource]="recetasNuevas">
+                <ngu-tile *nguCarouselDef="let item; let i=index">
+                  <ngu-item>
+                    <mat-card (click)="verRecetaView(item)">
+                      <img mat-card-image=""
+                           src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg">
+                      <mat-card-content>{{item.Nombre}}</mat-card-content>
+                    </mat-card>
+                  </ngu-item>
+                </ngu-tile>
+                <button NguCarouselPrev class='leftRs'>&lt;</button>
+                <button NguCarouselNext class='rightRs'>&gt;</button>
+              </ngu-carousel>
+            </ng-template>
           </mat-card-content>
         </mat-card>
         <mat-card class="recetas">
@@ -61,19 +66,24 @@
             RECETAS MÁS VALORADAS:
           </mat-card-title>
           <mat-card-content>
-            <ngu-carousel #carouselValoradas [inputs]="carouselTileConfig" [dataSource]="recetasValoradas">
-              <ngu-tile *nguCarouselDef="let item; let i=index">
-                <ngu-item>
-                  <mat-card (click)="verRecetaView(item)">
-                    <img mat-card-image=""
-                         src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg">
-                    <mat-card-content>{{item.Nombre}}</mat-card-content>
-                  </mat-card>
-                </ngu-item>
-              </ngu-tile>
-              <button NguCarouselPrev class='leftRs'>&lt;</button>
-              <button NguCarouselNext class='rightRs'>&gt;</button>
-            </ngu-carousel>
+            <div align="center" *ngIf="recetasValoradas.length == 0; else puntuadasCargado">
+              <mat-spinner diameter="40"></mat-spinner>
+            </div>
+            <ng-template #puntuadasCargado>
+              <ngu-carousel #carouselValoradas [inputs]="carouselTileConfig" [dataSource]="recetasValoradas">
+                <ngu-tile *nguCarouselDef="let item; let i=index">
+                  <ngu-item>
+                    <mat-card (click)="verRecetaView(item)">
+                      <img mat-card-image=""
+                           src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg">
+                      <mat-card-content>{{item.Nombre}}</mat-card-content>
+                    </mat-card>
+                  </ngu-item>
+                </ngu-tile>
+                <button NguCarouselPrev class='leftRs'>&lt;</button>
+                <button NguCarouselNext class='rightRs'>&gt;</button>
+              </ngu-carousel>
+            </ng-template>
           </mat-card-content>
         </mat-card>
       </div>
