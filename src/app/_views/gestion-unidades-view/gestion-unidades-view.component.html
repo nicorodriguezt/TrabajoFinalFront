@@ -9,7 +9,6 @@
       <div *ngIf="_unidades.length>0; else agregar">
         <mat-card *ngFor="let unidad of this._unidades" (click)="editCategoria(unidad)">
           <mat-card-header>{{unidad.Categoria}}</mat-card-header>
-          <mat-card-content>{{unidad.UnidadBasica}}</mat-card-content>
         </mat-card>
       </div>
       <ng-template #agregar align="center">

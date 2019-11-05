@@ -2,12 +2,12 @@ import {Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild} from 
 import {Unidad} from '../../_models/Unidad';
 import {UnidadBasica} from '../../_models/UnidadBasica';
 import {UnidadService} from '../../_services/unidad.service';
-import {OtrasUnidades} from "../../_models/OtrasUnidades";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {NgForm, NgModel} from "@angular/forms";
-import {Ingrediente} from "../../_models/Ingrediente";
-import {IngredienteService} from "../../_services/ingrediente.service";
-import {PonerMayuscula} from "../../_services/funciones-commun.service";
+import {OtrasUnidades} from '../../_models/OtrasUnidades';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {NgForm, NgModel} from '@angular/forms';
+import {Ingrediente} from '../../_models/Ingrediente';
+import {IngredienteService} from '../../_services/ingrediente.service';
+import {PonerMayuscula} from '../../_services/funciones-commun.service';
 
 @Component({
   selector: 'app-abm-categorias',
@@ -18,9 +18,9 @@ import {PonerMayuscula} from "../../_services/funciones-commun.service";
 export class AbmCategoriasComponent implements OnInit {
   @Input() _Unidad: Unidad;
   @Output() finalizar: EventEmitter<Unidad> = new EventEmitter();
-  @ViewChild("UnidadBasicaInput") UnidadBasicaInput: NgModel;
-  @ViewChild("unidadInput") unidadInput: NgModel;
-  @ViewChild("loginForm") loginForm: NgForm;
+  @ViewChild('UnidadBasicaInput') UnidadBasicaInput: NgModel;
+  @ViewChild('unidadInput') unidadInput: NgModel;
+  @ViewChild('loginForm') loginForm: NgForm;
 
   _UnidadBasicas: UnidadBasica;
   panelOpenState = false;
@@ -42,12 +42,13 @@ export class AbmCategoriasComponent implements OnInit {
       this._actualOrigen = this._Unidad.Ingredientes[0].Origen;
       this._Unidad.Ingredientes.forEach(x => {
         x.Nombre = PonerMayuscula(x.Nombre);
-      })
+      });
     }
   }
 
   addNuevaCategoria() {
     if (this.loginForm.valid) {
+      this._cargando = true;
       this._Unidad.Ingredientes.forEach(x => {
         x.Nombre = x.Nombre.toLowerCase();
       });
@@ -91,7 +92,7 @@ export class AbmCategoriasComponent implements OnInit {
     this.listOtrasUnidadesRemove.forEach(remove => {
       const indice = this._Unidad.OtrasUnidades.indexOf(remove);
       this._Unidad.OtrasUnidades.splice(indice, 1);
-    })
+    });
   }
 
   addIngredientesButton() {
@@ -103,8 +104,9 @@ export class AbmCategoriasComponent implements OnInit {
           this._cargando = false;
           this._cargarIngredientes = true;
         });
-      } else
+      } else {
         this._cargarIngredientes = true;
+      }
     } else {
       this.UnidadBasicaInput.control.markAsTouched();
     }
@@ -114,7 +116,7 @@ export class AbmCategoriasComponent implements OnInit {
     this.listIngredientesRemove.forEach(remove => {
       const indice = this._Unidad.Ingredientes.indexOf(remove);
       this._Unidad.Ingredientes.splice(indice, 1);
-    })
+    });
   }
 
   listIngredientes(ingrediente: Ingrediente) {
@@ -184,8 +186,8 @@ export class AbmCategoriasIngredientesComponent implements OnInit {
     this._enableMostrar = false;
     this._IngredienteService.getIngredientesByOrigen(this.actualOrigen).subscribe((res: Ingrediente[]) => {
       this._listIngredientes = res;
-      for(let i = 0; i < this._listIngredientes.length; i++) {
-        if(this._listIngredientes[i].UnidadPorcion != this.actualUnidad) {
+      for (let i = 0; i < this._listIngredientes.length; i++) {
+        if (this._listIngredientes[i].UnidadPorcion != this.actualUnidad) {
           this._listIngredientes.splice(i, 1);
           i--;
         } else {

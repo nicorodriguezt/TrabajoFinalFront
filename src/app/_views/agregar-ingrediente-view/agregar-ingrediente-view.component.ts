@@ -106,7 +106,8 @@ export class AgregarIngredienteViewComponent implements OnInit {
 export class AgregarIngredienteCategoriaComponent implements OnInit {
   listUnidades: Unidad[] = [];
   unidadElegida: Unidad;
-  _enableMostrar: boolean = false;
+  _enableMostrar = false;
+  _cargando = true;
 
   constructor(private _UnidadService: UnidadService,
               public dialogRef: MatDialogRef<AgregarIngredienteCategoriaComponent>,
@@ -116,9 +117,11 @@ export class AgregarIngredienteCategoriaComponent implements OnInit {
   ngOnInit() {
     this._UnidadService.getUnidades().subscribe((res: Unidad[]) => {
       res.forEach(x => {
-        if (x.UnidadBasica == this.data)
+        if (x.UnidadBasica === this.data) {
           this.listUnidades.push(x);
+        }
       });
+      this._cargando = false;
     });
   }
 
