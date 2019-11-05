@@ -49,8 +49,7 @@
                 <ngu-tile *nguCarouselDef="let item; let i=index">
                   <ngu-item>
                     <mat-card (click)="verRecetaView(item)">
-                      <img mat-card-image=""
-                           src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg">
+                      <img mat-card-image="" [src]="item.Imagen">
                       <mat-card-content>{{item.Nombre}}</mat-card-content>
                     </mat-card>
                   </ngu-item>
@@ -74,8 +73,7 @@
                 <ngu-tile *nguCarouselDef="let item; let i=index">
                   <ngu-item>
                     <mat-card (click)="verRecetaView(item)">
-                      <img mat-card-image=""
-                           src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg">
+                      <img mat-card-image="" [src]="item.Imagen">
                       <mat-card-content>{{item.Nombre}}</mat-card-content>
                     </mat-card>
                   </ngu-item>

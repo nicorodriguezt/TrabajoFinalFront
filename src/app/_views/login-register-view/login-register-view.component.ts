@@ -38,6 +38,8 @@ export class LoginRegisterViewComponent implements OnInit {
         } else {
           this.loading = false;
         }
+      } else {
+        this.loading = false;
       }
     });
   }

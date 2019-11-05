@@ -205,17 +205,18 @@ export class CargarRecetaCompletaComponent implements OnInit {
     }
     RecetaEnviar.Estado = estado;
     RecetaEnviar.Imagen = this._imageFile;
+    RecetaEnviar.IngredientePrincipal = this.Receta.IngredientePrincipal;
 
     this.blockUI.start();
     if (RecetaEnviar._id === '') {
       this._RecetaService.addReceta(RecetaEnviar).subscribe(x => {
         this.blockUI.stop();
-        this.finalizarCarga.emit(false);
+        this.finalizarCarga.emit(RecetaEnviar.Nombre);
       });
     } else {
       this._RecetaService.actualizarReceta(RecetaEnviar).subscribe(x => {
         this.blockUI.stop();
-        this.finalizarCarga.emit(false);
+        this.finalizarCarga.emit(RecetaEnviar.Nombre);
       });
     }
 
@@ -248,7 +249,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
   }
 
   checkIngredientePrincipal(ingrediente) {
-    return !!this.Receta.IngredientePrincipal === ingrediente;
+    return this.Receta.IngredientePrincipal === ingrediente._id;
 
   }
 
@@ -260,7 +261,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
       || this.Receta.MomentoDelDia.length === 0
       || this.Receta.Ingredientes.length === 0
       || this.Receta.IngredientePrincipal == null
-      || this._imageFile == null;
+      || (this._imageFile == null && this.Receta.Imagen == null);
   }
 
   processImage(imageInput: any) {
