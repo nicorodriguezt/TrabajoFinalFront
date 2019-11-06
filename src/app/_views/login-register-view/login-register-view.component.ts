@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 export class LoginRegisterViewComponent implements OnInit {
   public login = true;
   private session;
+  private loading = true;
 
   constructor(private _UsuarioService: UsuarioService, private _router: Router) {
   }
@@ -34,7 +35,11 @@ export class LoginRegisterViewComponent implements OnInit {
             }
             this._router.navigate(['/main']);
           });
+        } else {
+          this.loading = false;
         }
+      } else {
+        this.loading = false;
       }
     });
   }

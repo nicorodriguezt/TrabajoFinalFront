@@ -4,8 +4,8 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {IngredienteService} from '../../_services/ingrediente.service';
 import {PonerMayuscula} from '../../_services/funciones-commun.service';
 import {Ingrediente} from '../../_models/Ingrediente';
-import {UnidadService} from "../../_services/unidad.service";
-import {Unidad} from "../../_models/Unidad";
+import {UnidadService} from '../../_services/unidad.service';
+import {Unidad} from '../../_models/Unidad';
 
 @Component({
   selector: 'app-cargar-receta-nueva',
@@ -58,7 +58,7 @@ export class CargarRecetaNuevaComponent implements OnInit {
 
   crearReceta() {
     this._nuevaComida.Estado = 'comida';
-    this._nuevaComida.Ingredientes.forEach(x=> {
+    this._nuevaComida.Ingredientes.forEach(x => {
       x.Nombre = x.Nombre.toLowerCase();
     });
     this._RecetaService.addReceta(this._nuevaComida).subscribe(x => {
@@ -104,8 +104,8 @@ export class CargarRecetaNuevaIngrerdienteComponent {
     this.enableMostrar = true;
     this._IngredienteService.getIngredientesByOrigen(this.origenElegido).subscribe((res: Ingrediente[]) => {
       this.listIngredientes = res;
-      this.listIngredientes.forEach(x=> {
-        x.Nombre = PonerMayuscula(x.Nombre)
+      this.listIngredientes.forEach(x => {
+        x.Nombre = PonerMayuscula(x.Nombre);
       });
       this.enableMostrar = false;
     });
@@ -124,7 +124,7 @@ export class CargarRecetaNuevaIngrerdienteComponent {
     this.Unidades = [];
     this.Unidades.push(ingrediente.UnidadPorcion);
     this._UnidadService.getUnidad(ingrediente).subscribe((res: Unidad) => {
-      if(res) {
+      if (res) {
         res.OtrasUnidades.forEach(x => {
           this.Unidades.push(x.Unidad);
         });

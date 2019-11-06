@@ -65,7 +65,7 @@ export class RecetasUsuarioViewComponent implements OnInit {
   }
 
   colorEstado(e) {
-    if (e === 'aprobada') {
+    if (e === 'Aprobada') {
       return 'green';
     } else {
       return 'red';
@@ -88,10 +88,10 @@ export class RecetasUsuarioViewComponent implements OnInit {
     this._enableMostrar = true;
   }
 
-  evento($event: boolean) {
-    if ($event === true) {
+  evento($event) {
+    if ($event !== false) {
+      this._ListRecetas.Pendientes.push(PonerMayuscula($event));
       this.openSnackBar('Su receta fue enviada a evaluar', 'Descartar');
-      this.ngOnInit();
     }
     return false;
   }

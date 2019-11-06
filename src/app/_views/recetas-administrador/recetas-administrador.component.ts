@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Receta} from '../../_models/Receta';
 import {RecetaService} from '../../_services/receta.service';
+import { PonerMayuscula} from '../../_services/funciones-commun.service';
+import {BlockUI, NgBlockUI} from 'ng-block-ui';
 
 @Component({
   selector: 'app-recetas-administrador',
@@ -9,6 +11,7 @@ import {RecetaService} from '../../_services/receta.service';
   providers: [RecetaService]
 })
 export class RecetasAdministradorComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
 
   public _cargando = true;
   public _enableCargar = false;
@@ -31,10 +34,24 @@ export class RecetasAdministradorComponent implements OnInit {
   }
 
   evaluarReceta(receta) {
+    this.blockUI.start();
     this._RecetasService.verInformacionReceta(receta).subscribe((res: Receta) => {
       this._RecetaElegida = res;
+      this.blockUI.stop();
       this._enableCargar = true;
     });
   }
 
+  PonerMayuscula(Nombre: string) {
+    return PonerMayuscula(Nombre);
+  }
+
+  evaluacionFinish($event) {
+    if ($event !== false) {
+      const i = this._ListRecetas.findIndex( x => x.Nombre === $event);
+      this._ListRecetas.splice(i, 1);
+      this._enableCargar = false;
+    }
+    return false;
+  }
 }

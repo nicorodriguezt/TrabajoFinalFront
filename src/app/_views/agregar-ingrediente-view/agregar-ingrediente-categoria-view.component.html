@@ -1,6 +1,12 @@
 <body>
-<div align="center">
-  <div *ngIf="listUnidades.length>0; else sinCategorias;">
+<div *ngIf="_cargando; else terminado" align="center">
+  <br><br>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <span><strong>Cargando..</strong></span>
+</div>
+<ng-template #terminado>
+  <div align="center">
+    <div *ngIf="listUnidades.length>0; else sinCategorias;">
       <mat-form-field style="width: 100%;">
         <mat-select [(ngModel)]="unidadElegida" placeholder="Categoría" (selectionChange)="showList()">
           <mat-option *ngFor="let unidad of listUnidades" [value]="unidad">
@@ -8,24 +14,25 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-    <div *ngIf="_enableMostrar && unidadElegida.OtrasUnidades.length > 0;" align="left">
-      <mat-card-subtitle class="title-dialog" >Convertibilidad</mat-card-subtitle>
-      <mat-list>
-        <mat-list-item *ngFor="let factor of unidadElegida.OtrasUnidades;"
-                       style="height: auto; font-size: 14px;">
-          <span>{{factor.Unidad}} - {{factor.Factor}} {{unidadElegida.UnidadBasica}}</span>
-          <br><br>
-        </mat-list-item>
-      </mat-list>
+      <div *ngIf="_enableMostrar && unidadElegida.OtrasUnidades.length > 0;" align="left">
+        <mat-card-subtitle class="title-dialog" >Convertibilidad</mat-card-subtitle>
+        <mat-list>
+          <mat-list-item *ngFor="let factor of unidadElegida.OtrasUnidades;"
+                         style="height: auto; font-size: 14px;">
+            <span>{{factor.Unidad}} - {{factor.Factor}} {{unidadElegida.UnidadBasica}}</span>
+            <br><br>
+          </mat-list-item>
+        </mat-list>
+      </div>
     </div>
+    <ng-template #sinCategorias>
+      <i>No hay categorías para la unidad elegida</i>
+    </ng-template>
+    <mat-card-actions>
+      <div>
+        <button mat-flat-button color="primary" (click)="confirmar()">Aceptar</button>
+      </div>
+    </mat-card-actions>
   </div>
-  <ng-template #sinCategorias>
-    <i>No hay categorías para la unidad elegida</i>
-  </ng-template>
-  <mat-card-actions>
-    <div>
-      <button mat-flat-button color="primary" (click)="confirmar()">Aceptar</button>
-    </div>
-  </mat-card-actions>
-</div>
+</ng-template>
 </body>

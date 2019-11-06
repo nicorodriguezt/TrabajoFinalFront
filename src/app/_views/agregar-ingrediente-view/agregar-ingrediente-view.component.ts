@@ -1,12 +1,11 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {IngredienteService} from '../../_services/ingrediente.service';
 import {MatSnackBar} from '@angular/material';
-import {UnidadBasica} from "../../_models/UnidadBasica";
-import {NgModel} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {UnidadService} from "../../_services/unidad.service";
-import {Unidad} from "../../_models/Unidad";
-import {MatSelect} from "@angular/material/select";
+import {UnidadBasica} from '../../_models/UnidadBasica';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {UnidadService} from '../../_services/unidad.service';
+import {Unidad} from '../../_models/Unidad';
+import {MatSelect} from '@angular/material/select';
 
 @Component({
   selector: 'app-agregar-ingrediente-view',
@@ -20,7 +19,7 @@ export class AgregarIngredienteViewComponent implements OnInit {
   public Unidades = new UnidadBasica();
   public EnumOrigenes = ['Aceites, cuerpos grasos y aderezos', 'Aguas, bebidas e infusiones', 'Azúcares, edulcorantes, dulces y golosinas',
     'Caldos y sopas', 'Carnes, pescados y mariscos', 'Cereales para desayuno y barras de cereal',
-    'Cereales, pastas y legumbres', 'Comida lista para consumir / Comida rápida', 'Condimento','Frutas', 'Frutas secas y semillas',
+    'Cereales, pastas y legumbres', 'Comida lista para consumir / Comida rápida', 'Condimento', 'Frutas', 'Frutas secas y semillas',
     'Hortalizas, algas y hongos', 'Huevos', 'Leches', 'Pan, galletitas y pastelería', 'Postres y helados',
     'Productos de copetín y encurtidos', 'Quesos', 'Salsas', 'Yogures'];
   public Datos = {
@@ -107,7 +106,8 @@ export class AgregarIngredienteViewComponent implements OnInit {
 export class AgregarIngredienteCategoriaComponent implements OnInit {
   listUnidades: Unidad[] = [];
   unidadElegida: Unidad;
-  _enableMostrar: boolean = false;
+  _enableMostrar = false;
+  _cargando = true;
 
   constructor(private _UnidadService: UnidadService,
               public dialogRef: MatDialogRef<AgregarIngredienteCategoriaComponent>,
@@ -116,10 +116,12 @@ export class AgregarIngredienteCategoriaComponent implements OnInit {
 
   ngOnInit() {
     this._UnidadService.getUnidades().subscribe((res: Unidad[]) => {
-      res.forEach(x=> {
-        if(x.UnidadBasica == this.data)
+      res.forEach(x => {
+        if (x.UnidadBasica === this.data) {
           this.listUnidades.push(x);
-      })
+        }
+      });
+      this._cargando = false;
     });
   }
 

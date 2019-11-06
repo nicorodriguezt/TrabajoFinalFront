@@ -6,8 +6,8 @@ import {PonerMayuscula} from '../../_services/funciones-commun.service';
 import {RecetaService} from '../../_services/receta.service';
 import {NguCarouselConfig} from '@ngu/carousel';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {UsuarioService} from "../../_services/usuario.service";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {UsuarioService} from '../../_services/usuario.service';
 
 @Component({
   selector: 'app-pantalla-principal-view',

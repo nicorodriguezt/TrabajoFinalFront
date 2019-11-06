@@ -1,145 +1,153 @@
-<body>
-<div *ngIf="_Cargando; else terminado" align="center">
-  <br><br>
-  <mat-spinner></mat-spinner>
-  <span><strong>Cargando..</strong></span>
-</div>
-<ng-template #terminado>
-  <mat-vertical-stepper linear="true" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Presentación</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="Nombre" formControlName="Nombre" required>
-        </mat-form-field>
-        <mat-form-field>
-          <textarea matInput placeholder="Breve descripción" formControlName="Descripcion" required></textarea>
-        </mat-form-field>
-
-        <div *ngIf="errorMensaje == null; else errorServer">
-          <div *ngIf="_imageFile == null; else imagenSubida">
-            <div *ngIf="_cargandoImagen == false; else subiendoImagen">
-              <div align="center">
-                <label class="btn btn-dark" style="border-radius: 50%">
-                  <mat-icon>camera_alt</mat-icon>
-                  <input #imageInput type="file" accept="image/*" style="display: none;"
-                         (change)="processImage(imageInput)"
-                         required>
-                </label>
+<block-ui>
+  <body>
+  <div *ngIf="_Cargando; else terminado" align="center">
+    <br><br>
+    <mat-spinner></mat-spinner>
+    <span><strong>Cargando..</strong></span>
+  </div>
+  <ng-template #terminado>
+    <mat-vertical-stepper linear="true" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Presentación</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Nombre" formControlName="Nombre" required>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput placeholder="Breve descripción" formControlName="Descripcion" required></textarea>
+          </mat-form-field>
+          <div *ngIf="!Receta.Imagen; else imagenExiste">
+            <div *ngIf="errorMensaje == null; else errorServer">
+              <div *ngIf="_imageFile == null; else imagenSubida">
+                <div *ngIf="_cargandoImagen == false; else subiendoImagen">
+                  <div align="center">
+                    <label class="btn btn-dark" style="border-radius: 50%">
+                      <mat-icon>camera_alt</mat-icon>
+                      <input #imageInput type="file" accept="image/*" style="display: none;"
+                             (change)="processImage(imageInput)"
+                             required>
+                    </label>
+                  </div>
+                </div>
+                <ng-template #subiendoImagen>
+                  <div align="center">
+                    <mat-spinner diameter="30"></mat-spinner>
+                  </div>
+                </ng-template>
               </div>
             </div>
-            <ng-template #subiendoImagen>
-              <div align="center">
-                <mat-spinner diameter="30"></mat-spinner>
+            <ng-template #errorServer>
+              <div class="alert alert-danger">
+                <p>Error: </p> {{errorMensaje}}
               </div>
             </ng-template>
+            <ng-template #imagenSubida>
+              <img [src]=_imageFile class="image-styles">
+            </ng-template>
           </div>
+          <ng-template #imagenExiste>
+            <img [src]=Receta.Imagen class="image-styles">
+          </ng-template>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <h5>
+          Momento del día
+        </h5>
+        <div *ngFor="let momento of _Momentos">
+          <mat-checkbox (change)="cambiarMomentoDia(momento)" [checked]="checkMomento(momento)"
+                        required>{{momento.Nombre}}</mat-checkbox>
         </div>
-        <ng-template #errorServer>
-          <div class="alert alert-danger">
-            <p>Error: </p> {{errorMensaje}}
-          </div>
-        </ng-template>
-        <ng-template #imagenSubida>
-          <img [src]=_imageFile class="image-styles">
-        </ng-template>
-
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <h5>
-        Momento del día
-      </h5>
-      <div *ngFor="let momento of _Momentos">
-        <mat-checkbox (change)="cambiarMomentoDia(momento)" [checked]="checkMomento(momento)"
-                      required>{{momento.Nombre}}</mat-checkbox>
-      </div>
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Información general</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="Porcion/es" formControlName="Porciones" required type="number">
-        </mat-form-field>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>¿Como preparar?</ng-template>
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Ingredientes
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-list>
-            <p style="font-style: italic; font-size: 12px; margin: 0">Seleccione el ingrediente principal de la
-              receta</p>
-            <mat-list-item *ngFor="let ingrediente of Receta.Ingredientes; let i=index"
-                           style="height:auto; font-size: 14px;">
-              > {{ingrediente.Ingrediente.Nombre}} - {{ingrediente.Cantidad}} {{ingrediente.Unidad}}
-              <mat-radio-button (change)="cambiarIngredientePrincipal(ingrediente.Ingrediente)"
-                                [checked]="checkIngredientePrincipal(ingrediente.Ingrediente)"></mat-radio-button>
-              <br>
-            </mat-list-item>
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Información general</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Porcion/es" formControlName="Porciones" required type="number">
+          </mat-form-field>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>¿Como preparar?</ng-template>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Ingredientes
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <p style="font-style: italic; font-size: 12px; margin: 0">Seleccione el ingrediente principal de la
+                receta</p>
+              <mat-list-item *ngFor="let ingrediente of Receta.Ingredientes; let i=index"
+                             style="height:auto; font-size: 14px;">
+                > {{ingrediente.Ingrediente.Nombre}} - {{ingrediente.Cantidad}} {{ingrediente.Unidad}}
+                <mat-radio-button (change)="cambiarIngredientePrincipal(ingrediente.Ingrediente)"
+                                  [checked]="checkIngredientePrincipal(ingrediente.Ingrediente)"></mat-radio-button>
+                <br>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <div>
+                <button mat-icon-button color="primary" (click)="nuevoIngrediente()">
+                  <mat-icon>add</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="removeIngrediente()" style="float: right">
+                  <mat-icon>remove</mat-icon>
+                </button>
+              </div>
+            </mat-list>
+          </mat-expansion-panel>
+          <mat-expansion-panel (opened)="panelOpenState = true"
+                               (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Pasos
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form [formGroup]="_pasosForm">
+              <div formArrayName="pasos">
+                <div *ngFor="let group of pasosArray.controls; let i=index" [formGroupName]="i">
+                  <mat-form-field>
+                  <textarea matInput formControlName="valor" matTextareaAutosize matAutosizeMinRows=1
+                            matAutosizeMaxRows=6 placeholder="Paso {{i+1}}" required></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
             <mat-divider></mat-divider>
             <div>
-              <button mat-icon-button color="primary" (click)="nuevoIngrediente()">
+              <button mat-icon-button color="primary" (click)="addPaso('')">
                 <mat-icon>add</mat-icon>
               </button>
-              <button mat-icon-button color="primary" (click)="removeIngrediente()" style="float: right">
+              <button mat-icon-button color="primary" (click)="removePaso(undefined)" style="float: right">
                 <mat-icon>remove</mat-icon>
               </button>
             </div>
-          </mat-list>
-        </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Pasos
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <form [formGroup]="_pasosForm">
-            <div formArrayName="pasos">
-              <div *ngFor="let group of pasosArray.controls; let i=index" [formGroupName]="i">
-                <mat-form-field>
-                  <textarea matInput formControlName="valor" matTextareaAutosize matAutosizeMinRows=1
-                            matAutosizeMaxRows=6 placeholder="Paso {{i+1}}" required></textarea>
-                </mat-form-field>
-              </div>
-            </div>
-          </form>
-          <mat-divider></mat-divider>
-          <div>
-            <button mat-icon-button color="primary" (click)="addPaso('')">
-              <mat-icon>add</mat-icon>
-            </button>
-            <button mat-icon-button color="primary" (click)="removePaso(undefined)" style="float: right">
-              <mat-icon>remove</mat-icon>
-            </button>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </mat-step>
-  </mat-vertical-stepper>
-  <div style="clear: both"></div>
-  <div *ngIf="_Rol == 'usuario'" style="padding: 0 24px 0 24px">
-    <mat-divider></mat-divider>
-    <br>
-    <button mat-flat-button color="primary" (click)="finalizar('pendiente')"
-            [disabled]="checkFormValid()">Finalizar
-    </button>
-    <button mat-stroked-button color="primary" (click)="cancelar(false)" style="float: right">Cancelar</button>
-  </div>
-  <div *ngIf="_Rol == 'administrador'" class="evaluacion-theme" style="padding: 0 24px 0 24px">
-    <button mat-stroked-button color="primary" (click)="finalizar('aprobada')"
-            [disabled]="checkFormValid()">Aprobar
-    </button>
-    <button mat-stroked-button color="accent" (click)="finalizar('rechazada')" style="float: right"
-            [disabled]="checkFormValid()">Rechazar
-    </button>
-    <div>
-      <button mat-icon-button color="warn" (click)="cancelar(false)"><mat-icon>arrow_left</mat-icon>Volver</button>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-step>
+    </mat-vertical-stepper>
+    <div style="clear: both"></div>
+    <div *ngIf="_Rol == 'usuario'" style="padding: 0 24px 0 24px">
+      <mat-divider></mat-divider>
+      <br>
+      <button mat-flat-button color="primary" (click)="finalizar('pendiente')"
+              [disabled]="checkFormValid()">Finalizar
+      </button>
+      <button mat-stroked-button color="primary" (click)="cancelar(false)" style="float: right">Cancelar</button>
     </div>
-  </div>
-</ng-template>
-</body>
+    <div *ngIf="_Rol == 'administrador'" class="evaluacion-theme" style="padding: 0 24px 0 24px">
+      <button mat-stroked-button color="primary" (click)="finalizar('aprobada')"
+              [disabled]="checkFormValid()">Aprobar
+      </button>
+      <button mat-stroked-button color="accent" (click)="finalizar('rechazada')" style="float: right"
+              [disabled]="checkFormValid()">Rechazar
+      </button>
+      <div>
+        <button mat-icon-button color="warn" (click)="cancelar(false)">
+          <mat-icon>arrow_left</mat-icon>
+          Volver
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  </body>
+</block-ui>

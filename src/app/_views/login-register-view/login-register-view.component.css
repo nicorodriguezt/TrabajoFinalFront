@@ -5,3 +5,8 @@
 .button-style {
   background-color: white;
 }
+
+.vertical {
+  padding-top: 30%;
+  margin-bottom: auto;
+}

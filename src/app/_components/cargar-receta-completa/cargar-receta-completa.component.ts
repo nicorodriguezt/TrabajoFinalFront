@@ -7,11 +7,7 @@ import {PonerMayuscula} from '../../_services/funciones-commun.service';
 import {MatDialog} from '@angular/material';
 import {CargarRecetaNuevaIngrerdienteComponent} from '../cargar-receta-nueva/cargar-receta-nueva.component';
 import {IngredienteService} from '../../_services/ingrediente.service';
-
-class ImageSnippet {
-  constructor(public src: string, public file: File) {
-  }
-}
+import {BlockUI, NgBlockUI} from 'ng-block-ui';
 
 @Component({
   selector: 'app-cargar-receta-completa',
@@ -20,6 +16,7 @@ class ImageSnippet {
   providers: [RecetaService, IngredienteService]
 })
 export class CargarRecetaCompletaComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   @Input() Receta: Receta;
   @Output() finalizarCarga: EventEmitter<boolean> = new EventEmitter();
 
@@ -208,14 +205,18 @@ export class CargarRecetaCompletaComponent implements OnInit {
     }
     RecetaEnviar.Estado = estado;
     RecetaEnviar.Imagen = this._imageFile;
+    RecetaEnviar.IngredientePrincipal = this.Receta.IngredientePrincipal;
 
+    this.blockUI.start();
     if (RecetaEnviar._id === '') {
       this._RecetaService.addReceta(RecetaEnviar).subscribe(x => {
-        this.finalizarCarga.emit(true);
+        this.blockUI.stop();
+        this.finalizarCarga.emit(RecetaEnviar.Nombre);
       });
     } else {
       this._RecetaService.actualizarReceta(RecetaEnviar).subscribe(x => {
-        this.finalizarCarga.emit(true);
+        this.blockUI.stop();
+        this.finalizarCarga.emit(RecetaEnviar.Nombre);
       });
     }
 
@@ -248,7 +249,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
   }
 
   checkIngredientePrincipal(ingrediente) {
-    return !!this.Receta.IngredientePrincipal === ingrediente;
+    return this.Receta.IngredientePrincipal === ingrediente._id;
 
   }
 
@@ -260,7 +261,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
       || this.Receta.MomentoDelDia.length === 0
       || this.Receta.Ingredientes.length === 0
       || this.Receta.IngredientePrincipal == null
-      || this._imageFile == null;
+      || (this._imageFile == null && this.Receta.Imagen == null);
   }
 
   processImage(imageInput: any) {

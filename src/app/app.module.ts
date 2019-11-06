@@ -5,7 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LayoutModule} from '@angular/cdk/layout';
-import {BlockUIModule} from "ng-block-ui";
+import {BlockUIModule} from 'ng-block-ui';
 
 // Angular Material
 import {
@@ -77,7 +77,11 @@ import {
 import {
   DietasEspecialesComponent, IngredientePreferenciaComponent, PreferenciasComponent
 } from './_components/preferencias/preferencias.component';
-import { AbmCategoriasComponent, AbmCategoriasOtrasUnidadesComponent, AbmCategoriasIngredientesComponent } from './_components/abm-categorias/abm-categorias.component';
+import {
+  AbmCategoriasComponent,
+  AbmCategoriasOtrasUnidadesComponent,
+  AbmCategoriasIngredientesComponent
+} from './_components/abm-categorias/abm-categorias.component';
 
 // Views
 import {LoginRegisterViewComponent} from './_views/login-register-view/login-register-view.component';
@@ -99,12 +103,18 @@ import {
   EvaluacionSwitchComponent
 } from './_views/evaluacion-view/evaluacion-view.component';
 import {ListaComprasViewComponent} from './_views/lista-compras-view/lista-compras-view.component';
-import {PantallaPrincipalViewComponent, PantallaPrincipalViewDisclaimerComponent} from './_views/pantalla-principal-view/pantalla-principal-view.component';
+import {
+  PantallaPrincipalViewComponent,
+  PantallaPrincipalViewDisclaimerComponent
+} from './_views/pantalla-principal-view/pantalla-principal-view.component';
 import {FavoritosViewComponent} from './_views/favoritos-view/favoritos-view.component';
 import {RecetasUsuarioViewComponent} from './_views/recetas-usuario-view/recetas-usuario-view.component';
 import {RecetasAdministradorComponent} from './_views/recetas-administrador/recetas-administrador.component';
-import { AgregarIngredienteViewComponent, AgregarIngredienteCategoriaComponent } from './_views/agregar-ingrediente-view/agregar-ingrediente-view.component';
-import { GestionUnidadesViewComponent } from './_views/gestion-unidades-view/gestion-unidades-view.component';
+import {
+  AgregarIngredienteViewComponent,
+  AgregarIngredienteCategoriaComponent
+} from './_views/agregar-ingrediente-view/agregar-ingrediente-view.component';
+import {GestionUnidadesViewComponent} from './_views/gestion-unidades-view/gestion-unidades-view.component';
 
 
 @NgModule({
