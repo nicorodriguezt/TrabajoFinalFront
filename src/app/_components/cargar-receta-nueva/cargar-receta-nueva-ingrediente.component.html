@@ -10,13 +10,23 @@
     </mat-form-field>
 
     <div [hidden]="enableMostrar">
-      <mat-form-field>
+<!--      <mat-form-field>
         <mat-select #Ingrediente="ngModel" name="Ingrediente" [(ngModel)]="ingredienteElegido.Ingrediente" (ngModelChange)="cargarUnidades(ingredienteElegido.Ingrediente)" placeholder="Ingrediente" required>
           <mat-option *ngFor="let ingre of listIngredientes" [value]="ingre">
             {{ingre.Nombre}}
           </mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field>-->
+      <form>
+        <mat-form-field>
+          <input type="text" placeholder="Ingrediente" matInput [formControl]="myControl" [matAutocomplete]="auto" required>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="cargarUnidades()">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
       <mat-form-field>
         <input  #Cantidad="ngModel" type="number" matInput name="Cantidad" [(ngModel)]="ingredienteElegido.Cantidad"
                 placeholder="Cantidad" required/>

@@ -6,6 +6,9 @@ import {PonerMayuscula} from '../../_services/funciones-commun.service';
 import {Ingrediente} from '../../_models/Ingrediente';
 import {UnidadService} from '../../_services/unidad.service';
 import {Unidad} from '../../_models/Unidad';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from "rxjs/operators";
 
 @Component({
   selector: 'app-cargar-receta-nueva',
@@ -99,6 +102,16 @@ export class CargarRecetaNuevaIngrerdienteComponent {
   enableMostrarUnidades = true;
   Unidades = [];
 
+  myControl = new FormControl();
+  options: string[] = [];
+  filteredOptions: Observable<string[]>;
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
   public cargarIngredientes() {
     this.listIngredientes = [];
     this.enableMostrar = true;
@@ -106,7 +119,13 @@ export class CargarRecetaNuevaIngrerdienteComponent {
       this.listIngredientes = res;
       this.listIngredientes.forEach(x => {
         x.Nombre = PonerMayuscula(x.Nombre);
+        this.options.push(x.Nombre);
       });
+      this.filteredOptions = this.myControl.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
       this.enableMostrar = false;
     });
   }
@@ -119,11 +138,12 @@ export class CargarRecetaNuevaIngrerdienteComponent {
     this.dialogRef.close(undefined);
   }
 
-  cargarUnidades(ingrediente: Ingrediente) {
+  cargarUnidades() {
+    this.ingredienteElegido.Ingrediente = this.listIngredientes.find(x => x.Nombre === this.myControl.value);
     this.enableMostrarUnidades = true;
     this.Unidades = [];
-    this.Unidades.push(ingrediente.UnidadPorcion);
-    this._UnidadService.getUnidad(ingrediente).subscribe((res: Unidad) => {
+    this.Unidades.push(this.ingredienteElegido.Ingrediente.UnidadPorcion);
+    this._UnidadService.getUnidad(this.ingredienteElegido.Ingrediente).subscribe((res: Unidad) => {
       if (res) {
         res.OtrasUnidades.forEach(x => {
           this.Unidades.push(x.Unidad);
@@ -131,7 +151,6 @@ export class CargarRecetaNuevaIngrerdienteComponent {
       }
       this.enableMostrarUnidades = false;
     });
+
   }
-
-
 }

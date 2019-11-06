@@ -115,6 +115,7 @@ import {
   AgregarIngredienteCategoriaComponent
 } from './_views/agregar-ingrediente-view/agregar-ingrediente-view.component';
 import {GestionUnidadesViewComponent} from './_views/gestion-unidades-view/gestion-unidades-view.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 
 @NgModule({
@@ -198,7 +199,8 @@ import {GestionUnidadesViewComponent} from './_views/gestion-unidades-view/gesti
     MatStepperModule,
     MatProgressBarModule,
     MatButtonToggleModule,
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+    MatAutocompleteModule
   ],
   providers: [
     AuthGuard,
