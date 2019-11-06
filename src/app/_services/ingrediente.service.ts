@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {map, startWith} from 'rxjs/operators';
 import {backend} from './globalconfig';
 
 const HttpOptions = {
@@ -35,7 +35,10 @@ export class IngredienteService {
     return this._http.get(this.url + 'getOrigenes/', HttpOptions ).pipe(map(res => res));
   }
 
-  public getIngredientesByOrigen(origen) {
+  public getIngredientesByOrigen(origen, key) {
+    if (localStorage[key]) {
+      return this._http.get(this.url + 'getByOrigen/' + origen, HttpOptions ).pipe(startWith(JSON.parse(localStorage[key] || '[]')));
+    }
     return this._http.get(this.url + 'getByOrigen/' + origen, HttpOptions ).pipe(map(res => res));
   }
 }

@@ -162,7 +162,9 @@ export class IngredientePreferenciaComponent implements OnInit {
   cargarIngredientes() {
     this.ListIngredientes = [];
     this.ingredientesOrigen = true;
-    this._IngredienteService.getIngredientesByOrigen(this.OrigenElegido).subscribe((res: Ingrediente[]) => {
+    let key = this.OrigenElegido;
+    this._IngredienteService.getIngredientesByOrigen(this.OrigenElegido, key).subscribe((res: Ingrediente[]) => {
+      localStorage[key] = JSON.stringify(res);
       this.ListIngredientes = res;
       this.ListIngredientes.forEach(x=> {
         x.Nombre = PonerMayuscula(x.Nombre);

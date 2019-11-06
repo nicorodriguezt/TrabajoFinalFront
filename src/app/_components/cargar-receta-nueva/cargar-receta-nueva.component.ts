@@ -114,8 +114,11 @@ export class CargarRecetaNuevaIngrerdienteComponent {
 
   public cargarIngredientes() {
     this.listIngredientes = [];
+    this.options = [];
     this.enableMostrar = true;
-    this._IngredienteService.getIngredientesByOrigen(this.origenElegido).subscribe((res: Ingrediente[]) => {
+    let key = this.origenElegido;
+    this._IngredienteService.getIngredientesByOrigen(this.origenElegido, key).subscribe((res: Ingrediente[]) => {
+      localStorage[key] = JSON.stringify(res);
       this.listIngredientes = res;
       this.listIngredientes.forEach(x => {
         x.Nombre = PonerMayuscula(x.Nombre);
