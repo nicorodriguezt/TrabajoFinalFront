@@ -31,6 +31,7 @@ export class CargarRecetaNuevaComponent implements OnInit {
   ngOnInit() {
     this._nuevaComida.Ingredientes = [];
     this._IngredienteService.getOrigenes().subscribe(res => {
+      localStorage['Origenes'] = JSON.stringify(res);
       this._ListOrigenes = res;
       this._cargando = false;
     });

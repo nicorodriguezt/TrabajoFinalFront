@@ -128,6 +128,7 @@ export class CargarRecetaCompletaComponent implements OnInit {
   nuevoIngrediente() {
     if (this._ListOrigenes.length === 0) {
       this._IngredienteService.getOrigenes().subscribe((res: string[]) => {
+        localStorage['Origenes'] = JSON.stringify(res);
         this._ListOrigenes = res;
         this.openDialog();
       });

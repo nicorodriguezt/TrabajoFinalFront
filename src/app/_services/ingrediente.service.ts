@@ -32,6 +32,9 @@ export class IngredienteService {
   }
 
   public getOrigenes() {
+    if (localStorage['Origenes']) {
+      return this._http.get(this.url + 'getOrigenes/', HttpOptions ).pipe(startWith(JSON.parse(localStorage['Origenes'] || '[]')));
+    }
     return this._http.get(this.url + 'getOrigenes/', HttpOptions ).pipe(map(res => res));
   }
 

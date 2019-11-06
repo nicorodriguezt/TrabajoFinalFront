@@ -100,6 +100,7 @@ export class AbmCategoriasComponent implements OnInit {
       if (this._listOrigenes.length === 0) {
         this._cargando = true;
         this._IngredienteService.getOrigenes().subscribe((res: string[]) => {
+          localStorage['Origenes'] = JSON.stringify(res);
           this._listOrigenes = res;
           this._cargando = false;
           this._cargarIngredientes = true;

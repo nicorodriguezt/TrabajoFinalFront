@@ -150,6 +150,7 @@ export class IngredientePreferenciaComponent implements OnInit {
 
   ngOnInit() {
     this._IngredienteService.getOrigenes().subscribe((res: string[]) => {
+      localStorage['Origenes'] = JSON.stringify(res);
       this.ListOrigenes = res;
       this.enableMostrar = true;
     });
