@@ -210,12 +210,12 @@ export class CargarRecetaCompletaComponent implements OnInit {
     if (RecetaEnviar._id === '') {
       this._RecetaService.addReceta(RecetaEnviar).subscribe(x => {
         this.blockUI.stop();
-        this.finalizarCarga.emit(RecetaEnviar.Nombre);
+        this.finalizarCarga.emit(RecetaEnviar);
       });
     } else {
       this._RecetaService.actualizarReceta(RecetaEnviar).subscribe(x => {
         this.blockUI.stop();
-        this.finalizarCarga.emit(RecetaEnviar.Nombre);
+        this.finalizarCarga.emit(RecetaEnviar);
       });
     }
 

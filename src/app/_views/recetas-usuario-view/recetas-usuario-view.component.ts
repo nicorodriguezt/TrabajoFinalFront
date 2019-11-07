@@ -90,7 +90,8 @@ export class RecetasUsuarioViewComponent implements OnInit {
 
   evento($event) {
     if ($event !== false) {
-      this._ListRecetas.Pendientes.push(PonerMayuscula($event));
+      $event.NombreMostrar = PonerMayuscula($event.Nombre);
+      this._ListRecetas.Pendientes.push($event);
       this.openSnackBar('Su receta fue enviada a evaluar', 'Descartar');
     }
     return false;
