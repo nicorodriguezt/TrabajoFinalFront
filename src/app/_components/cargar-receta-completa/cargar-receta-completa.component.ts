@@ -130,16 +130,14 @@ export class CargarRecetaCompletaComponent implements OnInit {
       this._IngredienteService.getOrigenes().subscribe((res: string[]) => {
         localStorage['Origenes'] = JSON.stringify(res);
         this._ListOrigenes = res;
-        this.openDialog();
       });
-    } else {
-      this.openDialog();
     }
+    this.openDialog();
   }
 
   openDialog() {
     const dialogRef = this.dialog.open(CargarRecetaNuevaIngrerdienteComponent, {
-      maxWidth: '70%',
+      width: '90%',
       data: this._ListOrigenes
     });
 

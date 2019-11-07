@@ -185,7 +185,7 @@ export class AbmCategoriasIngredientesComponent implements OnInit {
 
   cargarIngredientes() {
     this._enableMostrar = false;
-    let key = this.actualOrigen;
+    const key = this.actualOrigen;
     this._IngredienteService.getIngredientesByOrigen(this.actualOrigen, key).subscribe((res: Ingrediente[]) => {
       localStorage[key] = JSON.stringify(res);
       this._listIngredientes = res;

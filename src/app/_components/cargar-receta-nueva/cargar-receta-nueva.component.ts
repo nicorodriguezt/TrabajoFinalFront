@@ -39,7 +39,7 @@ export class CargarRecetaNuevaComponent implements OnInit {
 
   nuevoIngrediente() {
     const dialogRef = this.dialog.open(CargarRecetaNuevaIngrerdienteComponent, {
-      maxWidth: '70%',
+      width: '90%',
       data: this._ListOrigenes
     });
 
@@ -115,11 +115,11 @@ export class CargarRecetaNuevaIngrerdienteComponent {
 
   public cargarIngredientes() {
     this.listIngredientes = [];
-    this.options = [];
     this.enableMostrar = true;
-    let key = this.origenElegido;
+    const key = this.origenElegido;
     this._IngredienteService.getIngredientesByOrigen(this.origenElegido, key).subscribe((res: Ingrediente[]) => {
       localStorage[key] = JSON.stringify(res);
+      this.options = [];
       this.listIngredientes = res;
       this.listIngredientes.forEach(x => {
         x.Nombre = PonerMayuscula(x.Nombre);

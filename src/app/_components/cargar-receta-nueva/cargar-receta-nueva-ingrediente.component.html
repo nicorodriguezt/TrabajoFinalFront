@@ -1,7 +1,7 @@
 <body>
 <form>
   <div align="center">
-    <mat-form-field>
+    <mat-form-field class="add-ingrediente-style">
       <mat-select #origen="ngModel" name="origen" [(ngModel)]="origenElegido" placeholder="Tipo" [required] (selectionChange)="cargarIngredientes();">
         <mat-option *ngFor="let origen of data" [value]="origen">
           {{origen}}
@@ -10,15 +10,9 @@
     </mat-form-field>
 
     <div [hidden]="enableMostrar">
-<!--      <mat-form-field>
-        <mat-select #Ingrediente="ngModel" name="Ingrediente" [(ngModel)]="ingredienteElegido.Ingrediente" (ngModelChange)="cargarUnidades(ingredienteElegido.Ingrediente)" placeholder="Ingrediente" required>
-          <mat-option *ngFor="let ingre of listIngredientes" [value]="ingre">
-            {{ingre.Nombre}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>-->
+
       <form>
-        <mat-form-field>
+        <mat-form-field class="add-ingrediente-style">
           <input type="text" placeholder="Ingrediente" matInput [formControl]="myControl" [matAutocomplete]="auto" required>
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="cargarUnidades()">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
@@ -27,12 +21,12 @@
           </mat-autocomplete>
         </mat-form-field>
       </form>
-      <mat-form-field>
+      <mat-form-field class="add-ingrediente-style">
         <input  #Cantidad="ngModel" type="number" matInput name="Cantidad" [(ngModel)]="ingredienteElegido.Cantidad"
                 placeholder="Cantidad" required/>
       </mat-form-field>
       <div [hidden]="enableMostrarUnidades">
-      <mat-form-field>
+      <mat-form-field class="add-ingrediente-style">
         <mat-select #Unidad="ngModel" name="Unidad" [(ngModel)]="ingredienteElegido.Unidad" placeholder="Unidad" required>
           <mat-option *ngFor="let unidad of Unidades" [value]="unidad">
             {{unidad}}
