@@ -56,6 +56,11 @@ export class CargarRecetaCompletaComponent implements OnInit {
     });
     this.ConfigFormsName();
 
+    this._IngredienteService.getOrigenes().subscribe((res: string[]) => {
+      localStorage['Origenes'] = JSON.stringify(res);
+      this._ListOrigenes = res;
+    });
+
     this._RecetaService.getMomentos().subscribe((res: MomentoDelDia[]) => {
       this._Momentos = res;
       this._Cargando = false;
@@ -126,12 +131,6 @@ export class CargarRecetaCompletaComponent implements OnInit {
   }
 
   nuevoIngrediente() {
-    if (this._ListOrigenes.length === 0) {
-      this._IngredienteService.getOrigenes().subscribe((res: string[]) => {
-        localStorage['Origenes'] = JSON.stringify(res);
-        this._ListOrigenes = res;
-      });
-    }
     this.openDialog();
   }
 
