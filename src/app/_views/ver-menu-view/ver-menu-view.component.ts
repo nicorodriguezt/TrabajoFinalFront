@@ -169,6 +169,9 @@ export class VerMenuViewComponent implements OnInit {
     }
   }
 
+  Calorias(receta: any) {
+    return Math.round((receta.Receta.Calorias * receta.PorcionSugerida) / receta.Receta.Porciones);
+  }
 }
 
 @Component({

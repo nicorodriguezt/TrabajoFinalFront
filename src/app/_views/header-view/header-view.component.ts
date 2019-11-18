@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {UsuarioService} from '../../_services/usuario.service';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
-import { BlockUI, NgBlockUI } from "ng-block-ui";
+import {BlockUI, NgBlockUI} from 'ng-block-ui';
 
 @Component({
   selector: 'app-header-view',
@@ -18,7 +18,7 @@ export class HeaderViewComponent implements OnInit {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
   public DatosExist = false;
-  private subscription: Subscription;
+  public enable = false;
 
   constructor(public _router: Router,
               private breakpointObserver: BreakpointObserver,
@@ -60,19 +60,14 @@ export class HeaderViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.datosExist();
-  }
-
-  datosExist() {
-    if(localStorage.getItem('DatosExist') !== 'true' && localStorage.getItem('DatosExist') !== 'false') {
-      this._DatosUsuarioService.getDatos().subscribe(datos => {
-        if (datos) {
-          this.DatosExist = true;
-          localStorage.setItem('DatosExist', 'true')
-        } else {
-          localStorage.setItem('DatosExist', 'false')
-        }
-      }, error1 => {console.clear(); });
-    }
+    this._DatosUsuarioService.getDatos().subscribe(datos => {
+      if (datos) {
+        this.DatosExist = true;
+        localStorage.setItem('DatosExist', 'true');
+      } else {
+        localStorage.setItem('DatosExist', 'false');
+      }
+      this.enable = true;
+    }, error1 => {console.clear(); });
   }
 }

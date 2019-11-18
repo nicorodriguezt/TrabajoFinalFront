@@ -46,7 +46,7 @@ export class PantallaPrincipalViewComponent implements OnInit {
               private _DatosUsuarioService: DatosUsuarioService) {
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.verReceta = false;
     this.enableCargando = true;
     if (localStorage.getItem('DatosExist') !== 'true') {

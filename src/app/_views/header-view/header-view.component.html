@@ -75,7 +75,10 @@
 
       </mat-sidenav>
       <mat-sidenav-content>
-        <router-outlet (activate)="datosExist()"></router-outlet>
+        <div *ngIf="!enable; else finished"></div>
+        <ng-template #finished>
+          <router-outlet></router-outlet>
+        </ng-template>
       </mat-sidenav-content>
     </mat-sidenav-container>
   </div>
