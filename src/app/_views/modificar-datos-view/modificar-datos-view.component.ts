@@ -75,6 +75,7 @@ export class ModificarDatosViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
     if (localStorage.getItem('DatosExist') !== 'true') {
       this.existDatos = false;
       this.openInfo();
@@ -82,7 +83,9 @@ export class ModificarDatosViewComponent implements OnInit {
     } else {
       this._DatosUsuarioService.getDatos().subscribe((res: DatosUsuario) => {
         if (res) {
+          this.existDatos = true;
           this.DatosUsuario = res;
+          this.cargando = false;
         }
       });
     }
