@@ -33,7 +33,7 @@
                       <p class="alignleft">
                         <b>Momento:</b> {{receta.MomentoDelDia.Nombre}}<br>
                         <b>Porcion/es:</b> {{receta.PorcionSugerida}} <b>Calorias:</b>
-                        {{receta.Receta.Calorias*(receta.PorcionSugerida)}}
+                        {{(receta.Receta.Calorias*(receta.PorcionSugerida))/receta.Receta.Porcion}}
                       </p>
                       <p class="alignright">
                         <button mat-icon-button color="primary" (click)="verMas(receta.Receta)">Ver
