@@ -53,9 +53,7 @@ export class ModificarDatosViewComponent implements OnInit {
           this.errorMensaje = null;
           localStorage.setItem('DatosExist', 'true');
           this.openSnackBar('Datos guardados con exito', 'Descartar');
-          if (this.existDatos) {
-            this._router.navigate(['/main']);
-          }
+          this.existDatos = true;
         },
         error1 => {
           this.errorMensaje = 'Servidor no disponible';
@@ -75,7 +73,6 @@ export class ModificarDatosViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     if (localStorage.getItem('DatosExist') !== 'true') {
       this.existDatos = false;
       this.openInfo();
