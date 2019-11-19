@@ -13,28 +13,28 @@
         <section>
           <form #loginForm="ngForm">
 
-            <mat-form-field>
+            <mat-form-field color="accent">
               <input matInput type="text" #username="ngModel" name="username" [(ngModel)]="Usuario.UserName" placeholder="Usuario" required/>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field color="accent">
               <input matInput type="text" #Nombre="ngModel" name="Nombre" [(ngModel)]="Usuario.Nombre" placeholder="Nombre" required/>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field color="accent">
               <input matInput type="text" #Apellido="ngModel" name="Apellido" [(ngModel)]="Usuario.Apellido" placeholder="Apellido" required/>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field color="accent">
               <input matInput type="email" #Email="ngModel" name="Email" [(ngModel)]="Usuario.Email" placeholder="Email" required email="true"/>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field color="accent">
               <input matInput type="password" #password="ngModel" name="password" [(ngModel)]="Usuario.Password"
                      placeholder="Contraseña" required/>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field color="accent">
               <input matInput type="password" #password2="ngModel" name="password2" [(ngModel)]="controlPassword"
                      placeholder="Repita la contraseña" required (change)="enableAceptar()"/>
             </mat-form-field>
@@ -49,8 +49,6 @@
         </section>
       </div>
     </div>
-
   </mat-card>
-
 </div>
 
