@@ -8,7 +8,7 @@
       <h1 class="title-style">{{RecetaElegida?.Nombre}}</h1>
       <div class="row">
         <div class="column leftColumn">
-          <star-rating labelText="Favorito" labelPosition="left" [starType]="'svg'" [numOfStars]="1" staticColor="ok"
+          <star-rating style="border: 0!important" labelText="Favorito" labelPosition="left" [starType]="'svg'" [numOfStars]="1" staticColor="ok"
                        (starClickChange)="togglefavorito()" [rating]="starFavorito"></star-rating>
         </div>
         <div class="column rightColumn">
@@ -16,11 +16,7 @@
                        [readOnly]="puntuarEnable" [rating]="puntajeUsuario" (starClickChange)="onPuntuar($event)" ></star-rating>
         </div>
       </div>
-
-<!--      <img src="https://t2.rg.ltmcdn.com/es/images/0/3/3/estofado_de_ternera_facil_de_hacer_71330_600.jpg" class="image-style">-->
       <img [src]="RecetaElegida.Imagen" class="image-style">
-
-
       <p align="justify">{{RecetaElegida?.Descripcion}}</p>
     </div>
     <div class="info-style">
@@ -53,8 +49,8 @@
       </p>
     </div>
     <div>
-      <button mat-icon-button color="primary" (click)="volver()">
-        <mat-icon>arrow_left</mat-icon>
+      <button mat-icon-button color="accent" (click)="volver()">
+        <mat-icon color="accent">arrow_left</mat-icon>
         Volver
       </button>
     </div>

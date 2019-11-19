@@ -1,15 +1,17 @@
+<body>
 <li class="mat-form-field--inline" style="padding: 10px">
-    <mat-form-field color="accent">
-      <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="RecetaBuscada.Nombre" value="" minlength="3"
-             placeholder="Buscar..">
-      <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="accent" (click)="handleBuscar()">
-        <mat-icon>search</mat-icon>
-      </button>
-      <mat-hint>Minimo 3 caracteres</mat-hint>
-    </mat-form-field>
-    <button mat-flat-button color="primary" (click)="filtrosDialog()"> Filtrar<mat-icon>filter_list</mat-icon></button>
+  <mat-form-field color="accent">
+    <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="RecetaBuscada.Nombre" value="" minlength="3"
+           placeholder="Buscar..">
+    <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="accent" (click)="handleBuscar()">
+      <mat-icon>search</mat-icon>
+    </button>
+    <mat-hint>Minimo 3 caracteres</mat-hint>
+  </mat-form-field>
+  <button mat-flat-button color="primary" (click)="filtrosDialog()"> Filtrar
+    <mat-icon>filter_list</mat-icon>
+  </button>
 </li>
-
 <section class="buscar-receta-style" id="Mostrar Recetas">
   <div *ngIf="recetasSearching; else terminado" align="center">
     <br><br>
@@ -50,9 +52,7 @@
       </div>
     </ng-template>
   </ng-template>
-
 </section>
-
 <div *ngIf="pagina != 0" class="paginas-style" id="Paginas" [hidden]="recetasSearching">
   <button mat-icon-button *ngIf="pagina != 1" (click)="backward()" color="accent">
     <mat-icon color="accent">arrow_back_ios</mat-icon>
@@ -62,5 +62,4 @@
     <mat-icon color="accent">arrow_forward_ios</mat-icon>
   </button>
 </div>
-
-
+</body>

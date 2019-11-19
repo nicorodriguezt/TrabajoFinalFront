@@ -56,19 +56,19 @@ export class InformacionRecetaComponent implements OnInit {
   }
 
   togglefavorito() {
+    if(this.starFavorito === 1) {
+      this.starFavorito = 0;
+    } else
+      this.starFavorito = 1;
     this._FavoritoService.HacerFavortito(this.RecetaElegida).subscribe(res => {
       console.log(res);
       let mensaje = '';
       if (res === 'true') {
-        this.starFavorito = 1;
         mensaje = 'Agregado a Favoritas';
       } else {
-        this.starFavorito = 0;
         mensaje = 'Eliminado de Favoritas';
       }
-
       this.openSnackBar(mensaje, 'Descartar');
-
     });
   }
 

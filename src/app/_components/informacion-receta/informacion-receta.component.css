@@ -3,13 +3,14 @@
 }
 
 .title-style {
-  font-style: inherit;
-  font-size: 30px;
+  font-size: 28px;
 }
 
 .image-style {
-  max-height: 100%;
-  max-width: 100%;
+  border: 2px solid black;
+  height: 100%;
+  width: 100%;
+  max-height: 250px;
 }
 
 .pasos-style {
@@ -53,6 +54,4 @@ favorito-style {
 .leftColumn {
   width: 50%;
   float: left;
-
-
 }
