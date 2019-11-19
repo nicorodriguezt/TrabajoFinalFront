@@ -17,7 +17,8 @@
         </div>
       </div>
       <img [src]="RecetaElegida.Imagen" class="image-style">
-      <p align="justify">{{RecetaElegida?.Descripcion}}</p>
+      <br/>
+      <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;{{RecetaElegida?.Descripcion}}</p>
     </div>
     <div class="info-style">
       <div class="row">
@@ -42,6 +43,7 @@
         </p>
       </div>
     </div>
+    <br/>
     <div>
       <h4 class="subtitle-style">Como preparar</h4>
       <p *ngFor="let pasos of RecetaElegida?.Pasos; let i = index" class="pasos-style">
