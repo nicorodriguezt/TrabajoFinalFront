@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
         } else {
           this._UsuarioService.sendSession(this.session.passport.user);
           this._UsuarioService.info().subscribe((res: Usuario) => {
+            localStorage.setItem('Nombre', res.Nombre.split(' ')[0]);
             this._UsuarioService.sendRol(res.Rol);
             this._UsuarioService.sendDisclaimer(res.Disclaimer);
             if (this._UsuarioService.getRol() === 'administrador') {
