@@ -2,12 +2,12 @@
     <mat-form-field >
       <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="RecetaBuscada.Nombre" value="" minlength="3"
              placeholder="Buscar..">
-      <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="primary" (click)="handleBuscar()">
+      <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="accent" (click)="handleBuscar()">
         <mat-icon>search</mat-icon>
       </button>
       <mat-hint>Minimo 3 caracteres</mat-hint>
     </mat-form-field>
-    <button mat-stroked-button color="primary" (click)="filtrosDialog()" > Filtrar</button>
+    <button mat-stroked-button color="accent" (click)="filtrosDialog()" > Filtrar</button>
 </li>
 
 <section class="buscar-receta-style" id="Mostrar Recetas">
@@ -36,11 +36,8 @@
             </p>
           </mat-card-content>
           <mat-card-actions align="right">
-            <button mat-button color="primary" hidden="true">Compartir
-              <mat-icon color="primary">share</mat-icon>
-            </button>
-            <button mat-button color="primary" (click)="verMas(receta)">Ver más
-              <mat-icon color="primary">arrow_right</mat-icon>
+            <button mat-button color="accent" (click)="verMas(receta)">Ver más
+              <mat-icon color="accent">arrow_right</mat-icon>
             </button>
           </mat-card-actions>
         </mat-card>
@@ -57,12 +54,12 @@
 </section>
 
 <div *ngIf="pagina != 0" class="paginas-style" id="Paginas" [hidden]="recetasSearching">
-  <button mat-icon-button *ngIf="pagina != 1" (click)="backward()">
-    <mat-icon>arrow_back_ios</mat-icon>
+  <button mat-icon-button *ngIf="pagina != 1" (click)="backward()" color="accent">
+    <mat-icon color="accent">arrow_back_ios</mat-icon>
   </button>
   <span>{{pagina}}</span>
-  <button mat-icon-button *ngIf="controlPaginas==6" (click)="forward()">
-    <mat-icon>arrow_forward_ios</mat-icon>
+  <button mat-icon-button *ngIf="controlPaginas==6" (click)="forward()" color="accent">
+    <mat-icon color="accent">arrow_forward_ios</mat-icon>
   </button>
 </div>
 

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FavoritosService} from '../../_services/favoritos.service';
 import {Receta} from '../../_models/Receta';
-import {MomentoDelDia} from '../../_models/MomentoDelDia';
+import {PonerMayuscula} from "../../_services/funciones-commun.service";
 
 @Component({
   selector: 'app-favoritos-view',
@@ -31,4 +31,7 @@ export class FavoritosViewComponent implements OnInit {
     this.verReceta = true;
   }
 
+  PonerMayuscula(Nombre: any) {
+    return PonerMayuscula(Nombre);
+  }
 }
