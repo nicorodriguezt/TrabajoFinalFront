@@ -1,7 +1,7 @@
 <div>
   <form #actividadForm="ngForm">
     <div>
-      <mat-form-field>
+      <mat-form-field color="accent">
         <mat-select #actividad="ngModel" name="ActividadLaboral" (selectionChange)="changedata()"
                     [(ngModel)]="ActividadLaboral.Categoria" placeholder="Actividad Laboral">
           <mat-option *ngFor="let obj of list" [value]="obj.Categoria">

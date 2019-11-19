@@ -1,5 +1,5 @@
 <li class="mat-form-field--inline" style="padding: 10px">
-    <mat-form-field >
+    <mat-form-field color="accent">
       <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="RecetaBuscada.Nombre" value="" minlength="3"
              placeholder="Buscar..">
       <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="accent" (click)="handleBuscar()">
@@ -7,7 +7,7 @@
       </button>
       <mat-hint>Minimo 3 caracteres</mat-hint>
     </mat-form-field>
-    <button mat-stroked-button color="accent" (click)="filtrosDialog()" > Filtrar</button>
+    <button mat-flat-button color="primary" (click)="filtrosDialog()"> Filtrar<mat-icon>filter_list</mat-icon></button>
 </li>
 
 <section class="buscar-receta-style" id="Mostrar Recetas">
@@ -57,7 +57,7 @@
   <button mat-icon-button *ngIf="pagina != 1" (click)="backward()" color="accent">
     <mat-icon color="accent">arrow_back_ios</mat-icon>
   </button>
-  <span>{{pagina}}</span>
+  <span *ngIf="resultTotal>5">{{pagina}}</span>
   <button mat-icon-button *ngIf="controlPaginas==6" (click)="forward()" color="accent">
     <mat-icon color="accent">arrow_forward_ios</mat-icon>
   </button>

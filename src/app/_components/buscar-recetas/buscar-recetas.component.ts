@@ -15,6 +15,7 @@ export class BuscarRecetasComponent {
   @Input() public RecetaBuscada: Receta;
   @Output() sendReceta: EventEmitter<any> = new EventEmitter();
   public results = [];
+  resultTotal = 0;
   skip = 0;
   limit = 6;
   pagina = 0;
@@ -41,6 +42,7 @@ export class BuscarRecetasComponent {
       this.recetasSearching = true;
       this._RecetaService.buscar(this.RecetaBuscada, this.skip, this.limit, Object.values(this.filtros)).subscribe((response: [Receta]) => {
         this.recetasSearching = false;
+        this.resultTotal = response.length;
         if (response.length > 0) {
           this.results = response;
           if (response.length > 5) {
