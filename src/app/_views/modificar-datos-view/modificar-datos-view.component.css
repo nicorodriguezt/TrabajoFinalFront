@@ -1,3 +1,9 @@
 .preferencias {
   font-size: large;
 }
+
+.alerta-informacion {
+  color: black;
+  background-color: #C0D860;
+  border-color: #C0D860;
+}

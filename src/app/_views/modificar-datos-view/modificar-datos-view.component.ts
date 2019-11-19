@@ -1,4 +1,4 @@
-import {Component, ComponentRef, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ComponentRef, Inject, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
@@ -75,8 +75,10 @@ export class ModificarDatosViewComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem('DatosExist') !== 'true') {
       this.existDatos = false;
-      this.openInfo();
       this.cargando = false;
+      setTimeout(()=>  this.dialog.open(ModificarDatosViewWarningComponent, {
+        maxWidth: '90%',
+      }))
     } else {
       this._DatosUsuarioService.getDatos().subscribe((res: DatosUsuario) => {
         if (res) {
@@ -87,13 +89,6 @@ export class ModificarDatosViewComponent implements OnInit {
       });
     }
   }
-
-  openInfo(): void {
-    this.dialog.open(ModificarDatosViewWarningComponent, {
-      width: '80%',
-    });
-  }
-
 }
 
 @Component({
