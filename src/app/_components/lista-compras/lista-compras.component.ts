@@ -21,6 +21,7 @@ export class ListaComprasComponent implements OnInit {
     this.ListaCompra = await this._ListaComprasService.getListaCompras(this.MenuLista).toPromise();
     this.ListaCompra.forEach(function (element) {
       element.Ingrediente.Nombre = element.Ingrediente.Nombre[0].toUpperCase() + element.Ingrediente.Nombre.substr(1).toLowerCase();
+      element.Cantidad = Math.round(element.Cantidad * 100) / 100;
     });
     this.cargaDatos = false;
   }
