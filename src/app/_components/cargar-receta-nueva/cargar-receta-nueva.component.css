@@ -1,3 +1,7 @@
 .add-ingrediente-style {
   width: 95%!important;
 }
+
+mat-card {
+  margin: 10px;
+}
