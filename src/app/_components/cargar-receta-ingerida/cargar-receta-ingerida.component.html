@@ -3,7 +3,7 @@
   <div *ngIf="!cargando" align="center">
     <mat-card>
       <mat-card-title style="font-weight: bold; text-decoration: underline;">
-        <button mat-icon-button style="float: left;" (click)="cancelar()"><mat-icon>arrow_left</mat-icon></button>
+        <mat-icon (click)="cancelar()" style="float: left;">arrow_left</mat-icon>
         Carga comida ingerida
       </mat-card-title>
       <mat-card-content>
@@ -11,7 +11,7 @@
           Datos Incompletos
         </div>
         <div>
-          <mat-form-field>
+          <mat-form-field color="accent">
             <mat-select placeholder="¿Cuando la comiste?" [(ngModel)]="momento">
               <mat-option *ngFor="let momento of Momentos" [value]="momento.Nombre">
                 {{momento.Nombre}}
@@ -19,42 +19,50 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <mat-form-field>
+        <mat-form-field color="accent">
           <input type="number" [(ngModel)]="porciones" #portion="ngModel" matInput placeholder="¿Cuantas porciones?"
                  required [disabled]="momento == undefined || momento == ''"/>
         </mat-form-field>
         <div>
-          <mat-form-field class="busqueda-style" id="Buscardor" >
+          <mat-form-field class="busqueda-style" id="Buscardor" color="accent">
             <input matInput name="busqueda" #busqueda="ngModel" [(ngModel)]="recetaBuscar" value="" minlength="3"
-                   placeholder="Buscar.." [disabled]="momento == undefined || momento == '' || porciones == undefined || porciones == ''">
-            <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="primary"
+                   placeholder="Buscar.."
+                   [disabled]="momento == undefined || momento == '' || porciones == undefined || porciones == ''">
+            <button mat-button matSuffix mat-icon-button [disabled]="!busqueda.valid" color="accent"
                     (click)="handleBuscar()">
               <mat-icon>search</mat-icon>
             </button>
             <mat-hint>Minimo 3 caracteres</mat-hint>
           </mat-form-field>
         </div>
-        <div *ngIf="_hideVacio; else vacio" align="center">
-          <br>
+      </mat-card-content>
+    </mat-card>
+    <div [hidden]="!respuestas">
+      <div *ngIf="buscando; else finalizado" align="center">
+        <br>
+        <mat-spinner diameter="40" color="accent"></mat-spinner>
+      </div>
+      <ng-template #finalizado>
+        <mat-card *ngIf="_hideVacio; else vacio" align="center" class="list-respuestas">
           <span>No se tenemos la receta que estas buscando.
             <br>
             ¿Desea cargarla ahora?
           </span>
           <br>
-          <button mat-button matSuffix color="primary" (click)="nuevaComida()">Agregar</button>
-        </div>
+          <button mat-button matSuffix color="accent" (click)="nuevaComida()">Agregar</button>
+        </mat-card>
         <ng-template #vacio>
-          <div *ngFor="let receta of recetasEncontradas">
-            <mat-card>
-              <mat-card-content align="justify">
-                {{receta.Nombre}}
-                <button mat-button color="primary" (click)="info(receta)" class="alignright">Info</button>
-              </mat-card-content>
-            </mat-card>
-          </div>
+          <mat-card class="list-respuestas">
+            <mat-list>
+              <mat-list-item *ngFor="let receta of recetasEncontradas">
+                <span>{{receta.Nombre}}</span>
+                <button mat-button color="accent" (click)="info(receta)" class="info-button">Info</button>
+              </mat-list-item>
+            </mat-list>
+          </mat-card>
         </ng-template>
-      </mat-card-content>
-    </mat-card>
+      </ng-template>
+    </div>
   </div>
   <div *ngIf="cargando" align="center">
     <br><br>
@@ -62,6 +70,7 @@
     <span><strong>Cargando..</strong></span>
   </div>
 </div>
-<app-cargar-receta-nueva *ngIf="_enableAgregar" [_nuevaComida]="_nuevaComida" (finalizarEvent)="cargarRecetaNueva($event)"  ></app-cargar-receta-nueva>
+<app-cargar-receta-nueva *ngIf="_enableAgregar" [_nuevaComida]="_nuevaComida"
+                         (finalizarEvent)="cargarRecetaNueva($event)"></app-cargar-receta-nueva>
 </body>
 
