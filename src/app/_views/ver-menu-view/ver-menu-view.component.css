@@ -1,9 +1,11 @@
 .alignleft {
   float: left;
+  margin-bottom: 2px;
 }
 
 .alignright {
   float: right;
+  margin-bottom: 2px;
 }
 
 .titulo-style {
@@ -20,11 +22,23 @@
   font-size: 32px;
   font-weight: bold;
 }
+ngu-tile {
+  padding: 0!important;
+}
+
+mat-card {
+  padding: 12px;
+}
+
+mat-card-title {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
 
 footer.footer-menu {
   position:fixed;
-  bottom:0px;
-  background-color: #3f51b5;
+  bottom:0;
+  background-color: #C0D860;
   width:100%;
 }
 
@@ -32,5 +46,5 @@ footer.footer-menu button {
   width: 33%;
   align-items: center;
   height: 50px;
-  color: white;
+  color: black;
 }
