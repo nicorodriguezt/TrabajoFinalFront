@@ -5,3 +5,8 @@ mat-list-item{
 mat-card-title{
   text-decoration: underline;
 }
+
+mat-card {
+  margin: 10px;
+  padding: 12px;
+}
