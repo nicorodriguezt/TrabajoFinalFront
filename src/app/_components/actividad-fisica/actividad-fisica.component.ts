@@ -2,6 +2,7 @@ import {Component, OnInit, Inject} from '@angular/core';
 import {ActividadfisicaService} from '../../_services/actividadfisica.service';
 import {ActividadFisica} from '../../_models/ActividadFisica';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
+import {BlockUI, NgBlockUI} from "ng-block-ui";
 
 @Component({
   selector: 'app-actividad-fisica',
@@ -10,10 +11,12 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/ma
   providers: [ActividadfisicaService]
 })
 export class ActividadFisicaComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   panelOpenState = false;
   ListActividades = [];
   ListActividadesUsuario = [];
   errorMensaje = false;
+  cargando = true;
 
   public ActividadFisica: ActividadFisica;
   public Cantidad: number;
@@ -25,10 +28,10 @@ export class ActividadFisicaComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-  this.snackBar.open(message, action, {
-    duration: 2000,
-  });
-}
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 
   ngOnInit() {
     this.cargarListActividadesUsuario();
@@ -50,7 +53,9 @@ export class ActividadFisicaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(res => {
-        this.cargarListActividadesUsuario();
+        if (res !== undefined) {
+          this.ListActividadesUsuario.push(res);
+        }
       }
     );
   }
@@ -62,17 +67,22 @@ export class ActividadFisicaComponent implements OnInit {
       aux.forEach(value => {
         this.ListActividadesUsuario.push(value);
       });
+      this.cargando = false;
     });
   }
 
   eliminarActividad(actividad) {
+    this.blockUI.start();
     this.errorMensaje = false;
     this._ActividadFisicaService.deleteActividadUsuario(actividad).subscribe(response => {
-        this.cargarListActividadesUsuario();
+        const index = this.ListActividadesUsuario.indexOf(actividad._id);
+        this.ListActividadesUsuario.splice(index, 1);
         this.openSnackBar('Borrado con Exito', 'Descartar');
+        this.blockUI.stop();
       },
       error1 => {
         this.errorMensaje = true;
+        this.blockUI.stop();
       }
     );
   }
@@ -84,6 +94,7 @@ export class ActividadFisicaComponent implements OnInit {
   templateUrl: './actividad-fisica-dialog.component.html'
 })
 export class ActividadOverviewComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   ListTipos = [];
   ListModalidades = [];
   ListDistancias = [];
@@ -146,11 +157,14 @@ export class ActividadOverviewComponent implements OnInit {
   }
 
   cargarActividad() {
+    this.blockUI.start();
     this._ActividadFisicaService.setActividadUsuario(this.data.ActividadFisica, this.data.Cantidad).subscribe(response => {
         this.dialogRef.close(response);
+        this.blockUI.stop();
       },
       error1 => {
         this.dialogRef.close(error1);
+        this.blockUI.stop();
       }
     );
   }

@@ -5,6 +5,7 @@ import {DatosUsuarioService} from '../../_services/datos-usuario.service';
 import {ActividadLaboral} from '../../_models/ActividadLaboral';
 import {DatosUsuario} from '../../_models/DatosUsuario';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import {BlockUI, NgBlockUI} from "ng-block-ui";
 
 @Component({
   selector: 'app-modificar-datos-view',
@@ -13,6 +14,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/ma
   providers: [DatosUsuarioService]
 })
 export class ModificarDatosViewComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   DatosUsuario = new DatosUsuario(null, null, null, null, null, null, null, null, null, null);
   ActividadLaboral = new ActividadLaboral(null, null, null, null);
   errorMensaje = null;
@@ -48,14 +50,17 @@ export class ModificarDatosViewComponent implements OnInit {
       this.DatosUsuario.Sexo === null || this.ActividadLaboral.Categoria === null) {
       this.errorMensaje = 'Datos incompletos';
     } else {
+      this.blockUI.start();
       this.DatosUsuario.ActividadLaboral = this.ActividadLaboral._id;
       this._DatosUsuarioService.cargaDatosUsuario(this.DatosUsuario).subscribe(response => {
+          this.blockUI.stop();
           this.errorMensaje = null;
           localStorage.setItem('DatosExist', 'true');
           this.openSnackBar('Datos guardados con exito', 'Descartar');
           this.existDatos = true;
         },
         error1 => {
+          this.blockUI.stop();
           this.errorMensaje = 'Servidor no disponible';
         });
     }
@@ -76,7 +81,7 @@ export class ModificarDatosViewComponent implements OnInit {
     if (localStorage.getItem('DatosExist') !== 'true') {
       this.existDatos = false;
       this.cargando = false;
-      setTimeout(()=>  this.dialog.open(ModificarDatosViewWarningComponent, {
+      setTimeout(() => this.dialog.open(ModificarDatosViewWarningComponent, {
         maxWidth: '90%',
       }))
     } else {

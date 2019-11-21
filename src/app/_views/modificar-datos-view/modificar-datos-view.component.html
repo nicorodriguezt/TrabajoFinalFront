@@ -9,8 +9,8 @@
       <strong>Error: </strong> {{errorMensaje}}
     </div>
   </div>
-  <div *ngIf="!enablePreferencias">
-    <mat-card style="padding: 8px 0px">
+  <div [hidden]="enablePreferencias">
+    <mat-card>
       <div>
         <app-nuevo-datos-usuario [DatosUsuario]="DatosUsuario" (sendDataUsuario)="DatosUsuario = $event" align="center">
 
@@ -22,12 +22,12 @@
       </div>
     </mat-card>
     <div [hidden]="!existDatos">
-      <mat-card style="padding: 8px 4px">
+      <mat-card>
         <div>
-          <app-actividad-fisica ></app-actividad-fisica>
+          <app-actividad-fisica></app-actividad-fisica>
         </div>
       </mat-card>
-      <mat-card style="padding: 10px 10px">
+      <mat-card>
         <div>
           <div class="preferencias">
             <span style="size: 8px">Configurar preferencias y dietas especiales </span>
@@ -39,10 +39,8 @@
       </mat-card>
     </div>
     <div style= "padding: 0px">
-      <mat-card>
-        <button mat-flat-button color="primary" type="submit" (click)="cargarDatos()">Finalizar</button>
-        <button mat-stroked-button color="secundary" (click)="volver()" style="float: right">Cancelar</button>
-      </mat-card>
+        <button mat-flat-button color="primary" type="submit" (click)="cargarDatos()" class="button-style">Finalizar</button>
+        <button mat-stroked-button color="secundary" (click)="volver()" class="button-style" style="float: right">Cancelar</button>
     </div>
   </div>
   <app-preferencias [DatosUsuario]="DatosUsuario" (returnEvent)="preferenciasReturn($event)"
