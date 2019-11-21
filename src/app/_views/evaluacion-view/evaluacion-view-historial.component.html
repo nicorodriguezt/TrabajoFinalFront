@@ -1,17 +1,25 @@
 <div align="center">
-  <div align="justify">
-    <strong>Elige un periodo antiguo para ver</strong>
-    <p class="mat-card-subtitle" style="font-style: italic">*Las fechas corresponden al dia de guardado de evaluación</p>
+  <div *ngIf="selectHistorial.length > 0; else vacio">
+    <div align="justify">
+      <strong>Elige un periodo antiguo para ver</strong>
+      <p class="mat-card-subtitle" style="font-style: italic">*Las fechas corresponden al dia de guardado de evaluación</p>
+    </div>
+    <mat-form-field color="accent">
+      <mat-select placeholder="Seleccionar.." [(ngModel)] = semanaElegida>
+        <mat-option *ngFor="let sem of selectHistorial" [value]="sem.value">
+          {{sem.text}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <button mat-flat-button color="primary" (click)="confirmar()">Aceptar</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;<button mat-stroked-button color="secundary" (click)="cancelar()">Actual</button>
+    </div>
   </div>
-  <mat-form-field>
-    <mat-select placeholder="Seleccionar.." [(ngModel)] = semanaElegida>
-      <mat-option *ngFor="let sem of selectHistorial" [value]="sem.value">
-        {{sem.text}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div>
-    <button mat-flat-button color="primary" (click)="confirmar(data)">Aceptar</button>
-    <button mat-stroked-button color="secundary" (click)="cancelar()">Volver al actual</button>
-  </div>
+  <ng-template #vacio>
+    <div align="justify">
+      <p class="mat-card-subtitle">No hay periodos evaluaciones guardadas aún</p>
+    </div>
+    <button mat-stroked-button color="secundary" (click)="cancelar()">Volver</button>
+  </ng-template>
 </div>
