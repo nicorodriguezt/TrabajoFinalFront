@@ -21,6 +21,12 @@
   width: auto;
 }
 
+.valores-basicos mat-form-field {
+  max-width: 100%;
+  min-width: 75px;
+  width: auto;
+}
+
 .valor-input {
   text-align: justify;
 }
@@ -31,4 +37,9 @@
 
 mat-list{
   padding: 0;
+}
+
+mat-card {
+  margin: 10px;
+  padding: 12px;
 }

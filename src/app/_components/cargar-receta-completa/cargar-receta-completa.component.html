@@ -136,15 +136,15 @@
       <button mat-stroked-button color="secundary" (click)="cancelar(false)" style="float: right">Cancelar</button>
     </div>
     <div *ngIf="_Rol == 'administrador'" class="evaluacion-theme" style="padding: 0 24px 0 24px">
-      <button mat-stroked-button color="primary" (click)="finalizar('aprobada')"
+      <button mat-flat-button color="primary" (click)="finalizar('aprobada')"
               [disabled]="checkFormValid()">Aprobar
       </button>
-      <button mat-stroked-button color="accent" (click)="finalizar('rechazada')" style="float: right"
+      <button mat-flat-button color="accent" (click)="finalizar('rechazada')" style="float: right"
               [disabled]="checkFormValid()">Rechazar
       </button>
       <div>
         <button mat-icon-button color="warn" (click)="cancelar(false)">
-          <mat-icon>arrow_left</mat-icon>
+          <mat-icon color="warn">arrow_left</mat-icon>
           Volver
         </button>
       </div>
