@@ -106,7 +106,7 @@
             <form [formGroup]="_pasosForm">
               <div formArrayName="pasos">
                 <div *ngFor="let group of pasosArray.controls; let i=index" [formGroupName]="i">
-                  <mat-form-field>
+                  <mat-form-field color="accent">
                   <textarea matInput formControlName="valor" matTextareaAutosize matAutosizeMinRows=1
                             matAutosizeMaxRows=6 placeholder="Paso {{i+1}}" required></textarea>
                   </mat-form-field>

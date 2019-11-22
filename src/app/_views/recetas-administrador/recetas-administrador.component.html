@@ -19,8 +19,8 @@
             <mat-card-content class="momento-style">
               <span>Para: </span>
               <span *ngFor="let momento of receta?.MomentoDelDia" class="momento-style"> {{momento}} - </span>
-              <button mat-button color="primary" (click)="evaluarReceta(receta)" style="float: right">Evaluar
-                <mat-icon color="primary">arrow_right</mat-icon>
+              <button mat-button color="accent" (click)="evaluarReceta(receta)" style="float: right">Evaluar
+                <mat-icon color="accent">arrow_right</mat-icon>
               </button>
             </mat-card-content>
           </mat-card>

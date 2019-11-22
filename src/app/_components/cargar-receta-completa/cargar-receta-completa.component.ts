@@ -247,8 +247,11 @@ export class CargarRecetaCompletaComponent implements OnInit {
   }
 
   checkIngredientePrincipal(ingrediente) {
-    return this.Receta.IngredientePrincipal === ingrediente._id;
-
+    if (this.Receta.IngredientePrincipal === null) {
+      return false;
+    } else {
+      return this.Receta.IngredientePrincipal._id === ingrediente._id;
+    }
   }
 
   checkFormValid() {
