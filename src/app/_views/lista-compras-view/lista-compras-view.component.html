@@ -15,28 +15,26 @@
         Elegi los menus de los que quieres hacer la lista:
       </mat-card-subtitle>
       <mat-card-content>
-        <mat-card>
-          <div>
-            <table>
-              <thead>
-              <tr>
-                <th width="70%"></th>
-                <th width="30%"></th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let menu of ListMenu">
-                <td width="70%">{{menu.FechaLetra}}</td>
-                <td width="30%"><mat-checkbox (change)="onCheck($event, menu)"></mat-checkbox></td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </mat-card>
+        <table>
+          <thead>
+          <tr>
+            <th width="70%"></th>
+            <th width="30%"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let menu of ListMenu">
+            <td width="70%">{{menu.FechaLetra}}</td>
+            <td width="30%">
+              <mat-checkbox (change)="onCheck($event, menu)"></mat-checkbox>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </mat-card-content>
-      <mat-card-footer>
+      <mat-card-actions>
         <button mat-flat-button color="primary" (click)="generarLista()">Generar Lista de Compras</button>
-      </mat-card-footer>
+      </mat-card-actions>
     </mat-card>
   </div>
   <app-lista-compras

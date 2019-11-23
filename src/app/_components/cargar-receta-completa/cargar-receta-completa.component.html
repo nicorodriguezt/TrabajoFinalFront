@@ -10,10 +10,10 @@
       <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Presentación</ng-template>
-          <mat-form-field>
+          <mat-form-field color="accent">
             <input matInput placeholder="Nombre" formControlName="Nombre" required>
-          </mat-form-field>
-          <mat-form-field>
+          </mat-form-field >
+          <mat-form-field color="accent">
             <textarea matInput placeholder="Breve descripción" formControlName="Descripcion" required></textarea>
           </mat-form-field>
           <div *ngIf="!Receta.Imagen; else imagenExiste">
@@ -21,7 +21,8 @@
               <div *ngIf="_imageFile == null; else imagenSubida">
                 <div *ngIf="_cargandoImagen == false; else subiendoImagen">
                   <div align="center">
-                    <label class="btn btn-dark" style="border-radius: 50%">
+                    <label class="btn btn-dark" style="border-radius: 50%;
+                    background-color: #C0D860!important; color: black!important; border-color: #C0D860!important;">
                       <mat-icon>camera_alt</mat-icon>
                       <input #imageInput type="file" accept="image/*" style="display: none;"
                              (change)="processImage(imageInput)"
@@ -60,7 +61,7 @@
         </div>
         <form [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Información general</ng-template>
-          <mat-form-field>
+          <mat-form-field color="accent">
             <input matInput placeholder="Porcion/es" formControlName="Porciones" required type="number">
           </mat-form-field>
         </form>
@@ -86,10 +87,10 @@
               </mat-list-item>
               <mat-divider></mat-divider>
               <div>
-                <button mat-icon-button color="primary" (click)="nuevoIngrediente()">
+                <button mat-icon-button color="accent" (click)="nuevoIngrediente()">
                   <mat-icon>add</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" (click)="removeIngrediente()" style="float: right">
+                <button mat-icon-button color="accent" (click)="removeIngrediente()" style="float: right">
                   <mat-icon>remove</mat-icon>
                 </button>
               </div>
@@ -105,7 +106,7 @@
             <form [formGroup]="_pasosForm">
               <div formArrayName="pasos">
                 <div *ngFor="let group of pasosArray.controls; let i=index" [formGroupName]="i">
-                  <mat-form-field>
+                  <mat-form-field color="accent">
                   <textarea matInput formControlName="valor" matTextareaAutosize matAutosizeMinRows=1
                             matAutosizeMaxRows=6 placeholder="Paso {{i+1}}" required></textarea>
                   </mat-form-field>
@@ -114,10 +115,10 @@
             </form>
             <mat-divider></mat-divider>
             <div>
-              <button mat-icon-button color="primary" (click)="addPaso('')">
+              <button mat-icon-button color="accent" (click)="addPaso('')">
                 <mat-icon>add</mat-icon>
               </button>
-              <button mat-icon-button color="primary" (click)="removePaso(undefined)" style="float: right">
+              <button mat-icon-button color="accent" (click)="removePaso(undefined)" style="float: right">
                 <mat-icon>remove</mat-icon>
               </button>
             </div>
@@ -132,18 +133,18 @@
       <button mat-flat-button color="primary" (click)="finalizar('pendiente')"
               [disabled]="checkFormValid()">Finalizar
       </button>
-      <button mat-stroked-button color="primary" (click)="cancelar(false)" style="float: right">Cancelar</button>
+      <button mat-stroked-button color="secundary" (click)="cancelar(false)" style="float: right">Cancelar</button>
     </div>
     <div *ngIf="_Rol == 'administrador'" class="evaluacion-theme" style="padding: 0 24px 0 24px">
-      <button mat-stroked-button color="primary" (click)="finalizar('aprobada')"
+      <button mat-flat-button color="primary" (click)="finalizar('aprobada')"
               [disabled]="checkFormValid()">Aprobar
       </button>
-      <button mat-stroked-button color="accent" (click)="finalizar('rechazada')" style="float: right"
+      <button mat-flat-button color="accent" (click)="finalizar('rechazada')" style="float: right"
               [disabled]="checkFormValid()">Rechazar
       </button>
       <div>
         <button mat-icon-button color="warn" (click)="cancelar(false)">
-          <mat-icon>arrow_left</mat-icon>
+          <mat-icon color="warn">arrow_left</mat-icon>
           Volver
         </button>
       </div>

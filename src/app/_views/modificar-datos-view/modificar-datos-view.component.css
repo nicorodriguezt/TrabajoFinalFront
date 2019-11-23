@@ -1,3 +1,18 @@
 .preferencias {
   font-size: large;
 }
+
+.alerta-informacion {
+  color: black;
+  background-color: #C0D860;
+  border-color: #C0D860;
+}
+
+mat-card {
+  margin: 10px;
+  padding: 12px;
+}
+
+.button-style {
+  margin: 0 10px 10px 10px;
+}

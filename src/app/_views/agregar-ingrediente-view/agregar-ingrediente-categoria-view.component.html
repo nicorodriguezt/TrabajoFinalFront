@@ -7,7 +7,7 @@
 <ng-template #terminado>
   <div align="center">
     <div *ngIf="listUnidades.length>0; else sinCategorias;">
-      <mat-form-field style="width: 100%;">
+      <mat-form-field style="width: 100%;" color="accent">
         <mat-select [(ngModel)]="unidadElegida" placeholder="Categoría" (selectionChange)="showList()">
           <mat-option *ngFor="let unidad of listUnidades" [value]="unidad">
             {{unidad.Categoria}}

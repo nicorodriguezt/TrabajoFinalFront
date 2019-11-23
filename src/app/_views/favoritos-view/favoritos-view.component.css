@@ -11,10 +11,21 @@
   float: right;
 }
 
-mat-card {
-  padding: 10px;
+mat-card-title {
+  font-size: 20px;
+  margin-bottom: 4px;
 }
-mat-card.mat-card-content {
-  margin-bottom: 5px;
 
+mat-card-title.title-card {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+mat-card-content {
+  margin-bottom: 4px;
+}
+
+mat-card {
+  padding-top: 10px;
+  padding-bottom: 0px;
 }

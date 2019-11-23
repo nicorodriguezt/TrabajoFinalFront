@@ -1,11 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "custom-theme";
 @import '~@angular/material/theming';
 
 @include mat-core();
 
-$my-app-primary: mat-palette($mat-indigo);
-$my-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$my-app-primary: mat-palette($md-main-colour);
+$my-app-accent:  mat-palette($md-buttons);
 $my-app-warn:    mat-palette($mat-red);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 @include angular-material-theme($my-app-theme);
@@ -13,7 +14,7 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 .evaluacion-theme {
   $evaluacion-primary: mat-palette($mat-green);
   $evaluacion-accent:  mat-palette($mat-red);
-  $evaluacion-warn: mat-palette($mat-indigo);
+  $evaluacion-warn: mat-palette($md-buttons);
   $evaluacion-theme: mat-light-theme($evaluacion-primary, $evaluacion-accent, $evaluacion-warn);
 @include angular-material-theme($evaluacion-theme);
 }
@@ -21,7 +22,15 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 @import '~css-star-rating/scss/star-rating';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
+body { margin: 0; font-family: 'Roboto', sans-serif; background-color: #F0F0D8}
 
 html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
+body { margin: 0; font-family: 'Roboto', sans-serif; background-color: #F0F0D8}
+
+mat-dialog-container {
+  background-color: #F0F0D8!important;
+}
+
+mat-sidenav-content {
+  background-color: #F0F0D8!important;
+}

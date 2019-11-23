@@ -12,11 +12,11 @@
       <mat-card-content>
         <form #loginForm="ngForm">
           <li class="mat-form-field--inline">
-            <mat-form-field style="width: 100%;">
+            <mat-form-field style="width: 100%;" color="accent">
               <input matInput #unidadInput="ngModel" name="unidadInput" placeholder="Nombre" type="text"
                      [(ngModel)]="_Unidad.Categoria" required/>
             </mat-form-field>
-            <mat-form-field style="width: 100%;">
+            <mat-form-field style="width: 100%; " color="accent">
               <mat-select #UnidadBasicaInput="ngModel" name="UnidadBasicaInput" [(ngModel)]="_Unidad.UnidadBasica"
                           placeholder="Unidad basica" required>
                 <mat-option *ngFor="let basica of _UnidadBasicas.unidades" [value]="basica">
@@ -41,10 +41,10 @@
                 <br>
               </mat-list-item>
               <div>
-                <button mat-icon-button color="primary" (click)="addIngredientesButton(null)">
+                <button mat-icon-button color="accent" (click)="addIngredientesButton()" >
                   <mat-icon>add</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" (click)="removeIngredientes()" style="float: right">
+                <button mat-icon-button color="accent" (click)="removeIngredientes()" style="float: right">
                   <mat-icon>remove</mat-icon>
                 </button>
               </div>
@@ -68,10 +68,10 @@
                 <br>
               </mat-list-item>
               <div>
-                <button mat-icon-button color="primary" (click)="addNuevoFactor()">
+                <button mat-icon-button color="accent" (click)="addNuevoFactor()">
                   <mat-icon>add</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" (click)="removeFactor()" style="float: right">
+                <button mat-icon-button color="accent" (click)="removeFactor()" style="float: right">
                   <mat-icon>remove</mat-icon>
                 </button>
               </div>
@@ -79,12 +79,10 @@
           </mat-expansion-panel>
         </mat-accordion>
       </mat-card-content>
-      <mat-card-actions>
-        <div style="padding: 0 24px 0 24px">
+        <div>
           <button mat-flat-button color="primary" (click)="addNuevaCategoria()">Agregar</button>
           <button mat-stroked-button color="secondary" (click)="volver()" style="float: right">Cancelar</button>
         </div>
-      </mat-card-actions>
     </mat-card>
   </div>
 </ng-template>

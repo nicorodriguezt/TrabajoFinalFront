@@ -28,6 +28,8 @@ export class CargarRecetaIngeridaComponent implements OnInit {
   recetaBuscar;
   error;
   cargando;
+  buscando = false;
+  respuestas = false;
 
   constructor(private _RecetaService: RecetaService,
               private _MenuService: MenuService,
@@ -49,6 +51,8 @@ export class CargarRecetaIngeridaComponent implements OnInit {
 
   handleBuscar() {
     if (this.recetaBuscar !== '' && this.recetaBuscar !== undefined) {
+      this.respuestas = true;
+      this.buscando = true;
       this.recetasEncontradas = [];
       this._RecetaService.buscarIngerida(this.recetaBuscar).subscribe(res => {
         this.auxiliar = res;
@@ -59,6 +63,7 @@ export class CargarRecetaIngeridaComponent implements OnInit {
           }
           this.recetasEncontradas.push(x);
         });
+        this.buscando = false;
         if (this.recetasEncontradas.length === 0) {
           this._hideVacio = true;
         } else {

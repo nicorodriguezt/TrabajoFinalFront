@@ -38,6 +38,7 @@ export class PantallaPrincipalViewComponent implements OnInit {
     loop: false,
     animation: 'lazy'
   };
+  username: string = localStorage.getItem('Nombre');
 
   constructor(private dialog: MatDialog,
               private _UsuarioService: UsuarioService,

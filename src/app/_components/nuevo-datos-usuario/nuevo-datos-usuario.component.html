@@ -1,30 +1,30 @@
 <div class="container ">
   <div>
-    <h3 align="center">TUS DATOS</h3>
+    <h3 align="center" style="font-size: 24px">TUS DATOS</h3>
     <div>
       <section>
         <form #datosForm="ngForm">
           <div class="row">
             <div class="col-xs-6" >
-              <mat-form-field class="colums-confg">
+              <mat-form-field color="accent" class="colums-confg">
                 <input matInput type="number"  name="Peso" [(ngModel)]="DatosUsuario.PesoAprox"
                        placeholder="Peso" required/>
                 <span matSuffix>Kg</span>
               </mat-form-field>
 
-              <mat-form-field class="colums-confg">
+              <mat-form-field color="accent" class="colums-confg">
                 <input type="number" matInput  name="Altura" [(ngModel)]="DatosUsuario.Altura"
                        placeholder="Altura" required/>
                 <span matSuffix>cm</span>
               </mat-form-field>
             </div>
             <div class="col-xs-6">
-              <mat-form-field class="colums-confg">
+              <mat-form-field color="accent" class="colums-confg">
                 <input type="number" matInput  name="Edad" [(ngModel)]="DatosUsuario.Edad"
                        placeholder="Edad" required/>
               </mat-form-field>
 
-              <mat-form-field class="colums-confg">
+              <mat-form-field color="accent" class="colums-confg">
                 <mat-select  #sexo="ngModel" name="Sexo" [(ngModel)]="DatosUsuario.Sexo" placeholder="Sexo">
                   <mat-option *ngFor="let sex of sexos" [value]="sex.value">
                     {{sex.titulo}}

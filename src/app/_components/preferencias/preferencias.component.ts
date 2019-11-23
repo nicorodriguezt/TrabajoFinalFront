@@ -7,6 +7,10 @@ import {DietaEspecial} from '../../_models/DietaEspecial';
 import {IngredienteService} from '../../_services/ingrediente.service';
 import {Ingrediente} from '../../_models/Ingrediente';
 import {PonerMayuscula} from "../../_services/funciones-commun.service";
+import {FormControl} from "@angular/forms";
+import {Observable} from "rxjs";
+import {map, startWith} from "rxjs/operators";
+import {BlockUI, NgBlockUI} from "ng-block-ui";
 
 @Component({
   selector: 'app-preferencias',
@@ -14,6 +18,7 @@ import {PonerMayuscula} from "../../_services/funciones-commun.service";
   styleUrls: ['./preferencias.component.css']
 })
 export class PreferenciasComponent implements OnInit {
+  @BlockUI() blockUI: NgBlockUI;
   @Input() DatosUsuario: DatosUsuario;
   @Output() returnEvent: EventEmitter<any> = new EventEmitter();
 
@@ -39,9 +44,11 @@ export class PreferenciasComponent implements OnInit {
       if (res !== undefined && res._id !== null) {
         const exist = this.DatosUsuario.DietasEspeciales.find(de => de._id === res._id);
         if (!exist) {
+          this.blockUI.start();
           this._DatosUsuarioService.addDieta(res).subscribe( res2 => {
             this.DatosUsuario.DietasEspeciales.push(res);
             this.change = true;
+            this.blockUI.stop();
             this.openSnackBar('Cargado con exito', 'Descartar');
         });
       }
@@ -58,9 +65,11 @@ export class PreferenciasComponent implements OnInit {
       if (res !== undefined && res._id !== null) {
         const exist = this.DatosUsuario.Preferencias.find(ing => ing._id === res._id);
         if (!exist) {
+          this.blockUI.start();
           this._DatosUsuarioService.addPreferencia(res).subscribe(res2 => {
             this.DatosUsuario.Preferencias.push(res);
             this.change = true;
+            this.blockUI.stop();
             this.openSnackBar('Cargado con exito', 'Descartar');
           });
         }
@@ -141,6 +150,9 @@ export class IngredientePreferenciaComponent implements OnInit {
   enableMostrar = false;
   ingredientesOrigen = true;
   IngredienteElegido = new Ingrediente(null, null, null, null, null);
+  myControl = new FormControl();
+  filteredOptions: Observable<string[]>;
+  options: string[] = [];
 
   constructor(
     private _IngredienteService: IngredienteService,
@@ -157,20 +169,36 @@ export class IngredientePreferenciaComponent implements OnInit {
   }
 
   public agregar() {
+    debugger;
     this.dialogRef.close(this.IngredienteElegido);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   cargarIngredientes() {
     this.ListIngredientes = [];
-    this.ingredientesOrigen = true;
     const key = this.OrigenElegido;
+    this.ingredientesOrigen = true;
     this._IngredienteService.getIngredientesByOrigen(this.OrigenElegido, key).subscribe((res: Ingrediente[]) => {
       localStorage[key] = JSON.stringify(res);
       this.ListIngredientes = res;
       this.ListIngredientes.forEach(x => {
         x.Nombre = PonerMayuscula(x.Nombre);
+        this.options.push(x.Nombre);
       });
+      this.filteredOptions = this.myControl.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
       this.ingredientesOrigen = false;
     });
+  }
+
+  elegirIngrediente() {
+    this.IngredienteElegido = this.ListIngredientes.find(x => x.Nombre === this.myControl.value);
   }
 }

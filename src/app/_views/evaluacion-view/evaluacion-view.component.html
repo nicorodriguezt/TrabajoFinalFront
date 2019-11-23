@@ -11,31 +11,30 @@
         <div class="container">
           <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
             <mat-tab label="Calorias">
-              <div style="display: block; flex: auto" align="center">
-                <fusioncharts
+              <mat-card style="display: block; flex: auto;" align="center">
+                <fusioncharts class="watermark"
                   width="100%"
                   type="AngularGauge"
                   [dataSource]="InfoCalorias">
                 </fusioncharts>
-
-                <div align="justify">
-                  <mat-card>
-                    <mat-card-subtitle>
-                      Recuerda cargas las comidas ingeridas en "Tus Menús"
-                    </mat-card-subtitle>
-                    <span>
+              </mat-card>
+              <div align="justify">
+                <mat-card>
+                  <mat-card-subtitle>
+                    Recuerda cargas las comidas ingeridas en "Tus Menús"
+                  </mat-card-subtitle>
+                  <span>
               <b>Pediodo de evalacion: </b>{{diaEvaluacion}}
             </span>
-                    <br>
-                    <b>Consumiste: </b> {{CaloriasRecomendada}}/{{CaloriasRequerida}} cal.
-                  </mat-card>
-                  <div class="mat-card">
-                    <strong>Te aconsejamos lo siguiente:</strong>
-                    <ul *ngFor="let consejo of Consejos">
-                      <li>{{consejo}}</li>
-                    </ul>
-                  </div>
-                </div>
+                  <br>
+                  <b>Consumiste: </b> {{CaloriasRecomendada}}/{{CaloriasRequerida}} cal.
+                </mat-card>
+                <mat-card>
+                  <strong>Te aconsejamos lo siguiente:</strong>
+                  <ul *ngFor="let consejo of Consejos">
+                    <li>{{consejo}}</li>
+                  </ul>
+                </mat-card>
               </div>
             </mat-tab>
             <mat-tab label="Valores Nutricionales">
@@ -44,7 +43,7 @@
                   <mat-card>
                     {{valor.ValorNutricional.Nombre}}:
                     <span [style.color]="valor.ColorResultado">{{valor.Resultado}}</span>
-                    <fusioncharts
+                    <fusioncharts class="watermark"
                       width="100%"
                       height="120"
                       type="hlineargauge"

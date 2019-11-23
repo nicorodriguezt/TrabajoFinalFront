@@ -15,13 +15,12 @@
       </ul>
     </mat-card-content>
   </mat-card>
-  <br>
   <div align="center" *ngIf="!confirmacionDiv">
     <button mat-flat-button (click)="elegir()" class="alignleft">Elegir</button>
     <button mat-stroked-button color="secundary" (click)="volver()" class="alignright">Volver</button>
   </div>
   <div align="center" *ngIf="confirmacionDiv">
-    <p style="font-style: italic">¿Desea cargar como ingerida esta receta?</p>
+    <p style="font-style: italic; margin-bottom: 0">¿Desea cargar como ingerida esta receta?</p>
     <button mat-icon-button (click)="confirmar()" class="alignleft">
       <mat-icon>done</mat-icon>
     </button>

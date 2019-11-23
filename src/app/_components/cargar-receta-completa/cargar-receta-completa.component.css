@@ -28,6 +28,9 @@ img.mat-card-image {
   max-width: 100%;
 }
 
+mat-vertical-stepper {
+  margin: 10px;
+}
 
 mat-list-item{
   padding: 0;

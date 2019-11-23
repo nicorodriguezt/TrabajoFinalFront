@@ -2,7 +2,7 @@
   <div align="left">
     <span>Guardar evaluacion semanal el:</span>
   </div>
-  <mat-form-field>
+  <mat-form-field color="accent">
     <mat-select placeholder="Dia" [(value)]="data.FechaEvaluacion">
       <mat-option *ngFor="let dia of DiasSemana" [value]="dia.value">
         {{dia.dia}}
@@ -12,7 +12,7 @@
   <div align="left">
     <span>Mostrar evaluacion por:</span>
   </div>
-  <mat-form-field>
+  <mat-form-field color="accent">
     <mat-select placeholder="Defecto" [(value)]="data.DefaultEvaluacion">
       <mat-option *ngFor="let config of defaultConfig" [value]="config.value">
         {{config.titulo}}
@@ -21,6 +21,6 @@
   </mat-form-field>
   <div>
     <button mat-flat-button color="primary" (click)="confirmar(data)">Aceptar</button>
-    <button mat-stroked-button color="secundary" (click)="cancelar()">Cancelar</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;<button mat-stroked-button color="secundary" (click)="cancelar()">Cancelar</button>
   </div>
 </div>

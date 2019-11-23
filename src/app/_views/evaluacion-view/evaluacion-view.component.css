@@ -14,11 +14,15 @@
   max-width: 25%;
 }
 
+mat-card {
+  padding: 12px;
+  margin: 10px;
+}
 
 footer.footer-menu {
   position: fixed;
   bottom:0px;
-  background-color: #3f51b5;
+  background-color: #C0D860;
   width:100%;
   margin-top: -50px;
 }
@@ -27,5 +31,13 @@ footer.footer-menu button {
   width: 33%;
   align-items: center;
   height: 50px;
-  color: white;
+  color: black;
+}
+
+::ng-deep .watermark [class*="creditgroup"]{
+  display: none;
+}
+
+mat-card-subtitle {
+  margin-bottom: 8px;
 }

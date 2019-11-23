@@ -1,9 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {EvaluacionService} from '../../_services/evaluacion.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import * as moment from 'moment-timezone';
 import {DatosUsuarioService} from '../../_services/datos-usuario.service';
-import {element} from 'protractor';
 
 @Component({
   selector: 'app-evaluacion-view',
@@ -33,8 +32,8 @@ export class EvaluacionViewComponent implements OnInit {
   // Resultado Valor
   Colores = ['#e44a00', '#f8bd19', '#6baa01', '#f8bd19', '#e44a00'];
   Clasificacion = ['MUY BAJO', 'BAJO', 'BIEN', 'ALTO', 'DEMASIADO'];
-  porcMin = [0, 0.15, 0.42, 0.58, 0.85];
-  porcMax = [0.15, 0.42, 0.58, 0.85, 1];
+  porcMin = [0, 0.20, 0.35, 0.65, 0.80];
+  porcMax = [0.20, 0.35, 0.65, 0.80, 1];
 
 
   public InfoCalorias = {
@@ -42,12 +41,12 @@ export class EvaluacionViewComponent implements OnInit {
     chart: {
       // Titulo
       caption: 'CALORIAS CONSUMIDAS',
-      captionFontSize: 20,
+      captionFontSize: 18,
       captionFontBold: 1,
 
       // Subtitulo
       subCaption: '',
-      subcaptionFontSize: 32,
+      subcaptionFontSize: 24,
       subcaptionFontColor: '',
 
       // Values
@@ -244,7 +243,7 @@ export class EvaluacionViewComponent implements OnInit {
     configGauge.colorRange.color.forEach(elem => {
       elem.minValue = ((calR * 2) * this.porcMin[i]);
       elem.maxValue = ((calR * 2) * this.porcMax[i]);
-      if (elem.minValue < calC && elem.maxValue > calC) {
+      if (calC >= elem.minValue && calC <= elem.maxValue) {
         ubicacion = i;
       }
       i++;

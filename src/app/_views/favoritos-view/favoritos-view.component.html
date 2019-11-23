@@ -8,29 +8,29 @@
   <ng-template #terminado>
     <div [hidden]="verReceta" align="center">
       <mat-card >
-        <mat-card-title>
+        <mat-card-title class="title-card">
           <mat-icon>star</mat-icon>
           FAVORITAS
         </mat-card-title>
+        <mat-divider></mat-divider>
         <mat-card-content>
           <div *ngIf="listFavoritos.length == 0;else recetas">
             No tienes ninguna receta favorita aun.
           </div>
           <ng-template #recetas>
-            <mat-card  *ngFor="let receta of listFavoritos" class="card-style">
-              <mat-card-title>{{receta.Nombre}}</mat-card-title>
+            <div  *ngFor="let receta of listFavoritos" class="card-style">
+              <mat-card-title>{{PonerMayuscula(receta.Nombre)}}</mat-card-title>
               <mat-card-content>
-                <p class="alignleft" *ngFor="let momento of receta?.MomentoDelDia">
-                  <b>Momento:</b> {{momento.Nombre}}<br>
-                </p>
+                <b>Momento:</b> <span *ngFor="let momento of receta?.MomentoDelDia"> {{momento.Nombre}} -</span>
                 <p class="alignright">
-                  <button mat-icon-button color="primary" (click)="verMas(receta)">Ver
-                    <mat-icon color="primary">arrow_right</mat-icon>
+                  <button mat-icon-button color="accent" (click)="verMas(receta)">Ver
+                    <mat-icon color="accent">arrow_right</mat-icon>
                   </button>
                 </p>
                 <div style="clear: both;"></div>
+                <mat-divider></mat-divider>
               </mat-card-content>
-            </mat-card>
+            </div>
           </ng-template>
         </mat-card-content>
       </mat-card>

@@ -26,6 +26,11 @@ mat-list {
   padding: 0;
 }
 
+mat-card {
+  padding: 12px;
+  margin: 10px;
+}
+
 .checkbox-left {
   margin-left: auto;
 }

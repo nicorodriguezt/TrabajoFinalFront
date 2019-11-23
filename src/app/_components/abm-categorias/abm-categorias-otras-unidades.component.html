@@ -1,11 +1,11 @@
 <body>
 <div align="center">
-  <mat-form-field style="width: 100%">
+  <mat-form-field style="width: 100%" color="accent">
     <label>
       <input matInput placeholder="Unidad" type="text" [(ngModel)]="_OtraUnidad.Unidad" required/>
     </label>
   </mat-form-field>
-  <mat-form-field style="width: 100%">
+  <mat-form-field style="width: 100%" color="accent">
     <label>
       <input matInput placeholder="Corresponde a tantos" type="number" [(ngModel)]="_OtraUnidad.Factor" required/>
     </label>
@@ -14,7 +14,7 @@
   <div >
     <button mat-flat-button color="primary" (click)="confirmar()" [disabled]="_OtraUnidad.Unidad == null || _OtraUnidad.Unidad == '' ||
                                                                               _OtraUnidad.Factor == null || _OtraUnidad.Factor == ''">Aceptar</button>
-    <button mat-flat-button color="secundary" (click)="cancelar()">Cancelar</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;<button mat-flat-button color="secundary" (click)="cancelar()">Cancelar</button>
   </div>
 </div>
 </body>
