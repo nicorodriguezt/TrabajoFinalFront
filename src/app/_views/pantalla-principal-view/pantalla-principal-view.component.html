@@ -29,7 +29,7 @@
             </mat-card-content>
           </ng-template>
         </mat-card>
-        <div *ngIf="!datosExist" class="proximo-card">
+        <mat-card *ngIf="!datosExist" class="proximo-card">
           <mat-card-title class="saludo">
             Hola {{username}}
           </mat-card-title>
@@ -38,7 +38,7 @@
             <button mat-raised-button color="primary" routerLink="/cargarDatos" style="font-size: 20px">¡Hagámoslo!
             </button>
           </mat-card-content>
-        </div>
+        </mat-card>
         <mat-card class="recetas margins">
           <mat-card-title align="center">
             RECETAS NUEVAS
