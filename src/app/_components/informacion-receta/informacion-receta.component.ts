@@ -7,7 +7,7 @@ import {MatSnackBar} from '@angular/material';
 @Component({
   selector: 'app-informacion-receta',
   templateUrl: './informacion-receta.component.html',
-  styleUrls: ['./informacion-receta.component.css'],
+  styleUrls: ['./informacion-receta.component.scss'],
   providers: [RecetaService, FavoritosService]
 })
 export class InformacionRecetaComponent implements OnInit {

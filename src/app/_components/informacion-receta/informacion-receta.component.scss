@@ -56,3 +56,9 @@ favorito-style {
   width: 50%;
   float: left;
 }
+
+::ng-deep {
+  .rating{
+    outline: none;
+  }
+}
