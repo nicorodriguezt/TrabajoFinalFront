@@ -48,7 +48,7 @@ export class RecetasAdministradorComponent implements OnInit {
 
   evaluacionFinish($event) {
     if ($event !== false) {
-      const i = this._ListRecetas.findIndex( x => x.Nombre === $event.Nombre);
+      const i = this._ListRecetas.findIndex( x => x._id === $event._id);
       this._ListRecetas.splice(i, 1);
     }
     this._enableCargar = false;
