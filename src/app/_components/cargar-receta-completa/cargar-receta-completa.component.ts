@@ -160,7 +160,10 @@ export class CargarRecetaCompletaComponent implements OnInit {
 
   removeIngrediente() {
     if (this.Receta.Ingredientes.length > 0) {
-      this.Receta.Ingredientes.pop();
+      const ingredienteEliminado = this.Receta.Ingredientes.pop();
+      if(ingredienteEliminado._id === this.Receta.IngredientePrincipal._id) {
+        this.Receta.IngredientePrincipal = null;
+      }
     }
   }
 
