@@ -169,7 +169,6 @@ export class IngredientePreferenciaComponent implements OnInit {
   }
 
   public agregar() {
-    debugger;
     this.dialogRef.close(this.IngredienteElegido);
   }
 
