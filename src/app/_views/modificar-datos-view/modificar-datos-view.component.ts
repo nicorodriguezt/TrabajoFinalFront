@@ -15,7 +15,7 @@ import {BlockUI, NgBlockUI} from "ng-block-ui";
 })
 export class ModificarDatosViewComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
-  DatosUsuario = new DatosUsuario(null, null, null, null, null, null, null, null, null, null);
+  DatosUsuario = new DatosUsuario(null, null, null, null, null, null, null, null, [], []);
   ActividadLaboral = new ActividadLaboral(null, null, null, null);
   errorMensaje = null;
   existDatos = false;
