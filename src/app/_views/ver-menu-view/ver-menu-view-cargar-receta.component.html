@@ -8,18 +8,14 @@
     <tr>
       <th>Receta</th>
       <th>Porcion/es</th>
-      <th></th>
     </tr>
     <tr *ngFor="let receta of data.Recetas">
       <td>{{receta.Receta.Nombre}}</td>
       <td align="center">
         <mat-form-field style="width: 16px" color="accent">
-          <input matInput type="number"  [(ngModel)]="receta.PorcionIngerida"
+          <input matInput type="number"  [(ngModel)]="receta.PorcionIngerida" (ngModelChange)="setIngerida($event, receta)"
                  placeholder="" required/>
         </mat-form-field>
-      </td>
-      <td>
-        <mat-checkbox color="accent" [(ngModel)]="receta.Ingerido"></mat-checkbox>
       </td>
     </tr>
     </tbody>

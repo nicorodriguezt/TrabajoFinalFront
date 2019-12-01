@@ -209,6 +209,7 @@ export class VerMenuCargarRecetaComponent {
   }
 
   modificarReceta() {
+    debugger;
     this._MenuService.cambiarEstado(this.data).subscribe();
     this.dialogRef.close(true);
   }
@@ -219,6 +220,10 @@ export class VerMenuCargarRecetaComponent {
 
   agregarRecetaIngerida() {
     this.dialogRef.close('nueva');
+  }
+
+  setIngerida(event: any, receta) {
+    receta.Ingerido = event !== null && event > 0;
   }
 }
 
