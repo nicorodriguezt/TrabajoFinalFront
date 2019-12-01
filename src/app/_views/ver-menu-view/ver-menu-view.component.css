@@ -48,3 +48,7 @@ footer.footer-menu button {
   height: 50px;
   color: black;
 }
+
+footer.footer-menu button[disabled] {
+  color: #666666;
+}
