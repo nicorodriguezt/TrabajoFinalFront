@@ -112,7 +112,10 @@ export class EvaluacionViewComponent implements OnInit {
       chartBottomMargin: 20,
       valueFontSize: 11,
       valueFontBold: 0,
-      majorTMNumber: 3
+      majorTMNumber: 3,
+      syncAxisLimits: 1,
+      setAdaptiveYMin: 1,
+      setAdaptiveYMax: 1
     },
     colorRange: {
       color: [
@@ -197,8 +200,8 @@ export class EvaluacionViewComponent implements OnInit {
     if (this.Consejos.length === 0) {
       this.Consejos.push('¡Has cumplido en todo. Sigue asi!');
     }
-    // Calorias requeridas SIN COLACION (CAMBIAR)
-    const CaloriasRequerida = Math.round(calorias.CantidadRequerida * 0.86);
+    calorias.CantidadConsumida = Math.round(calorias.CantidadConsumida);
+    const CaloriasRequerida = Math.round(calorias.CantidadRequerida);
     this.CaloriasRequerida = CaloriasRequerida;
     this.CaloriasRecomendada = calorias.CantidadConsumida;
 

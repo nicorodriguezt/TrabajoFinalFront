@@ -209,7 +209,6 @@ export class VerMenuCargarRecetaComponent {
   }
 
   modificarReceta() {
-    debugger;
     this._MenuService.cambiarEstado(this.data).subscribe();
     this.dialogRef.close(true);
   }
