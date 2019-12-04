@@ -229,7 +229,9 @@ export class EvaluacionViewComponent implements OnInit {
             canR = 8.5;
             canC = Math.random() * (10 - 7) + 7;
           }
-          canC = Math.round(canC * 100) / 100;
+          const calorias = Periodo.Valores.find(x => x.ValorNutricional.Nombre === 'Calorias');
+          const porcentaje = (calorias.CantidadConsumida * 100) / calorias.CantidadRequerida;
+          canC = Math.round((canC * porcentaje / 100) * 100) / 100;
         }
 
         if (canR >= 10000) {
