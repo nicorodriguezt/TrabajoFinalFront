@@ -61,7 +61,6 @@ export class InformacionRecetaComponent implements OnInit {
     } else
       this.starFavorito = 1;
     this._FavoritoService.HacerFavortito(this.RecetaElegida).subscribe(res => {
-      console.log(res);
       let mensaje = '';
       if (res === 'true') {
         mensaje = 'Agregado a Favoritas';
