@@ -99,7 +99,6 @@ export class PantallaPrincipalViewComponent implements OnInit {
 
   getproximaComida() {
     const horaActual = Number(moment().format('kkmm'));
-    debugger;
     if (horaActual >= 0 && horaActual < 1000) {
       this.ProximaComida = this.Menu.Recetas.find(x => x.MomentoDelDia.Nombre === 'Desayuno');
     } else {

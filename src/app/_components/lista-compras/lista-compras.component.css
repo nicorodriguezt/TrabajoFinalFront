@@ -10,6 +10,12 @@ table, td {
   font-size: 14px;
 }
 
+table, tr {
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-bottom-color: lightgrey;
+}
+
 mat-card-title {
   font-size: 24px;
 }

@@ -14,13 +14,13 @@
               <div [hidden]="verReceta">
                 <div>
                   <div id="header" align="center">
-                    <button mat-icon-button style="float: left" color="primary" (click)="carousel.moveTo(i-1)" [hidden]="carousel.currentSlide == 0">
+                    <button mat-icon-button style="float: left" color="accent" (click)="carousel.moveTo(i-1)" [hidden]="carousel.currentSlide == 0">
                       <mat-icon>arrow_left</mat-icon>
                     </button>
                     <span class="dia-style">
                     {{item?.FechaLetra}}
                   </span>
-                    <button mat-icon-button style="float: right" color="primary" (click)="carousel.moveTo(i+1)" [hidden]="carousel.currentSlide+1 == carousel.itemLength">
+                    <button mat-icon-button style="float: right" color="accent" (click)="carousel.moveTo(i+1)" [hidden]="carousel.currentSlide+1 == carousel.itemLength">
                       <mat-icon>arrow_right</mat-icon>
                     </button>
                   </div>
@@ -36,8 +36,8 @@
                         {{Calorias(receta)}}
                       </p>
                       <p class="alignright">
-                        <button mat-icon-button color="primary" (click)="verMas(receta.Receta)">Ver
-                          <mat-icon color="primary">arrow_right</mat-icon>
+                        <button mat-icon-button color="accent" (click)="verMas(receta.Receta)">Ver
+                          <mat-icon color="accent">arrow_right</mat-icon>
                         </button>
                       </p>
                       <div style="clear: both;"></div>
