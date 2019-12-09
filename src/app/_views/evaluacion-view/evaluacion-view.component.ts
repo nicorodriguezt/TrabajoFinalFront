@@ -35,15 +35,15 @@ export class EvaluacionViewComponent implements OnInit {
   porcMin = [0, 0.20, 0.35, 0.65, 0.80];
   porcMax = [0.20, 0.35, 0.65, 0.80, 1];
 
-  ColoresMicro = ['#e44a00', '#f8bd19', '#6baa01', '#6baa01'];
-  ClasificacionMicro = ['MUY BAJO', 'BAJO', 'BIEN', 'BIEN'];
-  porcMinMicro = [0, 0.40, 0.60, 0.85];
-  porcMaxMicro = [0.40, 0.60, 0.85, 1];
+  ColoresMicro = ['#e44a00', '#f8bd19', '#6baa01'];
+  ClasificacionMicro = ['MUY BAJO', 'BAJO', 'BIEN'];
+  porcMinMicro = [0, 0.40, 0.70];
+  porcMaxMicro = [0.40, 0.70, 1];
 
-  ColoresGrasa = ['#6baa01', '#6baa01', '#f8bd19', '#e44a00'];
-  ClasificacionGrasa = ['BIEN', 'BIEN', 'ALTO', 'DEMASIADO'];
-  porcMinGrasa = [0, 0.15, 0.30, 0.60];
-  porcMaxGrasa = [0.15, 0.30, 0.60, 1];
+  ColoresGrasa = ['#6baa01', '#f8bd19', '#e44a00'];
+  ClasificacionGrasa = ['BIEN', 'ALTO', 'DEMASIADO'];
+  porcMinGrasa = [0, 0.30, 0.60];
+  porcMaxGrasa = [0.30, 0.60, 1];
 
   public InfoCalorias = {
     // Configuracion
@@ -121,9 +121,7 @@ export class EvaluacionViewComponent implements OnInit {
       chartBottomMargin: 20,
       valueFontSize: 11,
       valueFontBold: 0,
-      majorTMNumber: 3,
-      reverseScale: 1,
-
+      majorTMNumber: 3
     },
     colorRange: {
       color: [
@@ -174,9 +172,7 @@ export class EvaluacionViewComponent implements OnInit {
       chartBottomMargin: 20,
       valueFontSize: 11,
       valueFontBold: 0,
-      majorTMNumber: 3,
-      reverseScale: 1,
-
+      majorTMNumber: 2,
     },
     colorRange: {
       color: [
@@ -186,16 +182,11 @@ export class EvaluacionViewComponent implements OnInit {
           code: '#e44a00',
         }, {
           minValue: 40,
-          maxValue: 60,
+          maxValue: 70,
           code: '#f8bd19'
         },
         {
-          minValue: 60,
-          maxValue: 85,
-          code: '#6baa01'
-        },
-        {
-          minValue: 85,
+          minValue: 70,
           maxValue: 100,
           code: '#6baa01'
         }]
@@ -224,24 +215,18 @@ export class EvaluacionViewComponent implements OnInit {
       chartBottomMargin: 20,
       valueFontSize: 11,
       valueFontBold: 0,
-      majorTMNumber: 3,
-      reverseScale: 1,
-
+      majorTMNumber: 2,
     },
     colorRange: {
       color: [
         {
           minValue: 0,
-          maxValue: 15,
-          code: '#6baa01',
-        }, {
-          minValue: 15,
           maxValue: 30,
-          code: '#6baa01'
+          code: '#6baa01',
         },
         {
           minValue: 30,
-          maxValue: 60,
+          maxValue: 70,
           code: '#f8bd19'
         }, {
           minValue: 60,
@@ -257,9 +242,9 @@ export class EvaluacionViewComponent implements OnInit {
     trendPoints: {
       point: [{
         startValue: 50,
-        displayValue: ' ',
+        displayValue: 1,
         dashed: 1,
-        showValues: 0
+        showValues: 1
       }]
     }
   };
@@ -345,24 +330,16 @@ export class EvaluacionViewComponent implements OnInit {
           valor.Gauge.chart.upperLimit = canR * 1.15;
 
         } else if (valor.ValorNutricional.Nombre === 'Grasa Saturada') {
-          if (moment().subtract(8, 'days').format('YYYY MM DD') === moment(Periodo.FechaInicio).format('YYYY MM DD')) {
-            canR = 8.5 * this.ValoresDia.length;
-            canC = (Math.random() * (10 - 7) + 7) * this.ValoresDia.length;
-          } else {
-            canR = 8.5;
-            canC = Math.random() * (10 - 7) + 7;
-          }
-          const calorias = Periodo.Valores.find(x => x.ValorNutricional.Nombre === 'Calorias');
-          const porcentaje = (calorias.CantidadConsumida * 100) / calorias.CantidadRequerida;
-          canC = Math.round((canC * porcentaje / 100) * 100) / 100;
 
           valor.Gauge = JSON.parse(JSON.stringify(this.GaugeLinearConfGrasa));
           valor.Gauge.chart.lowerLimit = canR * 0.85;
           valor.Gauge.chart.upperLimit = canR * 1.85;
 
           const ubicacion = this.RangosGauge(valor.Gauge, canR, canC, this.porcMinGrasa, this.porcMaxGrasa, 1.85);
-          valor.Resultado = this.ClasificacionMicro[ubicacion];
-          valor.ColorResultado = this.ColoresMicro[ubicacion];
+          valor.Resultado = this.ClasificacionGrasa[ubicacion];
+          valor.ColorResultado = this.ColoresGrasa[ubicacion];
+
+          valor.Gauge.trendPoints.point.forEach(x => x.startValue = canR);
 
         } else {
           valor.Gauge = JSON.parse(JSON.stringify(this.GaugeLinearConf));
@@ -371,7 +348,7 @@ export class EvaluacionViewComponent implements OnInit {
           valor.ColorResultado = this.Colores[ubicacion];
 
           valor.Gauge.trendPoints.point.forEach(x => x.startValue = canR);
-          valor.Gauge.chart.upperLimit = canR * 1.15;
+          valor.Gauge.chart.upperLimit = canR * 2;
         }
 
         valor.Gauge.pointers.pointer.forEach(x => x.value = canC);
@@ -382,7 +359,7 @@ export class EvaluacionViewComponent implements OnInit {
 
   RangosGauge(configGauge, calR, calC, porcMin, porcMax, limit) {
     let i = 0;
-    let ubicacion = 4;
+    let ubicacion = 0;
     configGauge.colorRange.color.forEach(elem => {
       elem.minValue = ((calR * limit) * porcMin[i]);
       elem.maxValue = ((calR * limit) * porcMax[i]);
