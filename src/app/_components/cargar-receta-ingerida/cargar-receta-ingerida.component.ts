@@ -15,7 +15,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class CargarRecetaIngeridaComponent implements OnInit {
   @Input() Menu;
-  @Output() finalizarEvent: EventEmitter<boolean> = new EventEmitter();
+  @Output() finalizarEvent: EventEmitter<any> = new EventEmitter();
 
   momento;
   Momentos = [];
@@ -97,7 +97,7 @@ export class CargarRecetaIngeridaComponent implements OnInit {
           this.cargando = true;
           this._MenuService.recetaSugeridaNueva(recetaSugerida).subscribe(response => {
             this.openSnackBar('Cargado con exito', 'Descartar');
-            this.finalizarEvent.emit(false);
+            this.finalizarEvent.emit(response);
           });
         }
       }
@@ -113,7 +113,7 @@ export class CargarRecetaIngeridaComponent implements OnInit {
         this.cargando = true;
         this._MenuService.recetaSugeridaNueva(recetaSugerida).subscribe(response => {
           this.openSnackBar('Cargado con exito', 'Descartar');
-          this.finalizarEvent.emit(false);
+          this.finalizarEvent.emit(response);
         });
       }
     } else {

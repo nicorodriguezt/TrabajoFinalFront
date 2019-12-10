@@ -5,6 +5,7 @@ import {MenuService} from '../../_services/menu.service';
 import {Menu} from '../../_models/Menu';
 import {Receta} from '../../_models/Receta';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import {MomentoDelDia} from "../../_models/MomentoDelDia";
 
 @Component({
   selector: 'app-ver-menu-view',
@@ -163,14 +164,20 @@ export class VerMenuViewComponent implements OnInit {
   }
 
   terminarAgregar(event) {
-    this.enableAgregar = false;
-    if (event !== true) {
-      this.ngOnInit();
+    if(event) {
+      const index = this.Menu.Recetas.findIndex(x => x.MomentoDelDia._id === event.MomentoDelDia._id);
+      this.Menu.Recetas[index] = event;
     }
+    this.enableAgregar = false;
   }
 
   Calorias(receta: any) {
-    return Math.round((receta.Receta.Calorias * receta.PorcionSugerida) / receta.Receta.Porciones);
+    let porciones = receta.PorcionSugerida == 0 ? receta.PorcionIngerida : receta.PorcionSugerida;
+    return Math.round((receta.Receta.Calorias * porciones) / receta.Receta.Porciones);
+  }
+
+  Porciones(receta: any) {
+    return receta.PorcionSugerida == 0 ? receta.PorcionIngerida : receta.PorcionSugerida;
   }
 }
 

@@ -50,5 +50,5 @@ footer.footer-menu button {
 }
 
 footer.footer-menu button[disabled] {
-  color: #666666;
+  color: grey;
 }

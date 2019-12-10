@@ -28,11 +28,11 @@
                     <span style="font-size: 11px; font-style: italic">Volver a hoy</span>
                   </div>
                   <mat-card *ngFor="let receta of item?.Recetas" class="card-style">
-                    <mat-card-title>{{receta.Receta.Nombre}}</mat-card-title>
+                    <mat-card-title>{{receta.Receta.Nombre | titlecase}}</mat-card-title>
                     <mat-card-content>
                       <p class="alignleft">
                         <b>Momento:</b> {{receta.MomentoDelDia.Nombre}}<br>
-                        <b>Porcion/es:</b> {{receta.PorcionSugerida}} <b>Calorias:</b>
+                        <b>Porcion/es:</b> {{Porciones(receta)}} <b>Calorias:</b>
                         {{Calorias(receta)}}
                       </p>
                       <p class="alignright">
@@ -53,7 +53,7 @@
           <button mat-icon-button [disabled]="mainSlide>carousel.currentSlide" class="btn-block" (click)="reemplazarMenu(Menu._id)">
             <mat-icon>refresh</mat-icon>
           </button>
-          <button mat-icon-button (click)="cambiarInfoReceta()">
+          <button mat-icon-button (click)="cambiarInfoReceta()" [disabled]="mainSlide<carousel.currentSlide">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button [disabled]="mainSlide>carousel.currentSlide" (click)="listaCompras()">
